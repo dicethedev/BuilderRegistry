@@ -2,6 +2,42 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Bold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-stretch: compressed;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Medium.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Light.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-SemiBold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 600;
+}
+
 :root,
 [data-theme] {
   background: hsl(var(--b2));
@@ -9,6 +45,7 @@
 
 body {
   min-height: 100vh;
+  font-family: "Gilroy", sans-serif;
 }
 
 h1,
@@ -19,8 +56,15 @@ h4 {
   line-height: 1;
 }
 
-p {
+/* p {
   margin: 1rem 0;
+} */
+
+.btn-primary {
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  font-weight: 400;
 }
 
 .btn {
