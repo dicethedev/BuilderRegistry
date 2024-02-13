@@ -1,3 +1,4 @@
+import { OpenloginUserInfo } from "@web3auth/openlogin-adapter";
 import create from "zustand";
 
 /**
@@ -12,9 +13,13 @@ import create from "zustand";
 type TGlobalState = {
   nativeCurrencyPrice: number;
   setNativeCurrencyPrice: (newNativeCurrencyPriceState: number) => void;
+  userInfo: Partial<OpenloginUserInfo> | null;
+  setUserInfo: (newUserInfo: Partial<OpenloginUserInfo>) => void;
 };
 
 export const useGlobalState = create<TGlobalState>(set => ({
   nativeCurrencyPrice: 0,
   setNativeCurrencyPrice: (newValue: number): void => set(() => ({ nativeCurrencyPrice: newValue })),
+  userInfo: null,
+  setUserInfo: (newUserInfo: Partial<OpenloginUserInfo>): void => set(() => ({ userInfo: newUserInfo })),
 }));
