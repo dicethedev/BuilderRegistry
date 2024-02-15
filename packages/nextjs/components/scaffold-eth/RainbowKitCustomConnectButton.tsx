@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
 import { QRCodeSVG } from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { useDisconnect, useSwitchNetwork } from "wagmi";
+import { useAccount, useDisconnect, useSwitchNetwork } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
@@ -14,6 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Address, Balance, BlockieAvatar } from "~~/components/scaffold-eth";
 import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useGlobalState } from "~~/services/store/store";
 import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
 
 /**
@@ -23,9 +25,11 @@ export const RainbowKitCustomConnectButton = () => {
   useAutoConnect();
   const networkColor = useNetworkColor();
   const configuredNetwork = getTargetNetwork();
+  const { connector } = useAccount();
   const { disconnect } = useDisconnect();
   const { switchNetwork } = useSwitchNetwork();
   const [addressCopied, setAddressCopied] = useState(false);
+  const userInfo = useGlobalState(state => state.userInfo);
 
   return (
     <ConnectButton.Custom>
@@ -41,7 +45,7 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button className="btn btn-primary btn-sm text-white" onClick={openConnectModal} type="button">
-                    Connect Wallet
+                    Login
                   </button>
                 );
               }
@@ -97,6 +101,9 @@ export const RainbowKitCustomConnectButton = () => {
                       className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto"
                     >
                       <BlockieAvatar address={account.address} size={30} ensImage={account.ensAvatar} />
+                      <span className="ml-2 mr-1">
+                        {connector instanceof Web3AuthConnector && userInfo ? userInfo.name : account.displayName}
+                      </span>
                       <span className="ml-2 mr-1">{account.displayName}</span>
                       <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
                     </label>
