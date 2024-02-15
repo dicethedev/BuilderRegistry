@@ -14,7 +14,7 @@ export type Contributions = {
 
 const contributionsData: Contributions[] = [
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -25,7 +25,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -36,7 +36,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -47,7 +47,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -58,7 +58,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "ETH Nassarawa x web3bridge event",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -69,7 +69,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -80,7 +80,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -91,7 +91,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -102,7 +102,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -113,7 +113,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -124,7 +124,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {
@@ -135,7 +135,7 @@ const contributionsData: Contributions[] = [
     links: ["https://twitter.com/contribution", "https://github.com/contributor1"],
   },
   {
-    img: "/img/img.png",
+    img: "/img/card-img.png",
     title: "SoulBound NFTs - The Membership Protocol",
     description: "Developed a football game on the Ethereum platform",
     contributorsId: {

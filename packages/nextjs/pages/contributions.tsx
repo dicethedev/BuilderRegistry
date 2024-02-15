@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GridIcon } from "~~/components/assets/GridIcon";
 import { ListIcon } from "~~/components/assets/ListIcon";
+import { Card } from "~~/components/builder-registry/Card";
 
 const Contributions: NextPage = () => {
     const [display, setDisplay] = useState(true);
@@ -104,44 +105,11 @@ const Contributions: NextPage = () => {
                </div>
             </div>
 
-           
-
-          
 
             {display ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                   {filterContributions().map((contribution: Contributions, index: number) => (
-                  <div key={index} className="border border-[#DED1EC] rounded-xl">
-                      <div className="py-1 min-h-[200px] w-full relative">
-                  <Image src={contribution.img} alt={contribution.title + " image"} layout="fill" />
-                </div>
-
-                <div className="p-6">
-                  <p className="font-semibold">{contribution.title}</p>
-                  <p className="py-2">                        {highlightSearchedText(contribution.description, query)}
-</p>
-                  <div className="pt-5">
-                    <div className="flex gap-3">
-                      <Link href="/">
-                        <Image src={"/img/github.svg"} width={20} height={20} alt="github"></Image>
-                      </Link>
-
-                      <Image src={"/img/weblink.svg"} width={20} height={20} alt="website link"></Image>
-
-                      <Link href="/">
-                        <Image src={"/img/youtube.svg"} width={20} height={20} alt="youtube"></Image>
-                      </Link>
-                      <Link href="/">
-                        <Image src={"/img/twitter.svg"} width={20} height={20} alt="twitter"></Image>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <button className="btn-primary btn w-[80%] text-white">View</button>
-                    <button className="py-5 w-[19%]">{contribution.likes}</button>
-                  </div>
-                </div>
-                  </div>
+               <Card index={index} imageUrl={contribution.img} title={contribution.title} description={contribution.description} likes={contribution.likes}/>
                 ))}
               </div>
             ) : (
