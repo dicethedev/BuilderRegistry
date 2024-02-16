@@ -5,7 +5,6 @@
       "criteria": {
         "minBuilds": 1,
         "daysJoinedBefore": 30,
-        "hasStream": true
       },
       "title": "New cohort coming",
       "content": "Some 'New cohort coming' **markdown** content with [links](https://buidlguidl.com)",
@@ -21,15 +20,13 @@
     },
     {
       "criteria": {
-        "hasStream": true
+       "minBuilds": 1,
+        "daysJoinedBefore": 30,
       },
       "component": "OnboardingBatch",
-      "active": true
+      "active": true,
     },
-    {
-      "criteria": {
-        "hasStream": true
-      },
+    { 
       "title": "Announment for stremead builders",
       "content": "Some 'Announment for stremead builders' **markdown** content with [links](https://buidlguidl.com)",
       "active": false
