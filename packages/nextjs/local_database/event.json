@@ -1,0 +1,28 @@
+{
+  "version": "0.0.1",
+  "events": [
+    {
+      "type": "build.submit",
+      "timestamp": 1658587661754,
+      "signature": "0x206e5f766fb427599acacb41d45dfb794d95076f3af8519008328cef9c6bf3b4137a87ba73368f1e16b19674edddb6860093e601e6576c1b427fcc8e7ffba4cb1b",
+      "payload": {
+        "userAddress": "0x60583563D5879C2E59973E5718c7DE2147971807",
+        "buildUrl": "https://github.com/moonshotcollective/scaffold-directory",
+        "name": "🏃‍♀️ SpeedRunEthereum.com",
+        "buildId": "06bb3c9d-784b-44d1-b7e2-1ae5affdfa8b"
+      }
+    },
+    {
+      "type": "stream.withdraw",
+      "timestamp": 1660983774000,
+      "payload": {
+        "userAddress": "0x60583563D5879C2E59973E5718c7DE2147971807",
+        "amount": "0.5",
+        "block": "13845820",
+        "reason": "Test withdraw",
+        "streamAddress": "0xCC756617C97a05aC472fD8Ab92C88F2A9cb681EC",
+        "tx": "0x6be7d0065eb1ec0f5e9296b82b527e4b1b8fec91d890066d43857044443a9969"
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "users": {
+    "0x60583563D5879C2E59973E5718c7DE2147971807": {
+      "creationTimestamp": 1633088553221,
+      "role": "admin",
+      "ens": "carletex.eth",
+      "function": "damageDealer",
+      "status": {
+        "text": "My Status",
+        "timestamp": 1657208443047
+      },
+      "builds": [
+        {
+          "id": "06bb3c9d-784b-44d1-b7e2-1ae5affdfa8b",
+          "submittedTimestamp": 1658587661752
+        }
+      ]
+    },
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+      "creationTimestamp": 1633088553223,
+      "role": "builder",
+      "function": "damageDealer",
+      "socialLinks": {
+        "telegram": "test",
+        "twitter": "test"
+      }
+    },
+    "0x34aA3F359A9D614239015126635CE7732c18fDF3": {
+      "creationTimestamp": 1648653481405,
+      "role": "builder",
+      "function": "knight",
+      "ens": "austingriffith.eth"
+    },
+    "0x72fC8b63692B516D0D8748d469faB65C7e4e7389": {
+      "creationTimestamp": 1648653501156,
+      "role": "builder",
+      "function": "cadets",
+      "ens": "lala.eth"
+    }
+  }
+}
