@@ -67,6 +67,17 @@ h4 {
   font-weight: 400;
 }
 
+.btn-tertiary {
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  font-weight: 400;
+}
+
+.btn-sm {
+  font-size: 0.85rem;
+}
+
 .btn {
   @apply shadow-md;
 }
