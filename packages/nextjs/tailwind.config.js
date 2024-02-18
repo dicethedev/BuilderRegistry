@@ -25,6 +25,7 @@ module.exports = {
           warning: "#FFCF72",
           error: "#FF8863",
           customgray: "#676687",
+          lightgray: "#9699AA",
 
           "--rounded-btn": "9999rem",
 

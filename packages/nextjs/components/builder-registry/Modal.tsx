@@ -1,4 +1,5 @@
 import React from "react";
+import { CloseIcon } from "../assets/CloseIcon";
 
 type ModalProps = {
   onClose: () => void;
@@ -9,12 +10,11 @@ type ModalProps = {
 const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-[20] bg-[#00000030]">
-      <div className="p-8 rounded-md bg-base-100">
-        <h3 className="text-xl mb-4">{title}</h3>
-        <p>Some other stuffs in the card...</p>
+      <div className="p-8 rounded-2xl bg-base-100 relative">
+        <h3 className="text-xl mb-6 font-semibold">{title}</h3>
         <div>{children}</div>
-        <button className="bg-[#aaaeb8] text-white py-2 px-4 rounded-md mt-4" onClick={onClose}>
-          Close
+        <button className="absolute top-3 right-3 py-2 px-4 mt-3" onClick={onClose}>
+          <CloseIcon />
         </button>
       </div>
     </div>
