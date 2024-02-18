@@ -1,8 +1,20 @@
+import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import Modal from "~~/components/builder-registry/Modal";
 
-const Bounty: NextPage = () => {
+const BountyDetails: NextPage = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <>
       <MetaHeader />
@@ -64,7 +76,9 @@ const Bounty: NextPage = () => {
               </div>
             </div>
             <div>
-              <button className="btn btn-primary text-white w-full">Submit</button>
+              <button className="btn btn-primary text-white w-full" onClick={handleOpenModal}>
+                Submit
+              </button>
             </div>
           </div>
         </div>
@@ -135,9 +149,14 @@ const Bounty: NextPage = () => {
             </p>
           </div>
         </section>
+        {showModal && (
+          <Modal title="bill" onClose={handleCloseModal}>
+            hELLO
+          </Modal>
+        )}
       </div>
     </>
   );
 };
 
-export default Bounty;
+export default BountyDetails;

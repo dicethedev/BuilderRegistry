@@ -37,7 +37,9 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
           </div>
         </div>
         <div className="mt-4">
-          <button className="btn-primary bg-secondary btn w-[80%] text-white border-none">Contribute</button>
+          <Link href="/bounty/ee" className="btn-primary bg-secondary btn w-[80%] text-white border-none">
+            Contribute
+          </Link>
           <button className="py-5 w-[19%]">{likes}</button>
         </div>
       </div>
