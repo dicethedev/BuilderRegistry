@@ -8,6 +8,8 @@ export type ScaffoldConfig = {
   web3AuthClientId: string;
   onlyLocalBurnerWallet: boolean;
   walletAutoConnect: boolean;
+  googleOAuthClientId: string;
+  web3AuthVerifier: string;
 };
 
 const scaffoldConfig = {
@@ -36,7 +38,18 @@ const scaffoldConfig = {
   // .env.local for local testing, and in the Vercel/system env config for live apps.
   web3AuthClientId:
     process.env.NEXT_WEB3AUTH_CLIENT_ID ||
-    "BJtKsACML8eLY8Wd_C_PzGazU7c9dsAfrhvZ79-1Hh7IkJJqPDPlevNt_DQPXv1VeQzgOwExN8FH6Mgrx8AeP2c",
+    "BG7vMGIhzy7whDXXJPZ-JHme9haJ3PmV1-wl9SJPGGs9Cjk5_8m682DJ-lTDmwBWJe-bEHYE_t9gw0cdboLEwR8",
+
+  web3AuthVerifier: process.env.NEXT_VERIFIER || "web3auth-core-google",
+
+  // This is our Google OAuth Client ID.
+  // Obtain the OAuth Client ID from your App on the Google Developer dashboard: https://console.cloud.google.com/
+  // It's recommended to store it in an env variable:
+  // .env.local for local testing, and in the Vercel/system env config for live apps.
+
+  googleOAuthClientId:
+    process.env.NEXT_GOOGLE_OAUTH_CLIENT_ID ||
+    "774338308167-q463s7kpvja16l4l0kko3nb925ikds2p.apps.googleusercontent.com",
 
   // Only show the Burner Wallet when running on hardhat network
   onlyLocalBurnerWallet: true,

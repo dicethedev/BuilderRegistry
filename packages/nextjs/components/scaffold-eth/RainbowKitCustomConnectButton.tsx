@@ -100,11 +100,16 @@ export const RainbowKitCustomConnectButton = () => {
                       tabIndex={0}
                       className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto"
                     >
-                      <BlockieAvatar address={account.address} size={30} ensImage={account.ensAvatar} />
+                      <BlockieAvatar
+                        address={account.address}
+                        size={30}
+                        ensImage={
+                          connector instanceof Web3AuthConnector && userInfo ? userInfo.profileImage : account.ensAvatar
+                        }
+                      />
                       <span className="ml-2 mr-1">
                         {connector instanceof Web3AuthConnector && userInfo ? userInfo.name : account.displayName}
                       </span>
-                      <span className="ml-2 mr-1">{account.displayName}</span>
                       <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
                     </label>
                     <ul

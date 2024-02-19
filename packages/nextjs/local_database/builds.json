@@ -1,0 +1,60 @@
+{
+   "version":"0.0.1",
+   "builds":{
+      "06bb3c9d-784b-44d1-b7e2-1ae5affdfa8b":{
+         "branch":"https://github.com/moonshotcollective/scaffold-directory",
+         "demoUrl":"https://speedrunethereum.com/",
+         "videoUrl":"",
+         "desc":"👩‍🏫 Learn how to build on Ethereum completing the scaffold-eth challenges.",
+         "image":"https://storage.googleapis.com/download/storage/v1/b/buidlguidl-v3.appspot.com/o/builds%2F0032da28a08871cbcb2922b00.png?generation=1647284971917513&alt=media",
+         "name":"🏃‍♀️ SpeedRunEthereum.com",
+         "builder":"0x60583563D5879C2E59973E5718c7DE2147971807",
+         "featured":false,
+         "submittedTimestamp":1658587661752,
+         "likes":[
+            "0x60583563D5879C2E59973E5718c7DE2147971807"
+         ]
+      },
+      "d6eb596604924cdf330a2d703":{
+         "demoUrl":"https://dinamiko-mailidanielifechukwu.vercel.app/",
+         "image":"https://storage.googleapis.com/download/storage/v1/b/buidlguidl-v3.appspot.com/o/builds%2Fbd130ade37c0be8d102d47800.png?generation=1687248800917783&alt=media",
+         "featured":false,
+         "videoUrl":"https://youtu.be/HJFp3IJjyFs",
+         "name":"Dinamiko",
+         "builder":"0xa709FF766777C40bAC916558D9262eC4868496B4",
+         "branch":"https://github.com/Ifechukwudaniel/Dinamiko",
+         "desc":"Dinamiko addresses the limitations of centralized exchanges by providing flexibility in trade execution. It aims to streamline investment decisions in the complex world of cryptocurrencies, empowering users to maximize returns and minimize risks in DeFi.",
+         "likes":[
+            "0xa709FF766777C40bAC916558D9262eC4868496B4",
+            "0xb542E27732a390f509fD1FF6844a8386fe320f7f",
+            "0xf4030DdD79fc7Fd49b25C976C5021D07568B4F91",
+            "0xde358FCcA54Fa226aE16Ac3927487260dAfc3835"
+         ],
+         "submittedTimestamp":1698774053028,
+         "coBuilders":[
+            "0x35b5Fd4102e30540A3A3b388A4556D8EeAF12DC6",
+            "0x329F9f2C5Fc16DB303dAb2cF7Ccb6C12E6045129"
+         ]
+      },
+      "X4QqYTJIxmTMUxQqlzNi":{
+         "demoUrl":"https://nba-wallet-blahkheart.vercel.app/",
+         "image":"https://storage.googleapis.com/download/storage/v1/b/buidlguidl-v3.appspot.com/o/builds%2Fd6eb596604924cdf330a2d703.png?generation=1697644227155236&alt=media",
+         "featured":false,
+         "videoUrl":"",
+         "name":"NBA Wallet",
+         "builder":"0xCA7632327567796e51920F6b16373e92c7823854",
+         "branch":"https://github.com/blahkheart/ETHGlobal-Superhack-2023",
+         "desc":"NBA (NFT Bound Account) wallet at its core, addresses two vital challenges in the current web3 ecosystem:\n\n- The risk around or inability to transfer ownership of an account due to concerns of sharing private keys.\n- The emerging need for NFTs to act autonomously on-chain, especially as AI agents become more pervasive in the online sphere.\n\nNBA accounts aims to tackle these problems. Our vision is to create a medium by which accounts can now be traded or gifted by merely by transferring the NFT that owns the account, a major leap from the traditional risk-laden method of sharing private keys.\nNBA uses ERC6551 to create a token bound smart contract wallet. We intend to also implements the IAccount interface for ERC4337 allowing users of the wallet to leverage account abstraction later on but that is not included in this MVP. \nUsers can mint an NBA NFT along with an accompanying smart contract account. The account is owned by the token, but control of the account is delegated to the owner of the NFT, therefore control of the smart contract account can be switched by simply transferring ownership of the NFT.",
+         "submittedTimestamp":1698829874257,
+         "coBuilders":[
+            "0xf4030DdD79fc7Fd49b25C976C5021D07568B4F91",
+            "0x329F9f2C5Fc16DB303dAb2cF7Ccb6C12E6045129",
+            "0x35b5Fd4102e30540A3A3b388A4556D8EeAF12DC6"
+         ],
+         "likes":[
+            "0xa709FF766777C40bAC916558D9262eC4868496B4",
+            "0x329F9f2C5Fc16DB303dAb2cF7Ccb6C12E6045129"
+         ]
+      }
+   }
+}
