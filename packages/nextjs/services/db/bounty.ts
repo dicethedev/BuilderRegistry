@@ -34,8 +34,9 @@ function toSubmisssionResult(submisssion: Schema["bountys"]["sub"]["submissions"
   return { id: submisssion?.ref?.id as string, ...(submisssion?.data as Submisssion) };
 }
 
-export async function findAllBounties(): Promise<BountyResult[]> {
-  const bountiesSnaphot = await db.bountys.all();
+export async function findAllBounties(fetch_disabled?: boolean): Promise<BountyResult[]> {
+  let bountiesSnaphot = [];
+  bountiesSnaphot = fetch_disabled ? await db.bountys.all() : await db.bountys.query($ => $.field("active").eq(true));
   const bounties = bountiesSnaphot.map(bounty => toBountyResult(bounty));
   return bounties;
 }
@@ -99,18 +100,30 @@ export async function disableBounty(id: string) {
   return toBountyResult(bountySnapshot);
 }
 
-export async function applyForBuounty(id: string, userAddress: string) {
+export async function enableBounty(id: string) {
   let bountySnapshot = await db.bountys.get(db.bountys.id(id));
-  const bountiesApplications = bountySnapshot?.data.applications;
-  bountiesApplications?.push(userAddress);
+  await bountySnapshot?.ref?.update(() => ({ active: true }));
+  bountySnapshot = await db.bountys.get(db.bountys.id(id));
+  return toBountyResult(bountySnapshot);
+}
+
+export async function applyForBounty(id: string, userAddress: string) {
+  let bountySnapshot = await db.bountys.get(db.bountys.id(id));
+  const bountiesApplications = new Set(bountySnapshot?.data.applications);
+  if (bountiesApplications.has(userAddress)) {
+    bountiesApplications.delete(userAddress);
+  } else {
+    bountiesApplications.add(userAddress);
+  }
+  const bountiesUserApplication = Array.from(bountiesApplications);
   await bountySnapshot?.ref?.update(() => ({
-    applications: bountiesApplications,
+    applications: bountiesUserApplication,
   }));
   bountySnapshot = await db.bountys.get(db.bountys.id(id));
   return toBountyResult(bountySnapshot);
 }
 
-export async function submitBuounty(id: string, userAddress: string, description: string) {
+export async function submitBounty(id: string, userAddress: string, description: string) {
   const bountyId = db.bountys.id(id);
   const submissionRef = await db.bountys(bountyId).submissions.add({
     address: userAddress,

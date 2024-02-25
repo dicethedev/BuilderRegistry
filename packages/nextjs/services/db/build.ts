@@ -91,3 +91,18 @@ export async function updateBuild(
 export async function deleteBuild(id: string) {
   await db.builds.remove(db.builds.id(id));
 }
+
+export async function likeBuild(id: string, userAddress: string) {
+  const build = await findBuild(id);
+  const currentLikesSet = new Set(build.likes ?? []);
+  const willUnlike = currentLikesSet.has(userAddress);
+  console.log(currentLikesSet);
+  if (willUnlike) {
+    currentLikesSet.delete(userAddress);
+  } else {
+    currentLikesSet.add(userAddress);
+  }
+  const likes = Array.from(currentLikesSet);
+  const buildSnapshot = await db.builds.get(db.builds.id(id));
+  await buildSnapshot?.ref?.update(() => ({ likes }));
+}
