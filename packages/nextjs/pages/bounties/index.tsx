@@ -8,7 +8,7 @@ import { ListIcon } from "~~/components/assets/ListIcon";
 import { Card } from "~~/components/builder-registry/Card";
 import contributionsData, { Contributions } from "~~/data/contributions";
 
-const Bounty: NextPage = () => {
+const Bounties: NextPage = () => {
   const [display, setDisplay] = useState(true);
   const [query, setQuery] = useState<string>("");
 
@@ -34,27 +34,6 @@ const Bounty: NextPage = () => {
       );
     });
   };
-
-  /*  const highlightSearchedText = (text: string, query: string) => {
-    const lowercasedQuery = query.toLowerCase();
-    const index = text.toLowerCase().indexOf(lowercasedQuery);
-
-    if (index === -1) {
-      return text;
-    }
-
-    const preText = text.slice(0, index);
-    const highlightedText = text.slice(index, index + query.length);
-    const postText = text.slice(index + query.length);
-
-    return (
-      <span>
-        {preText}
-        <mark>{highlightedText}</mark>
-        {postText}
-      </span>
-    );
-  }; */
 
   return (
     <>
@@ -169,4 +148,4 @@ const Bounty: NextPage = () => {
   );
 };
 
-export default Bounty;
+export default Bounties;
