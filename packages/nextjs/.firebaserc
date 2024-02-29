@@ -1,6 +1,7 @@
 {
   "projects": {
-    "BuilderRegistry": "builderegistry"
+    "BuilderRegistry": "builderegistry",
+    "default": "builderegistry"
   },
   "targets": {},
   "etags": {}
