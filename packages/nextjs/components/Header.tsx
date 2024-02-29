@@ -42,10 +42,10 @@ export const Header = () => {
         <NavLink href="/contributions">Contributions</NavLink>
       </li>
       <li>
-        <NavLink href="/contributors">Builders</NavLink>
+        <NavLink href="/contributors">Contributors</NavLink>
       </li>
       <li>
-        <NavLink href="/blockexplorer">FAQs</NavLink>
+        <NavLink href="/bounty">Bounty</NavLink>
       </li>
     </>
   );

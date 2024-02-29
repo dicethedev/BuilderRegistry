@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MetaHeader } from "~~/components/MetaHeader";
 import contributorsData, { Contributors } from "~~/data/contributors";
 import Image from "next/image";
+import Link from "next/link";
 
 const Contributors: NextPage = () => {
   const [query, setQuery] = useState<string>("");
@@ -67,7 +68,11 @@ const Contributors: NextPage = () => {
               <tbody>
                 {contributorsData.map((contributor: Contributors, index: number) => (
                   <tr key={index} className="border-b border-[#DED1EC]">
-                    <td className="py-5">{contributor.title}</td>
+                    <td className="py-5">
+                      <Link href="profile">
+                        <p className="font-semibold">0x016c</p>
+                        <p className="text-sm">{contributor.title} </p>
+                      </Link></td>
                     <td className="py-5 pr-8">{contributor.bio}</td>
                     <td className="py-5">{contributor.submissions}</td>
                     <td className="py-5 text-right">{contributor.lastActivity}</td>
