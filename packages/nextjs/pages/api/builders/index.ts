@@ -1,5 +1,6 @@
+import { ethers } from "ethers";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createUser, findAllUsers } from "~~/services/db/user";
+import { createUser, findAllUsers, findUser } from "~~/services/db/user";
 import "~~/services/firbase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -23,6 +24,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!role || !ens || !functionTitle || !address) {
       return res.status(400).json({ error: "Missing required fields." });
     }
+
+    if (!ethers.isAddress(address)) {
+      res.status(400).send({ error: "Invalid address" });
+      return;
+    }
+
+    const user = await findUser(address);
+
+    if (user?.id) {
+      res.status(204).end();
+      return;
+    }
+
+    const builderData = {
+      creationTimestamp: new Date().getTime(),
+      role,
+      functionTitle,
+      ens,
+    };
+
+    console.log(builderData);
     const newBuilder = await createUser(role, ens, functionTitle, address);
     // Respond with the new  user
     res.status(201).json(newBuilder);
