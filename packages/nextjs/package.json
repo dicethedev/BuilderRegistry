@@ -26,6 +26,7 @@
     "@web3auth/web3auth-wagmi-connector": "^5.0.1",
     "blo": "~1.0.1",
     "daisyui": "~3.5.1",
+    "ethers": "^6.11.1",
     "firebase": "^10.8.0",
     "firebase-admin": "^12.0.0",
     "formidable": "^3.5.1",
