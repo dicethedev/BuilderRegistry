@@ -33,8 +33,8 @@ export async function findAllUsers(): Promise<UserResult[]> {
   return users;
 }
 
-export async function findUser(id: string): Promise<UserResult> {
-  const userSnapshot = await db.users.get(db.users.id(id));
+export async function findUser(address: string): Promise<UserResult> {
+  const userSnapshot = await db.users.get(db.users.id(address));
   const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
   return user;
 }
