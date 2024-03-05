@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { applyForBounty } from "~~/services/db/bounty";
-import "~~/services/firbase";
+import "~~/services/firebase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
