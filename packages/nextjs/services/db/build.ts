@@ -14,11 +14,11 @@ export interface Build {
   likes: string[];
 }
 
-interface BuildResult extends Build {
+export interface BuildResult extends Build {
   id: string;
 }
 
-function toBuildResult(build: Schema["builds"]["Doc"] | null): BuildResult {
+export function toBuildResult(build: Schema["builds"]["Doc"] | null): BuildResult {
   return { id: build?.ref?.id as string, ...(build?.data as Build) };
 }
 
