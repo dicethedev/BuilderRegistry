@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { findUser } from "~~/services/db/user";
-import "~~/services/firbase";
+import "~~/services/firebase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {

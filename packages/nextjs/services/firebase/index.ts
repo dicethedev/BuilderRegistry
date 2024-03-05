@@ -1,6 +1,8 @@
 import * as admin from "firebase-admin";
 import { seedDatabase } from "~~/local_database/seedDb";
 
+console.log(process.env);
+
 if (process.env.NODE_ENV === "test") {
   // We won't be using firebase for testing for now. At some point,
   // we might want to run tests against the Staging firebase instance.

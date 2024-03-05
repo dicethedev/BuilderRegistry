@@ -1,7 +1,7 @@
 import formidable from "formidable";
 import { NextApiRequest, NextApiResponse, PageConfig } from "next";
 import { Writable } from "stream";
-import "~~/services/firbase";
+import "~~/services/firebase";
 import { uploadFile } from "~~/services/storage";
 
 const formidableConfig = {
@@ -64,31 +64,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const fileData = Buffer.concat(chunks);
-
-    const uploadLink = await uploadFile(fileData, fileData);
-    return res.json({ imgUrl: uploadLink });
+    // console.log(file[0],fileData.toString());
+    const uploadLink = await uploadFile(file[0], fileData.toString());
+    console.log(uploadLink);
+    return res.json({ imgUrl: "" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: "Internal Server Error" });
   }
-
-  /** TODOs
-   * INCLUDE SENDER SIGNATURE IN REQUEST
-   * VERIFY SENDER IS AN ADMIN
-   **/
-
-  // try {
-  //   const { role, ens, functionTitle } = req.body;
-  //   if (!role || !ens || !functionTitle) {
-  //     return res.status(400).json({ error: "Missing required fields." });
-  //   }
-  //   const newBuilder = await createUser(role, ens, functionTitle);
-  //   // Respond with the new  user
-  //   res.status(201).json(newBuilder);
-  // } catch (error: any) {
-  //   console.error("Error creating  new  builder:", error);
-  //   res.status(500).json({ message: "An unexpected error occurred while creating the user." });
-  // }
 }
 
 export const config: PageConfig = {
