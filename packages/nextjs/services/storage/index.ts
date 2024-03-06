@@ -1,4 +1,4 @@
-import { admin } from "../firbase";
+import { admin } from "../firebase";
 import mime from "mime-types";
 import { v4 as uuidv4 } from "uuid";
 

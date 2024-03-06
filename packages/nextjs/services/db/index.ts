@@ -11,7 +11,7 @@ export const db = schema($ => ({
   users: $.collection<User>(),
   notifications: $.collection<Notification>(),
   builds: $.collection<Build>(),
-  bountys: $.collection<Bounty>().sub({
+  bounties: $.collection<Bounty>().sub({
     submissions: $.collection<Submisssion>(),
   }),
 }));
@@ -19,3 +19,19 @@ export const db = schema($ => ({
 // Infer schema type helper with shortcuts to types in your database:
 //   function getUser(id: Schema["users"]["Id"]): Schema["users"]["Result"]
 export type Schema = Typesaurus.Schema<typeof db>;
+
+export type SchemaKeys = keyof Schema;
+export type SubSchemas = Schema[SchemaKeys]["sub"];
+export type SubSchemaKeys = keyof SubSchemas;
+export type Document = Schema[SchemaKeys]["Doc"];
+export type SubDocument = SubSchemas[SubSchemaKeys]["Doc"];
+
+export type Result<T> = {
+  id: string;
+} & T & {
+    exist: boolean;
+  };
+
+export function toResult<U>(doc: Document | SubDocument | null): Result<U> {
+  return { id: doc?.ref?.id as string, ...(doc?.data as U), exist: !!doc };
+}

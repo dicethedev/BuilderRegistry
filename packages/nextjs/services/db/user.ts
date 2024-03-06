@@ -1,5 +1,5 @@
-import { BuildResult, toBuildResult } from "../db/build";
-import { db } from "~~/services/db";
+import { Result, Schema, db, toResult } from "~~/services/db";
+import { BuildResult, Build} from "../db/build";
 
 export interface User {
   creationTimestamp: number;
@@ -25,30 +25,35 @@ export interface Status {
   timestamp: number;
 }
 
-interface UserResult extends User {
-  id: string;
+export interface BuilderFuntionsStats {
+  name: string;
+  count: number;
 }
+
+
+export type UserDoc = Schema["users"]["Doc"];
+export type UserResult = Result<User>;
 
 export interface UserAndBuildsResult extends UserResult {
   builds: BuildResult[];
 }
 
+
 export async function findAllUsers(): Promise<UserResult[]> {
   const usersSnaphot = await db.users.all();
-  const users = usersSnaphot.map(user => ({ id: user?.ref?.id as string, ...(user?.data as User) }));
+  const users = usersSnaphot.map(user => toResult<User>(user));
   return users;
 }
 
 export async function findUserAndBuilds(address: string): Promise<UserAndBuildsResult> {
   const userSnapshot = await db.users.get(db.users.id(address));
   const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
-  const userBuilds = (await db.builds.query($ => $.field("builder").eq(address))).map(build => toBuildResult(build));
+  const userBuilds = (await db.builds.query($ => $.field("builder").eq(address))).map(build => toResult<Build>(build));
   return { ...user, builds: userBuilds };
 }
 export async function findUser(address: string): Promise<UserResult> {
   const userSnapshot = await db.users.get(db.users.id(address));
-  const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
-  return user;
+  return toResult<User>(userSnapshot);
 }
 
 export async function createUser(
@@ -71,6 +76,22 @@ export async function createUser(
     skills: skills || [],
   }));
   const userSnapshot = await db.users.get(ref.id);
-  const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
-  return user;
+  return toResult<User>(userSnapshot);
+}
+
+export async function getUserFunctionStats(): Promise<BuilderFuntionsStats[]> {
+  const functionsTypesMap = new Map();
+  const users = await findAllUsers();
+  users.map(user => {
+    if (!functionsTypesMap.has(user.function)) {
+      functionsTypesMap.set(user.function, 1);
+    } else {
+      functionsTypesMap.set(user.function, functionsTypesMap.get(user.function) + 1);
+    }
+  });
+  const builderFuntionsStats: BuilderFuntionsStats[] = [];
+  for (const [key, value] of functionsTypesMap) {
+    builderFuntionsStats.push({ name: key, count: value });
+  }
+  return builderFuntionsStats;
 }

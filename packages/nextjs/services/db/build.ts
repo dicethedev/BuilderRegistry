@@ -1,4 +1,4 @@
-import { Schema, db } from "~~/services/db";
+import { Result, Schema, db, toResult } from "~~/services/db";
 
 export interface Build {
   branch: string;
@@ -15,22 +15,19 @@ export interface Build {
   builderRole?: string;
 }
 
-export interface BuildResult extends Build {
-  id: string;
-}
+export type BuildDoc = Schema["builds"]["Doc"];
+export type BuildResult = Result<Build>;
 
-export function toBuildResult(build: Schema["builds"]["Doc"] | null): BuildResult {
-  return { id: build?.ref?.id as string, ...(build?.data as Build) };
-}
 
 export async function findAllBuilds(): Promise<BuildResult[]> {
   const buildsSnaphot = await db.builds.all();
-  const builds = buildsSnaphot.map(build => toBuildResult(build));
+  const builds = buildsSnaphot.map(build => toResult<Build>(build));
   return builds;
 }
+
 export async function findBuild(id: string): Promise<BuildResult> {
   const buildSnapshot = await db.builds.get(db.builds.id(id));
-  return toBuildResult(buildSnapshot);
+  return toResult<Build>(buildSnapshot);
 }
 
 export async function createBuild(
@@ -61,7 +58,7 @@ export async function createBuild(
     builderRole,
   }));
   const buildSnapshot = await db.builds.get(ref.id);
-  return toBuildResult(buildSnapshot);
+  return toResult<Build>(buildSnapshot);
 }
 
 export async function updateBuild(
@@ -88,7 +85,7 @@ export async function updateBuild(
     subimtedTimestamp: Date.now(),
   }));
   buildSnapshot = await db.builds.get(db.builds.id(id));
-  return toBuildResult(buildSnapshot);
+  return toResult<Build>(buildSnapshot);
 }
 
 export async function deleteBuild(id: string) {
@@ -97,9 +94,9 @@ export async function deleteBuild(id: string) {
 
 export async function likeBuild(id: string, userAddress: string) {
   const build = await findBuild(id);
+  if (!build.exist) return;
   const currentLikesSet = new Set(build.likes ?? []);
   const willUnlike = currentLikesSet.has(userAddress);
-  console.log(currentLikesSet);
   if (willUnlike) {
     currentLikesSet.delete(userAddress);
   } else {

@@ -64,9 +64,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const fileData = Buffer.concat(chunks);
+    console.log(fileData, uploadFile);
     // console.log(file[0],fileData.toString());
-    const uploadLink = await uploadFile(file[0], fileData.toString());
-    console.log(uploadLink);
+    // const uploadLink = await uploadFile(file[0], fileData.toString());
+    // console.log(uploadLink);
     return res.json({ imgUrl: "" });
   } catch (err) {
     console.log(err);

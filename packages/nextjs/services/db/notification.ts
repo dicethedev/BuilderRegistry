@@ -1,4 +1,4 @@
-import { db } from "~~/services/db";
+import { Result, Schema, db, toResult } from "~~/services/db";
 
 export interface Notification {
   criteria?: Criteria;
@@ -15,16 +15,12 @@ export interface Criteria {
   daysJoinedAfter?: number;
 }
 
-interface NotificationResult extends Notification {
-  id: string;
-}
+export type NotificationDoc = Schema["notifications"]["Doc"];
+export type NotificationResult = Result<Notification>;
 
 export async function findAllNotifications(): Promise<NotificationResult[]> {
   const notificationsSnaphot = await db.notifications.all();
-  const notifications = notificationsSnaphot.map(notification => ({
-    id: notification?.ref?.id as string,
-    ...(notification?.data as Notification),
-  }));
+  const notifications = notificationsSnaphot.map(notification => toResult<Notification>(notification));
   return notifications;
 }
 
@@ -43,9 +39,5 @@ export async function createNotification(
     component,
   }));
   const notificationsSnapshot = await db.notifications.get(ref.id);
-  const notification = {
-    id: notificationsSnapshot?.ref?.id as string,
-    ...(notificationsSnapshot?.data as Notification),
-  };
-  return notification;
+  return toResult<Notification>(notificationsSnapshot);
 }

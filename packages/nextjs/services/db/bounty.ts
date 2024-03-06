@@ -1,13 +1,9 @@
-import { Schema, db } from "~~/services/db";
+import { Result, Schema, db, toResult } from "~~/services/db";
 
 export interface Submisssion {
   address: string;
   timeStamp: number;
   description: string;
-}
-
-interface SubmisssionResult extends Submisssion {
-  id: string;
 }
 
 export interface Bounty {
@@ -22,27 +18,20 @@ export interface Bounty {
   subimtedTimestamp: number;
 }
 
-interface BountyResult extends Bounty {
-  id: string;
-}
-
-function toBountyResult(bounty: Schema["bountys"]["Doc"] | null): BountyResult {
-  return { id: bounty?.ref?.id as string, ...(bounty?.data as Bounty) };
-}
-
-function toSubmisssionResult(submisssion: Schema["bountys"]["sub"]["submissions"]["Doc"] | null): SubmisssionResult {
-  return { id: submisssion?.ref?.id as string, ...(submisssion?.data as Submisssion) };
-}
+export type BountyDoc = Schema["bounties"]["Doc"];
+export type BountyResult = Result<Bounty>;
+export type SubmisssionDoc = Schema["bounties"]["sub"]["submissions"]["Doc"];
+export type SubmisssionResult = Result<Submisssion>;
 
 export async function findAllBounties(fetch_disabled?: boolean): Promise<BountyResult[]> {
   let bountiesSnaphot = [];
-  bountiesSnaphot = fetch_disabled ? await db.bountys.all() : await db.bountys.query($ => $.field("active").eq(true));
-  const bounties = bountiesSnaphot.map(bounty => toBountyResult(bounty));
+  bountiesSnaphot = fetch_disabled ? await db.bounties.all() : await db.bounties.query($ => $.field("active").eq(true));
+  const bounties = bountiesSnaphot.map(bounty => toResult<Bounty>(bounty));
   return bounties;
 }
 export async function findBounty(id: string): Promise<BountyResult> {
-  const bountySnapshot = await db.bountys.get(db.bountys.id(id));
-  return toBountyResult(bountySnapshot);
+  const bountySnapshot = await db.bounties.get(db.bounties.id(id));
+  return toResult<Bounty>(bountySnapshot);
 }
 
 export async function createBounty(
@@ -53,7 +42,7 @@ export async function createBounty(
   details: string,
   resources: string,
 ): Promise<BountyResult> {
-  const ref = await db.bountys.add(() => ({
+  const ref = await db.bounties.add(() => ({
     title,
     createdBy,
     deadLine,
@@ -65,8 +54,8 @@ export async function createBounty(
     active: true,
     submisssions: [],
   }));
-  const bountySnapshot = await db.bountys.get(ref.id);
-  return toBountyResult(bountySnapshot);
+  const bountySnapshot = await db.bounties.get(ref.id);
+  return toResult<Bounty>(bountySnapshot);
 }
 
 export async function updateBounty(
@@ -77,7 +66,7 @@ export async function updateBounty(
   details: string,
   resources: string,
 ): Promise<BountyResult> {
-  let bountySnapshot = await db.bountys.get(db.bountys.id(id));
+  let bountySnapshot = await db.bounties.get(db.bounties.id(id));
   await bountySnapshot?.ref?.update(() => ({
     title,
     deadLine,
@@ -85,30 +74,30 @@ export async function updateBounty(
     details,
     resources,
   }));
-  bountySnapshot = await db.bountys.get(db.bountys.id(id));
-  return toBountyResult(bountySnapshot);
+  bountySnapshot = await db.bounties.get(db.bounties.id(id));
+  return toResult<Bounty>(bountySnapshot);
 }
 
 export async function deleteBounty(id: string) {
-  await db.bountys.remove(db.bountys.id(id));
+  await db.bounties.remove(db.bounties.id(id));
 }
 
 export async function disableBounty(id: string) {
-  let bountySnapshot = await db.bountys.get(db.bountys.id(id));
+  let bountySnapshot = await db.bounties.get(db.bounties.id(id));
   await bountySnapshot?.ref?.update(() => ({ active: false }));
-  bountySnapshot = await db.bountys.get(db.bountys.id(id));
-  return toBountyResult(bountySnapshot);
+  bountySnapshot = await db.bounties.get(db.bounties.id(id));
+  return toResult<Bounty>(bountySnapshot);
 }
 
 export async function enableBounty(id: string) {
-  let bountySnapshot = await db.bountys.get(db.bountys.id(id));
+  let bountySnapshot = await db.bounties.get(db.bounties.id(id));
   await bountySnapshot?.ref?.update(() => ({ active: true }));
-  bountySnapshot = await db.bountys.get(db.bountys.id(id));
-  return toBountyResult(bountySnapshot);
+  bountySnapshot = await db.bounties.get(db.bounties.id(id));
+  return toResult<Bounty>(bountySnapshot);
 }
 
 export async function applyForBounty(id: string, userAddress: string) {
-  let bountySnapshot = await db.bountys.get(db.bountys.id(id));
+  let bountySnapshot = await db.bounties.get(db.bounties.id(id));
   const bountiesApplications = new Set(bountySnapshot?.data.applications);
   if (bountiesApplications.has(userAddress)) {
     bountiesApplications.delete(userAddress);
@@ -119,18 +108,18 @@ export async function applyForBounty(id: string, userAddress: string) {
   await bountySnapshot?.ref?.update(() => ({
     applications: bountiesUserApplication,
   }));
-  bountySnapshot = await db.bountys.get(db.bountys.id(id));
-  return toBountyResult(bountySnapshot);
+  bountySnapshot = await db.bounties.get(db.bounties.id(id));
+  return toResult<Bounty>(bountySnapshot);
 }
 
 export async function submitBounty(id: string, userAddress: string, description: string) {
-  const bountyId = db.bountys.id(id);
-  const submissionRef = await db.bountys(bountyId).submissions.add({
+  const bountyId = db.bounties.id(id);
+  const submissionRef = await db.bounties(bountyId).submissions.add({
     address: userAddress,
     description: description,
     timeStamp: Date.now(),
   });
 
-  const submisssions = await db.bountys(bountyId).submissions.get(submissionRef.id);
-  return toSubmisssionResult(submisssions);
+  const submisssions = await db.bounties(bountyId).submissions.get(submissionRef.id);
+  return toResult<Submisssion>(submisssions);
 }
