@@ -10,12 +10,7 @@
         "text": "My Status",
         "timestamp": 1657208443047
       },
-      "builds": [
-        {
-          "id": "06bb3c9d-784b-44d1-b7e2-1ae5affdfa8b",
-          "submittedTimestamp": 1658587661752
-        }
-      ]
+      "skills": []
     },
     "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
       "creationTimestamp": 1633088553223,
@@ -24,19 +19,22 @@
       "socialLinks": {
         "telegram": "test",
         "twitter": "test"
-      }
+      },
+      "skills": ["Frontend"]
     },
     "0x34aA3F359A9D614239015126635CE7732c18fDF3": {
       "creationTimestamp": 1648653481405,
       "role": "builder",
       "function": "knight",
-      "ens": "austingriffith.eth"
+      "ens": "austingriffith.eth",
+      "skills": ["UI/UX Design", "Community Management"]
     },
     "0x72fC8b63692B516D0D8748d469faB65C7e4e7389": {
       "creationTimestamp": 1648653501156,
       "role": "builder",
       "function": "cadets",
-      "ens": "lala.eth"
+      "ens": "lala.eth",
+      "skills": ["Smart Contract"]
     }
   }
 }

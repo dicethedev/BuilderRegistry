@@ -4,7 +4,7 @@ import { Bounty, applyForBounty, createBounty } from "~~/services/db/bounty";
 import { Build, createBuild } from "~~/services/db/build";
 import { Notification, createNotification } from "~~/services/db/notification";
 import { User, createUser } from "~~/services/db/user";
-import "~~/services/firbase";
+import "~~/services/firebase";
 
 export async function seedDatabase() {
   const existingUsers = await db.users.all();
@@ -17,8 +17,8 @@ export async function seedDatabase() {
   const seedUsers = JSON.parse(fs.readFileSync(USER_SEED_DATA, "utf8"));
 
   Object.entries(seedUsers.users).forEach(async ([userId, userData]) => {
-    const { role, ens, function: functionTitle, status, socialLinks } = userData as User;
-    await createUser(role, ens, functionTitle, userId, status, socialLinks);
+    const { role, ens, function: functionTitle, status, socialLinks, skills } = userData as User;
+    await createUser(role, ens, functionTitle, userId, status, socialLinks, skills);
   });
 
   const NOTIFICATION_SEED_DATA = "./local_database/notifications.json";
