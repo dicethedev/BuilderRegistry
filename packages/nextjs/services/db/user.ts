@@ -22,6 +22,12 @@ export interface Status {
   text: string;
   timestamp: number;
 }
+
+export interface BuilderFuntionsStats {
+  name: string;
+  count: number;
+}
+
 export type UserDoc = Schema["users"]["Doc"];
 export type UserResult = Result<User>;
 
@@ -57,12 +63,19 @@ export async function createUser(
   return toResult<User>(userSnapshot);
 }
 
-export async function getUserTypeStats() {
+export async function getUserFunctionStats(): Promise<BuilderFuntionsStats[]> {
+  const functionsTypesMap = new Map();
   const users = await findAllUsers();
-  if (users.length === 0) return null;
-  console.log(
-    "all Functions",
-    users.map(user => user.function),
-  );
-  return 1;
+  users.map(user => {
+    if (!functionsTypesMap.has(user.function)) {
+      functionsTypesMap.set(user.function, 1);
+    } else {
+      functionsTypesMap.set(user.function, functionsTypesMap.get(user.function) + 1);
+    }
+  });
+  const builderFuntionsStats: BuilderFuntionsStats[] = [];
+  for (const [key, value] of functionsTypesMap) {
+    builderFuntionsStats.push({ name: key, count: value });
+  }
+  return builderFuntionsStats;
 }

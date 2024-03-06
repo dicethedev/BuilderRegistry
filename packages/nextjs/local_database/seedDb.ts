@@ -4,7 +4,7 @@ import { Bounty, applyForBounty, createBounty } from "~~/services/db/bounty";
 import { Build, createBuild } from "~~/services/db/build";
 import { Notification, createNotification } from "~~/services/db/notification";
 import { User, createUser } from "~~/services/db/user";
-import "~~/services/firbase";
+import "~~/services/firebase";
 
 export async function seedDatabase() {
   const existingUsers = await db.users.all();
