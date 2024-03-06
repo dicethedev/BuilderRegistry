@@ -1,4 +1,5 @@
 import { Result, Schema, db, toResult } from "~~/services/db";
+import { BuildResult, Build} from "../db/build";
 
 export interface User {
   creationTimestamp: number;
@@ -7,6 +8,7 @@ export interface User {
   function: string;
   status?: Status;
   socialLinks?: SocialLinks;
+  skills: string[];
 }
 
 export interface SocialLinks {
@@ -28,8 +30,14 @@ export interface BuilderFuntionsStats {
   count: number;
 }
 
+
 export type UserDoc = Schema["users"]["Doc"];
 export type UserResult = Result<User>;
+
+export interface UserAndBuildsResult extends UserResult {
+  builds: BuildResult[];
+}
+
 
 export async function findAllUsers(): Promise<UserResult[]> {
   const usersSnaphot = await db.users.all();
@@ -37,6 +45,12 @@ export async function findAllUsers(): Promise<UserResult[]> {
   return users;
 }
 
+export async function findUserAndBuilds(address: string): Promise<UserAndBuildsResult> {
+  const userSnapshot = await db.users.get(db.users.id(address));
+  const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
+  const userBuilds = (await db.builds.query($ => $.field("builder").eq(address))).map(build => toResult<Build>(build));
+  return { ...user, builds: userBuilds };
+}
 export async function findUser(address: string): Promise<UserResult> {
   const userSnapshot = await db.users.get(db.users.id(address));
   return toResult<User>(userSnapshot);
@@ -49,6 +63,7 @@ export async function createUser(
   address: string,
   status?: Status,
   socialLinks?: SocialLinks,
+  skills?: string[],
 ): Promise<UserResult> {
   const userAddress = db.users.id(address);
   const ref = await db.users.set(userAddress, () => ({
@@ -58,6 +73,7 @@ export async function createUser(
     creationTimestamp: Date.now(),
     status,
     socialLinks,
+    skills: skills || [],
   }));
   const userSnapshot = await db.users.get(ref.id);
   return toResult<User>(userSnapshot);

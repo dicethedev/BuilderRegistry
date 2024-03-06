@@ -67,7 +67,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
   }
 
   const blockExplorerAddressLink = getBlockExplorerAddressLink(getTargetNetwork(), address);
-  let displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
+  let displayAddress = address?.slice(0, 2) + "..." + address?.slice(-4);
 
   if (ens) {
     displayAddress = ens;
@@ -81,18 +81,18 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
         <BlockieAvatar
           address={address}
           ensImage={ensAvatar}
-          size={(blockieSizeMap[size] * 24) / blockieSizeMap["base"]}
+          size={(blockieSizeMap[size] * 44) / blockieSizeMap["base"]}
         />
       </div>
       {disableAddressLink ? (
-        <span className={`ml-1.5 text-${size} font-normal`}>{displayAddress}</span>
+        <span className={`ml-2.5 text-${size} font-normal`}>{displayAddress}</span>
       ) : getTargetNetwork().id === hardhat.id ? (
-        <span className={`ml-1.5 text-${size} font-normal`}>
+        <span className={`ml-2.5 text-${size} font-normal`}>
           <Link href={blockExplorerAddressLink}>{displayAddress}</Link>
         </span>
       ) : (
         <a
-          className={`ml-1.5 text-${size} font-normal`}
+          className={`ml-2.5 text-${size} font-normal`}
           target="_blank"
           href={blockExplorerAddressLink}
           rel="noopener noreferrer"
@@ -102,7 +102,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
       )}
       {addressCopied ? (
         <CheckCircleIcon
-          className="ml-1.5 text-xl font-normal text-sky-600 h-5 w-5 cursor-pointer"
+          className="ml-1.5 text-xl font-normal text-secondary h-5 w-5 cursor-pointer"
           aria-hidden="true"
         />
       ) : (
@@ -116,7 +116,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
           }}
         >
           <DocumentDuplicateIcon
-            className="ml-1.5 text-xl font-normal text-sky-600 h-5 w-5 cursor-pointer"
+            className="ml-1.5 text-xl font-normal text-secondary h-5 w-5 cursor-pointer"
             aria-hidden="true"
           />
         </CopyToClipboard>

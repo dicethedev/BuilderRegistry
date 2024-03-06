@@ -12,10 +12,12 @@ export interface Build {
   subimtedTimestamp: number;
   coBuilders: string[];
   likes: string[];
+  builderRole?: string;
 }
 
 export type BuildDoc = Schema["builds"]["Doc"];
 export type BuildResult = Result<Build>;
+
 
 export async function findAllBuilds(): Promise<BuildResult[]> {
   const buildsSnaphot = await db.builds.all();
@@ -39,6 +41,7 @@ export async function createBuild(
   featured: boolean,
   coBuilders: string[] = [],
   likes: string[] = [],
+  builderRole = "",
 ): Promise<BuildResult> {
   const ref = await db.builds.add(() => ({
     branch,
@@ -52,6 +55,7 @@ export async function createBuild(
     coBuilders,
     likes,
     subimtedTimestamp: Date.now(),
+    builderRole,
   }));
   const buildSnapshot = await db.builds.get(ref.id);
   return toResult<Build>(buildSnapshot);

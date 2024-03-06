@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { GridIcon } from "~~/components/assets/GridIcon";
 import { ListIcon } from "~~/components/assets/ListIcon";
-import { Card } from "~~/components/builder-registry/Card";
+import { BountyCard } from "~~/components/builder-registry/BountyCard";
 import contributionsData, { Contributions } from "~~/data/contributions";
 
 const Bounties: NextPage = () => {
@@ -42,26 +42,28 @@ const Bounties: NextPage = () => {
         <div className="container mx-auto">
           <div>
             <p className="font-bold italic">
-              Total Contributors : <span>{contributionsData.length} 👷</span>
+              {" "}
+              Opened Bounties:
+              <span className="ml-1">{contributionsData.length} 🤑</span>
             </p>
 
             <div className="flex justify-between items-center">
               <div className="flex gap-10 my-6 items-center">
                 <div className="flex items-center">
                   <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Explorers
+                  Contents
                 </div>
                 <div className="flex items-center">
                   <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Pioneers{" "}
+                  Development
                 </div>
                 <div className="flex items-center">
                   <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Cosmonaut
+                  Design
                 </div>
                 <div className="flex items-center">
                   <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Navigators
+                  Others
                 </div>
               </div>
 
@@ -86,15 +88,15 @@ const Bounties: NextPage = () => {
             </div>
 
             {display ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+              <div className="gap-6 mt-4 grid">
                 {filterContributions().map((contribution: Contributions, index: number) => (
-                  <Card
+                  <BountyCard
                     index={index}
                     imageUrl={contribution.img}
                     title={contribution.title}
                     description={contribution.description}
-                    likes={contribution.likes}
                     key={index}
+                    price={600}
                   />
                 ))}
               </div>
