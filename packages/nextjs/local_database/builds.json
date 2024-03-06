@@ -47,6 +47,21 @@
         "0x35b5Fd4102e30540A3A3b388A4556D8EeAF12DC6"
       ],
       "likes": ["0xa709FF766777C40bAC916558D9262eC4868496B4", "0x329F9f2C5Fc16DB303dAb2cF7Ccb6C12E6045129"]
+    },
+    "FbyrhhY2YgX2oci77Ww7": {
+      "demoUrl": "https://nba-wallet-blahkheart.vercel.app/",
+      "image": "https://i.imgur.com/Qna230u.png",
+      "featured": true,
+      "coBuilders": [
+        "0x2586A3D6ba5545ea0BB89C88538B557e28df72B3",
+        "0x329F9f2C5Fc16DB303dAb2cF7Ccb6C12E6045129",
+        "0x35b5Fd4102e30540A3A3b388A4556D8EeAF12DC6"
+      ],
+      "videoUrl": "",
+      "name": "Buidlers INC",
+      "builder": "0xCA7632327567796e51920F6b16373e92c7823854",
+      "branch": "https://github.com/ethereumAbuja/BuilderRegistry",
+      "desc": "A curated group of Ethereum builders creating products, prototypes, and tutorials to enrich the web3 ecosystem."
     }
   }
 }

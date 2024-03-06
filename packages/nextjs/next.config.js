@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true",
   },
   images: {
-    domains: ["storage.googleapis.com"],
+    domains: ["storage.googleapis.com", "i.imgur.com"],
   },
   eslint: {
     ignoreDuringBuilds: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true",
