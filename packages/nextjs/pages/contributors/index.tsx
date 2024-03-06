@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { Address } from "~~/components/scaffold-eth";
 import { Contributors } from "~~/types/builders";
 
 interface IProps {
@@ -75,8 +76,7 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
                   <tr key={index} className="border-b border-[#DED1EC]">
                     <td className="py-5">
                       <Link href="profile">
-                        <p className="font-semibold">0x016c</p>
-                        <p className="text-sm">{contributor.ens} </p>
+                        <Address address={contributor.id} format="short" disableAddressLink={true} />
                       </Link>
                     </td>
                     <td className="py-5 pr-8">
