@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { MetaHeader } from "~~/components/MetaHeader";
 import type { NextPage } from "next";
-import contributionsData, { Contributions } from "~~/data/contributions";
 import Image from "next/image";
 import Link from "next/link";
 import { GridIcon } from "~~/components/assets/GridIcon";
 import { ListIcon } from "~~/components/assets/ListIcon";
 import { Card } from "~~/components/builder-registry/Card";
+import { GetServerSideProps } from "next";
+import { Contributions } from "~~/types/builders";
 
-const Contributions: NextPage = () => {
+interface IProps {
+  contributions: Contributions[];
+}
+
+const Contributions: NextPage<IProps> = ({contributions}) => {
   const [display, setDisplay] = useState(true);
   const [query, setQuery] = useState<string>("");
 
@@ -22,15 +27,15 @@ const Contributions: NextPage = () => {
 
   const filterContributions = () => {
     if (!query) {
-      return contributionsData;
+      return contributions;
     }
 
     const lowercasedQuery = query.toLowerCase();
 
-    return contributionsData.filter((contribution: Contributions) => {
+    return contributions.filter((contribution: Contributions) => {
       return (
-        contribution.title.toLowerCase().includes(lowercasedQuery) ||
-        contribution.description.toLowerCase().includes(lowercasedQuery)
+        contribution.name.toLowerCase().includes(lowercasedQuery) ||
+        contribution.desc.toLowerCase().includes(lowercasedQuery)
       );
     });
   };
@@ -64,7 +69,7 @@ const Contributions: NextPage = () => {
         <div className="container mx-auto">
           <div>
             <p className="font-bold italic">
-              Total Contributors : <span>{contributionsData.length} 👷</span>
+              Total Contributors : <span>{contributions.length} 👷</span>
             </p>
 
             <div className="flex justify-between items-center">
@@ -109,7 +114,7 @@ const Contributions: NextPage = () => {
             {display ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                 {filterContributions().map((contribution: Contributions, index: number) => (
-                  <Card index={index} imageUrl={contribution.img} title={contribution.title} description={contribution.description} likes={contribution.likes} />
+                  <Card index={index} imageUrl={contribution.image} title={contribution.name} description={contribution.desc} likes={12} />
                 ))}
               </div>
             ) : (
@@ -120,7 +125,7 @@ const Contributions: NextPage = () => {
                     <th className="py-3 ">Img</th>
                     <th className="py-3 w-[20%]">title</th>
                     <th className="py-3 w-[30%]">Description</th>
-                    <th className="py-3 ">contriutors</th>
+                    <th className="py-3 ">contributors</th>
                     <th className="py-3">Likes</th>
                     <th className="py-3 text-right">Links</th>
                   </tr>
@@ -128,11 +133,11 @@ const Contributions: NextPage = () => {
                 <tbody>
                   {filterContributions().map((contribution: Contributions, index: number) => (
                     <tr key={index} className="border-b border-[#DED1EC]">
-                      <td className="py-1"><Image src={contribution.img} width={148} height={72} alt={contribution.title + " image"} /></td>
-                      <td className="py-5 pr-3 font-semibold">{contribution.title}</td>
-                      <td className="py-5 pr-5 f">{contribution.description}</td>
-                      <td className="py-5">{contribution.contributorsId.address}</td>
-                      <td className="py-5">{contribution.likes}</td>
+                      <td className="py-1"><Image src={contribution.image} width={148} height={72} alt={contribution.name + " image"} /></td>
+                      <td className="py-5 pr-3 font-semibold">{contribution.name}</td>
+                      <td className="py-5 pr-5 f">{contribution.desc}</td>
+                      <td className="py-5">{contribution.builder}</td>
+                      <td className="py-5">{12}</td>
                       <td className="py-5 text-right">
                         <div className="flex gap-3">
                           <Link href="/">
@@ -158,6 +163,27 @@ const Contributions: NextPage = () => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/api/builds");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const contributions: Contributions[] = await response.json();
+    console.log(contributions);
+
+    return {
+      props: { contributions },
+    };
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return {
+      props: { contributions: [] },
+    };
+  }
 };
 
 export default Contributions;

@@ -18,3 +18,19 @@ export interface Contributors {
   status?: Status;
   socialLinks?: [SocialLinks];
 }
+
+export interface Contributions {
+  id: string;
+  branch: string;
+  demoUrl: string;
+  videoUrl: string;
+  desc: string;
+  image: string;
+  name: string;
+  builder: string;
+  featured: boolean;
+  subimtedTimestamp: number;
+  coBuilders: string[];
+  likes: string[];
+  builderRole?: string;
+}

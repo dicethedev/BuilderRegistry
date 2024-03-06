@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { HeartIcon } from "../assets/HeartIcon";
 
 type CardProps = {
   index: number;
@@ -39,11 +40,14 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
         </div>
       </div>
 
-      <div className="p-6">
-        <Link href="/contributions/ee" className="btn-primary bg-secondary btn w-[80%] text-white border-none">
+      <div className="p-6 flex justify-between">
+        <Link href="/contributions/ee" className="btn-primary bg-secondary btn w-[75%] text-white border-none">
           View
         </Link>
-        <button className="py-5 w-[19%]">{likes}</button>
+        <button className="py-2 px-2 w-[21%] border-[#DED1EC] border-2 rounded-lg flex items-center justify-center gap-2 font-medium">
+          {likes}
+          <HeartIcon />
+        </button>
       </div>
     </div>
   );
