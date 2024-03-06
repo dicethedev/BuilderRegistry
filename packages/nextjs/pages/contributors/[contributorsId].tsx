@@ -4,10 +4,11 @@ import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { Card } from "~~/components/builder-registry/Card";
 import Modal from "~~/components/builder-registry/Modal";
 import contributorsData from "~~/data/contributors";
 
-const Profile: NextPage = () => {
+const ContributorProfile: NextPage = () => {
   const { address } = useAccount();
   const displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
   const [showModal, setShowModal] = useState(false);
@@ -100,36 +101,14 @@ const Profile: NextPage = () => {
 
           <div className="grid md:grid-cols-3 gap-6 py-4">
             {contributorsData[0].contributions.map((contribution, index: number) => (
-              <div key={index} className="border border-[#DED1EC] rounded-xl">
-                <div className="py-1 min-h-[200px] w-full relative">
-                  <Image src={contribution.img} alt={contribution.title + " image"} layout="fill" />
-                </div>
-
-                <div className="p-6">
-                  <p className="font-semibold">{contribution.title}</p>
-                  <p className="py-2">{contribution.description}</p>
-                  <div className="pt-5">
-                    <div className="flex gap-3">
-                      <Link href="/">
-                        <Image src={"/img/github.svg"} width={20} height={20} alt="github"></Image>
-                      </Link>
-
-                      <Image src={"/img/weblink.svg"} width={20} height={20} alt="website link"></Image>
-
-                      <Link href="/">
-                        <Image src={"/img/youtube.svg"} width={20} height={20} alt="youtube"></Image>
-                      </Link>
-                      <Link href="/">
-                        <Image src={"/img/twitter.svg"} width={20} height={20} alt="twitter"></Image>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <button className="btn-primary btn w-[80%] text-white">View</button>
-                    <button className="py-5 w-[19%]">{contribution.likes}</button>
-                  </div>
-                </div>
-              </div>
+              <Card
+                index={index}
+                imageUrl={contribution.img}
+                title={contribution.title}
+                description={contribution.description}
+                likes={contribution.likes}
+                key={index}
+              />
             ))}
           </div>
         </div>
@@ -210,4 +189,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default ContributorProfile;

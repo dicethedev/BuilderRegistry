@@ -75,7 +75,7 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
                 {contributors.map((contributor, index: number) => (
                   <tr key={index} className="border-b border-[#DED1EC]">
                     <td className="py-5">
-                      <Link href="profile">
+                      <Link href={"contributors/" + contributor.id}>
                         <Address address={contributor.id} format="short" disableAddressLink={true} />
                       </Link>
                     </td>

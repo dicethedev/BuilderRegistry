@@ -12,6 +12,7 @@ export interface Build {
   subimtedTimestamp: number;
   coBuilders: string[];
   likes: string[];
+  builderRole?: string;
 }
 
 export interface BuildResult extends Build {
@@ -43,6 +44,7 @@ export async function createBuild(
   featured: boolean,
   coBuilders: string[] = [],
   likes: string[] = [],
+  builderRole = "",
 ): Promise<BuildResult> {
   const ref = await db.builds.add(() => ({
     branch,
@@ -56,6 +58,7 @@ export async function createBuild(
     coBuilders,
     likes,
     subimtedTimestamp: Date.now(),
+    builderRole,
   }));
   const buildSnapshot = await db.builds.get(ref.id);
   return toBuildResult(buildSnapshot);
