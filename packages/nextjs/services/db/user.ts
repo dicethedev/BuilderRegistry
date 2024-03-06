@@ -1,4 +1,4 @@
-import { db } from "~~/services/db";
+import { Result, Schema, db, toResult } from "~~/services/db";
 
 export interface User {
   creationTimestamp: number;
@@ -22,21 +22,18 @@ export interface Status {
   text: string;
   timestamp: number;
 }
-
-interface UserResult extends User {
-  id: string;
-}
+export type UserDoc = Schema["users"]["Doc"];
+export type UserResult = Result<User>;
 
 export async function findAllUsers(): Promise<UserResult[]> {
   const usersSnaphot = await db.users.all();
-  const users = usersSnaphot.map(user => ({ id: user?.ref?.id as string, ...(user?.data as User) }));
+  const users = usersSnaphot.map(user => toResult<User>(user));
   return users;
 }
 
 export async function findUser(address: string): Promise<UserResult> {
   const userSnapshot = await db.users.get(db.users.id(address));
-  const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
-  return user;
+  return toResult<User>(userSnapshot);
 }
 
 export async function createUser(
@@ -57,6 +54,15 @@ export async function createUser(
     socialLinks,
   }));
   const userSnapshot = await db.users.get(ref.id);
-  const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
-  return user;
+  return toResult<User>(userSnapshot);
+}
+
+export async function getUserTypeStats() {
+  const users = await findAllUsers();
+  if (users.length === 0) return null;
+  console.log(
+    "all Functions",
+    users.map(user => user.function),
+  );
+  return 1;
 }
