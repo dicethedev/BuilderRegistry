@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import Countdown from "~~/components/builder-registry/CountDown";
 import Modal from "~~/components/builder-registry/Modal";
 import { Bounties } from "~~/types/builders";
 
@@ -59,7 +60,7 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
                 className=" 
                  text-2xl font-semibold"
               >
-                {bounty.submisssions.length}
+                {bounty.submissions.length}
               </p>
             </div>
 
@@ -69,7 +70,7 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
                 className=" 
                  text-2xl font-semibold text-primary"
               >
-                144h:12m
+                <Countdown deadline={bounty.deadLine.toString()} />
               </div>
             </div>
             <div>

@@ -46,6 +46,6 @@ export interface Bounties {
   skills: string[];
   details: string;
   resources: string;
-  submisssions: string[];
+  submissions: string[];
   subimtedTimestamp: number;
 }

@@ -31,14 +31,14 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
     <>
       <MetaHeader />
       <div className="flex flex-col flex-grow pt-4 bg-white">
-        <div className="container mx-auto">
+        <div className="container mx-auto px-6 md:px-0">
           <div>
             <p className="font-bold italic">
               Total Contributors : <span>{contributors.length} 👷</span>
             </p>
 
-            <div className="flex justify-between items-center">
-              <div className="flex gap-10 my-6 items-center">
+            <div className="flex justify-between items-center lg:flex-row flex-col">
+              <div className="flex gap-10 my-6 items-center flex-wrap">
                 <div className="flex items-center">
                   <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
                   Explorers
@@ -62,34 +62,36 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
               </div>
             </div>
 
-            <table role="table" className="w-full text-left table-fixed">
-              <thead>
-                <tr className="uppercase border-b border-[#DED1EC] text-[0.9rem]">
-                  <th className="py-3 ">Contributors</th>
-                  <th className="py-3 w-[38%]">Bio</th>
-                  <th className="py-3 w-[20%]">Submissions</th>
-                  <th className="py-3 text-right">Last Activity</th>
-                </tr>
-              </thead>
-              <tbody>
-                {contributors.map((contributor, index: number) => (
-                  <tr key={index} className="border-b border-[#DED1EC]">
-                    <td className="py-5">
-                      <Link href={"contributors/" + contributor.id}>
-                        <Address address={contributor.id} format="short" disableAddressLink={true} />
-                      </Link>
-                    </td>
-                    <td className="py-5 pr-8">
-                      {contributor.status && contributor.status.text
-                        ? contributor.status.text
-                        : "ex business developer for ethereum foundation, currently supporting open-source development: bit.ly/shaneeth"}
-                    </td>
-                    <td className="py-5">12</td>
-                    <td className="py-5 text-right">12 days ago</td>
+            <div className="overflow-x-auto">
+              <table role="table" className="w-full text-left table-fixed min-w-[700px] overflow-x-hidden">
+                <thead>
+                  <tr className="uppercase border-b border-[#DED1EC] text-[0.9rem]">
+                    <th className="py-3 w-[30%] md:w-auto">Contributors</th>
+                    <th className="py-3 w-[38%]">Bio</th>
+                    <th className="py-3 w-[20%]">Submissions</th>
+                    <th className="py-3 text-right">Last Activity</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {contributors.map((contributor, index: number) => (
+                    <tr key={index} className="border-b border-[#DED1EC]">
+                      <td className="py-5 pr-4">
+                        <Link href={"contributors/" + contributor.id}>
+                          <Address address={contributor.id} format="short" disableAddressLink={true} />
+                        </Link>
+                      </td>
+                      <td className="py-5 pr-8">
+                        {contributor.status && contributor.status.text
+                          ? contributor.status.text
+                          : "ex business developer for ethereum foundation, currently supporting open-source development: bit.ly/shaneeth"}
+                      </td>
+                      <td className="py-5">12</td>
+                      <td className="py-5 text-right">12 days ago</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

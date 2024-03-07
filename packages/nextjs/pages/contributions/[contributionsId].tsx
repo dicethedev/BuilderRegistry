@@ -36,7 +36,7 @@ const BountyDetails: NextPage<IProps> = ({ contribution }) => {
           <p className="mt-1">Deadline: Feb 7th, 2024</p>
         </div>
         <div className="border-t border-[#f3edf7]">
-          <div className="grid grid-cols-5 py-12 container mx-auto lg:w-[80%]">
+          <div className="grid md:grid-cols-5 py-12 container mx-auto lg:w-[80%] grid-cols-3 px-6 md:px-0 gap-3">
             <div>
               <h3 className="mb-3 text-sm font-medium text-[#3C3E4E]">Contributors</h3>
               <p className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">ceeriil.eth</p>
@@ -75,7 +75,7 @@ const BountyDetails: NextPage<IProps> = ({ contribution }) => {
         </div>
 
         <section className="bg-[#F7FAFC] pt-12 pb-16">
-          <div className="w-[70%] mx-auto bg-base-100 p-8 rounded-xl">
+          <div className="md:w-[70%] mx-auto bg-base-100 p-8 rounded-xl">
             <h2 className="font-medium text-xl">Project Details</h2>
             <div className="my-8">
               <h3 className="font-medium mb-3">What to do</h3>

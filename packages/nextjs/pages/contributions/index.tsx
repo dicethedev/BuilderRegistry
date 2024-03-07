@@ -69,14 +69,14 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
     <>
       <MetaHeader />
       <div className="flex flex-col flex-grow pt-4 bg-base-100">
-        <div className="container mx-auto">
+        <div className="container mx-auto px-6 md:px-0">
           <div>
             <p className="font-bold italic">
               Total Contributions : <span>{contributions.length} 👷</span>
             </p>
 
             <div className="flex justify-between items-center flex-col lg:flex-row">
-              <div className="flex gap-10 my-6 items-center">
+              <div className="flex gap-10 my-6 items-center flex-wrap">
                 <div className="flex items-center">
                   <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
                   Explorers
