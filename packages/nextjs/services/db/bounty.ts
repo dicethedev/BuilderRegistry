@@ -52,7 +52,7 @@ export async function createBounty(
     subimtedTimestamp: Date.now(),
     applications: [],
     active: true,
-    submisssions: [],
+    submissions: [],
   }));
   const bountySnapshot = await db.bounties.get(ref.id);
   return toResult<Bounty>(bountySnapshot);
@@ -120,6 +120,6 @@ export async function submitBounty(id: string, userAddress: string, description:
     timeStamp: Date.now(),
   });
 
-  const submisssions = await db.bounties(bountyId).submissions.get(submissionRef.id);
-  return toResult<Submisssion>(submisssions);
+  const submissions = await db.bounties(bountyId).submissions.get(submissionRef.id);
+  return toResult<Submisssion>(submissions);
 }

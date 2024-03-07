@@ -1,5 +1,5 @@
+import { Build, BuildResult } from "../db/build";
 import { Result, Schema, db, toResult } from "~~/services/db";
-import { BuildResult, Build} from "../db/build";
 
 export interface User {
   creationTimestamp: number;
@@ -30,14 +30,12 @@ export interface BuilderFuntionsStats {
   count: number;
 }
 
-
 export type UserDoc = Schema["users"]["Doc"];
 export type UserResult = Result<User>;
 
 export interface UserAndBuildsResult extends UserResult {
   builds: BuildResult[];
 }
-
 
 export async function findAllUsers(): Promise<UserResult[]> {
   const usersSnaphot = await db.users.all();
@@ -49,7 +47,7 @@ export async function findUserAndBuilds(address: string): Promise<UserAndBuildsR
   const userSnapshot = await db.users.get(db.users.id(address));
   const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
   const userBuilds = (await db.builds.query($ => $.field("builder").eq(address))).map(build => toResult<Build>(build));
-  return { ...user, builds: userBuilds };
+  return { ...user, builds: userBuilds, exist: true };
 }
 export async function findUser(address: string): Promise<UserResult> {
   const userSnapshot = await db.users.get(db.users.id(address));
