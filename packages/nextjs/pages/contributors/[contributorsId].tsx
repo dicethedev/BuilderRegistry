@@ -2,13 +2,20 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { Card } from "~~/components/builder-registry/Card";
 import Modal from "~~/components/builder-registry/Modal";
+import { SubmitWorkForm } from "~~/components/builder-registry/SubmitWorkForm";
 import contributorsData from "~~/data/contributors";
+import { Contributors } from "~~/types/builders";
 
-const ContributorProfile: NextPage = () => {
+interface IProps {
+  contributor: Contributors;
+}
+
+const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
   const { address } = useAccount();
   const displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +26,11 @@ const ContributorProfile: NextPage = () => {
 
   const handleOpenModal = () => {
     setShowModal(true);
+  };
+
+  const getDateJoined = (date: string | number | Date): string => {
+    const dateJoined = new Date(date);
+    return dateJoined.toLocaleString("default", { month: "long" }) + " " + dateJoined.getFullYear();
   };
 
   return (
@@ -36,8 +48,8 @@ const ContributorProfile: NextPage = () => {
               )}
             </div>
 
-            <p className="text-customgray font-[500] my-2">{contributorsData[0].title}</p>
-            <p className="text-[0.9rem]">Joined December 2023</p>
+            <p className="text-customgray font-[500] my-2">{contributor.function}</p>
+            <p className="text-[0.9rem]">Joined {getDateJoined(contributor.creationTimestamp)}</p>
           </div>
           <div className="flex space-x-4 md:absolute top-2 right-2 justify-center mt-3 md:mt-0">
             <button className="btn btn-tertiary text-black btn-sm border border-primary ">Create Bounty</button>
@@ -102,7 +114,7 @@ const ContributorProfile: NextPage = () => {
           <div className="grid md:grid-cols-3 gap-6 py-4">
             {contributorsData[0].contributions.map((contribution, index: number) => (
               <Card
-                index={index}
+                index={index.toString()}
                 imageUrl={contribution.img}
                 title={contribution.title}
                 description={contribution.description}
@@ -115,78 +127,35 @@ const ContributorProfile: NextPage = () => {
 
         {showModal && (
           <Modal title="Submit Personal Work" onClose={handleCloseModal}>
-            <form>
-              <div>
-                <label htmlFor="title">
-                  <span className="font-medium">Project Title</span>
-                  <span className="ml-1">(The name of the project you’re building)</span>
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  aria-label="title"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="Add Link"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="role">
-                  <span className="font-medium">Add Role</span>
-                  <span className="ml-1"> (The role you played in this project)</span>
-                </label>
-                <input
-                  type="text"
-                  id="role"
-                  name="role"
-                  aria-label="role"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="Lead Engineer"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="submissionLink" className="font-medium text-lightgray">
-                  <span className="text-lightgray">Description</span>
-                  <span className="ml-1"> (A brief description of what your project is about)</span>
-                </label>
-                <textarea
-                  id="description"
-                  name="description"
-                  aria-label="Description"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2 resize-none min-h-[7rem]"
-                  placeholder="0x...."
-                />
-              </div>
-
-              <div>
-                <label htmlFor="submissionLink" className="font-medium text-lightgray">
-                  <span className="text-lightgray">Link to your Project</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="0x...."
-                />
-              </div>
-
-              <button type="submit" className="bg-[#AAAEB8] text-white rounded-lg w-full py-2 px-3 mt-8">
-                Add
-              </button>
-            </form>
+            <SubmitWorkForm />
           </Modal>
         )}
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  try {
+    const contributorsId = ctx.params?.contributorsId;
+    const response = await fetch(`http://localhost:3000/api/builders/profile/${contributorsId}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const contributor: Contributors = await response.json();
+    console.log(contributor);
+
+    return {
+      props: { contributor },
+    };
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return {
+      props: { contributor: null },
+    };
+  }
 };
 
 export default ContributorProfile;

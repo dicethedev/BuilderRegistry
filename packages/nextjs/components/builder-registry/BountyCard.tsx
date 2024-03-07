@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type CardProps = {
-  index: number;
+  index: string;
   imageUrl: string;
   title: string;
   description: string;
@@ -12,7 +12,7 @@ type CardProps = {
 
 export const BountyCard: React.FC<CardProps> = ({ imageUrl, index, title, description, price }) => {
   return (
-    <Link href="/bounties/ee">
+    <Link href={`/bounties/${index}`}>
       <div key={index} className="border border-[#DED1EC] rounded-xl flex items-center justify-between px-5">
         <div className="flex items-center">
           <div className="p-1 relative rounded-xl border">

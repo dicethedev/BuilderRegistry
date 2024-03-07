@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import Modal from "~~/components/builder-registry/Modal";
+import { Contributions } from "~~/types/builders";
 
-const BountyDetails: NextPage = () => {
+interface IProps {
+  contribution: Contributions;
+}
+
+const BountyDetails: NextPage<IProps> = ({ contribution }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => {
@@ -25,8 +31,8 @@ const BountyDetails: NextPage = () => {
             <p className="text-[.9rem]"></p>
           </div>
 
-          <p className="text-customgray font-[500] my-2">NBA Wallet</p>
-          <p className="text-[0.9rem]">by ETHAbuja</p>
+          <p className="text-customgray font-[500] my-2">{contribution.name}</p>
+          <p className="text-[0.9rem]">by {contribution.builder}</p>
           <p className="mt-1">Deadline: Feb 7th, 2024</p>
         </div>
         <div className="border-t border-[#f3edf7]">
@@ -52,7 +58,7 @@ const BountyDetails: NextPage = () => {
                 className=" 
                  text-2xl font-semibold"
               >
-                12
+                {contribution.likes.length}
               </div>
             </div>
             <div className="mr-5">
@@ -183,6 +189,28 @@ const BountyDetails: NextPage = () => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  try {
+    const buildId = ctx.params?.contributionsId;
+    const response = await fetch(`http://localhost:3000/api/builds/${buildId}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const contribution: Contributions = await response.json();
+    console.log(contribution);
+
+    return {
+      props: { contribution },
+    };
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return {
+      props: { contribution: null },
+    };
+  }
 };
 
 export default BountyDetails;

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HeartIcon } from "../assets/HeartIcon";
 
 type CardProps = {
-  index: number;
+  index: string;
   imageUrl: string;
   title: string;
   description: string;
@@ -41,7 +41,7 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
       </div>
 
       <div className="p-6 flex justify-between">
-        <Link href="/contributions/ee" className="btn-primary bg-secondary btn w-[75%] text-white border-none">
+        <Link href={`/contributions/${index}`} className="btn-primary bg-secondary btn w-[75%] text-white border-none">
           View
         </Link>
         <button className="py-2 px-2 w-[21%] border-[#DED1EC] border-2 rounded-lg flex items-center justify-center gap-2 font-medium">

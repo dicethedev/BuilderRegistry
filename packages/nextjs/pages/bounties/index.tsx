@@ -1,37 +1,27 @@
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { GridIcon } from "~~/components/assets/GridIcon";
-import { ListIcon } from "~~/components/assets/ListIcon";
 import { BountyCard } from "~~/components/builder-registry/BountyCard";
-import contributionsData, { Contributions } from "~~/data/contributions";
+import { Bounties } from "~~/types/builders";
 
-const Bounties: NextPage = () => {
-  const [display, setDisplay] = useState(true);
+interface IProps {
+  bounties: Bounties[];
+}
+
+const BountiesPage: NextPage<IProps> = ({ bounties }) => {
   const [query, setQuery] = useState<string>("");
 
-  const setGridView = () => {
-    setDisplay(true);
-  };
-
-  const setListView = () => {
-    setDisplay(false);
-  };
-
-  const filterContributions = () => {
+  const filterBounties = () => {
     if (!query) {
-      return contributionsData;
+      return bounties;
     }
 
     const lowercasedQuery = query.toLowerCase();
 
-    return contributionsData.filter((contribution: Contributions) => {
-      return (
-        contribution.title.toLowerCase().includes(lowercasedQuery) ||
-        contribution.description.toLowerCase().includes(lowercasedQuery)
-      );
+    return bounties.filter((bounty: Bounties) => {
+      return bounty.title.toLowerCase().includes(lowercasedQuery);
     });
   };
 
@@ -42,9 +32,8 @@ const Bounties: NextPage = () => {
         <div className="container mx-auto">
           <div>
             <p className="font-bold italic">
-              {" "}
               Opened Bounties:
-              <span className="ml-1">{contributionsData.length} 🤑</span>
+              <span className="ml-1">{bounties.length} 🤑</span>
             </p>
 
             <div className="flex justify-between items-center">
@@ -75,74 +64,21 @@ const Bounties: NextPage = () => {
                   placeholder="Search..."
                   className="border p-2 rounded-md min-w-[20rem]"
                 />
-
-                <div className="ml-2">
-                  <button onClick={setGridView}>
-                    <GridIcon />
-                  </button>
-                  <button onClick={setListView}>
-                    <ListIcon />
-                  </button>
-                </div>
               </div>
             </div>
 
-            {display ? (
-              <div className="gap-6 mt-4 grid">
-                {filterContributions().map((contribution: Contributions, index: number) => (
-                  <BountyCard
-                    index={index}
-                    imageUrl={contribution.img}
-                    title={contribution.title}
-                    description={contribution.description}
-                    key={index}
-                    price={600}
-                  />
-                ))}
-              </div>
-            ) : (
-              <table role="table" className="w-full text-left table-fixed">
-                <thead>
-                  <tr className="uppercase border-b border-[#DED1EC] text-[0.9rem]">
-                    <th className="py-3 ">Img</th>
-                    <th className="py-3 w-[20%]">title</th>
-                    <th className="py-3 w-[30%]">Description</th>
-                    <th className="py-3 ">contriutors</th>
-                    <th className="py-3">Likes</th>
-                    <th className="py-3 text-right">Links</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filterContributions().map((contribution: Contributions, index: number) => (
-                    <tr key={index} className="border-b border-[#DED1EC]">
-                      <td className="py-1">
-                        <Image src={contribution.img} width={148} height={72} alt={contribution.title + " image"} />
-                      </td>
-                      <td className="py-5 pr-3 font-semibold">{contribution.title}</td>
-                      <td className="py-5 pr-5 f">{contribution.description}</td>
-                      <td className="py-5">{contribution.contributorsId.address}</td>
-                      <td className="py-5">{contribution.likes}</td>
-                      <td className="py-5 text-right">
-                        <div className="flex gap-3">
-                          <Link href="/">
-                            <Image src={"/img/github.svg"} width={28} height={28} alt="github"></Image>
-                          </Link>
-
-                          <Image src={"/img/weblink.svg"} width={28} height={28} alt="website link"></Image>
-
-                          <Link href="/">
-                            <Image src={"/img/youtube.svg"} width={28} height={28} alt="youtube"></Image>
-                          </Link>
-                          <Link href="/">
-                            <Image src={"/img/twitter.svg"} width={28} height={28} alt="twitter"></Image>
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+            <div className="gap-6 mt-4 grid">
+              {filterBounties().map((bounty: Bounties) => (
+                <BountyCard
+                  index={bounty.id}
+                  imageUrl={"/img/card-img2.png"}
+                  title={bounty.title}
+                  description={"Developed a football game on the Ethereum platform"}
+                  key={bounty.id}
+                  price={0.4}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -150,4 +86,24 @@ const Bounties: NextPage = () => {
   );
 };
 
-export default Bounties;
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/api/bounties");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const bounties: Bounties[] = await response.json();
+
+    return {
+      props: { bounties },
+    };
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return {
+      props: { bounties: [] },
+    };
+  }
+};
+
+export default BountiesPage;

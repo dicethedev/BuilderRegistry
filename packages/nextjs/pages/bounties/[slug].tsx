@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import Modal from "~~/components/builder-registry/Modal";
+import { Bounties } from "~~/types/builders";
 
-const BountyDetails: NextPage = () => {
+interface IProps {
+  bounty: Bounties;
+}
+
+const BountyDetails: NextPage<IProps> = ({ bounty }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => {
@@ -25,7 +31,7 @@ const BountyDetails: NextPage = () => {
             <p className="text-[.9rem]"></p>
           </div>
 
-          <p className="text-customgray font-[500] my-2">Create a SoulBound NFT for Membership</p>
+          <p className="text-customgray font-[500] my-2">{bounty.title}</p>
           <p className="text-[0.9rem]">by ETHAbuja</p>
           <p className="mt-1">Deadline: Feb 7th, 2024</p>
         </div>
@@ -53,7 +59,7 @@ const BountyDetails: NextPage = () => {
                 className=" 
                  text-2xl font-semibold"
               >
-                1
+                {bounty.submisssions.length}
               </p>
             </div>
 
@@ -209,6 +215,28 @@ const BountyDetails: NextPage = () => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  try {
+    const bountyId = ctx.params?.slug;
+    const response = await fetch(`http://localhost:3000/api/bounties/${bountyId}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const bounty: Bounties = await response.json();
+    console.log(bounty);
+
+    return {
+      props: { bounty },
+    };
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return {
+      props: { bounty: null },
+    };
+  }
 };
 
 export default BountyDetails;

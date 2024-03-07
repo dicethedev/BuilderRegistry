@@ -105,7 +105,6 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
       throw new Error("Failed to fetch data");
     }
     const contributors: Contributors[] = await response.json();
-    console.log(contributors);
 
     return {
       props: { contributors },

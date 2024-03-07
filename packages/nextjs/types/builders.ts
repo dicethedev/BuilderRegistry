@@ -16,6 +16,7 @@ export interface Contributors {
   ens: string;
   function: string;
   status?: Status;
+  creationTimestamp: string;
   socialLinks?: [SocialLinks];
 }
 
@@ -33,4 +34,18 @@ export interface Contributions {
   coBuilders: string[];
   likes: string[];
   builderRole?: string;
+}
+
+export interface Bounties {
+  id: string;
+  title: string;
+  createdBy: string;
+  deadLine: Date;
+  applications: string[];
+  active: boolean;
+  skills: string[];
+  details: string;
+  resources: string;
+  submisssions: string[];
+  subimtedTimestamp: number;
 }
