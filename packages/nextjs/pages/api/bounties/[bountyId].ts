@@ -4,9 +4,14 @@ import "~~/services/firebase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    const { bountyId } = req.query;
-    const bounty = await findBounty(bountyId as string);
-    return res.status(200).json(bounty);
+    try {
+      const { bountyId } = req.query;
+      const bounty = await findBounty(bountyId as string);
+      if (bounty.exist === false) return res.status(404).json({ message: "Bounty not found." });
+      return res.status(200).json(bounty);
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 
   if (req.method === "POST ") {
@@ -14,18 +19,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method == "PATCH") {
-    const { bountyId } = req.query;
-    const { title, deadline, skills, details, resources } = req.body;
-    console.log(`EDIT /bounties/${bountyId}`, bountyId);
-    await updateBounty(bountyId as string, title, deadline, skills, details, resources);
-    return res.status(200).end();
+    try {
+      const { bountyId } = req.query;
+      const { title, deadline, skills, details, resources } = req.body;
+      console.log(`EDIT /bounties/${bountyId}`, bountyId);
+      const bounty = await findBounty(bountyId as string);
+      if (bounty.exist === false) return res.status(404).json({ message: "Bounty not found." });
+      await updateBounty(bountyId as string, title, deadline, skills, details, resources);
+      return res.status(200).end();
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 
   if (req.method == "DELETE") {
-    const { bountyId } = req.query;
-    console.log(`DELETE /bounties/${bountyId}`, bountyId);
-    await deleteBounty(bountyId as string);
-    return res.status(200).end();
+    try {
+      const { bountyId } = req.query;
+      console.log(`DELETE /bounties/${bountyId}`, bountyId);
+      const bounty = await findBounty(bountyId as string);
+      if (bounty.exist === false) return res.status(404).json({ message: "Bounty not found." });
+      await deleteBounty(bountyId as string);
+      return res.status(200).end();
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 
   /** TODOs
