@@ -34,7 +34,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <WagmiConfig config={wagmiConfig}>
-      <NextNProgress />
+      <NextNProgress color="#7B65FF" />
       <RainbowKitProvider
         chains={appChains.chains}
         avatar={BlockieAvatar}

@@ -1,9 +1,8 @@
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import Modal from "~~/components/builder-registry/Modal";
 import { Contributions } from "~~/types/builders";
 
 interface IProps {
@@ -11,14 +10,8 @@ interface IProps {
 }
 
 const BountyDetails: NextPage<IProps> = ({ contribution }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleOpenModal = () => {
-    setShowModal(true);
+  const displayAddress = (address: string | undefined): string => {
+    return address ? address.slice(0, 5) + "..." + address.slice(-4) : "";
   };
 
   return (
@@ -32,14 +25,27 @@ const BountyDetails: NextPage<IProps> = ({ contribution }) => {
           </div>
 
           <p className="text-customgray font-[500] my-2">{contribution.name}</p>
-          <p className="text-[0.9rem]">by {contribution.builder}</p>
-          <p className="mt-1">Deadline: Feb 7th, 2024</p>
+          <p className="text-[0.9rem]">by {displayAddress(contribution.builder)}</p>
+          <p className="mt-1">Last Updated: Feb 7th, 2024</p>
         </div>
         <div className="border-t border-[#f3edf7]">
           <div className="grid md:grid-cols-5 py-12 container mx-auto lg:w-[80%] grid-cols-3 px-6 md:px-0 gap-3">
             <div>
               <h3 className="mb-3 text-sm font-medium text-[#3C3E4E]">Contributors</h3>
-              <p className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">ceeriil.eth</p>
+              <div className="grid w-[80%]">
+                {contribution.coBuilders &&
+                  contribution.coBuilders.map((builder, index) => {
+                    return (
+                      <Link
+                        className="px-5 bg-[#F3ECF8] inline-block mb-2 text-sm py-2 rounded-md"
+                        key={index}
+                        href={`/contributors/${builder}`}
+                      >
+                        {displayAddress(builder)}
+                      </Link>
+                    );
+                  })}
+              </div>
             </div>
 
             <div>
@@ -62,14 +68,18 @@ const BountyDetails: NextPage<IProps> = ({ contribution }) => {
               </div>
             </div>
             <div className="mr-5">
-              <button className="btn btn-tertiary text-black w-full" onClick={handleOpenModal}>
+              <Link
+                className="btn btn-tertiary text-black w-full border border-primary "
+                href={contribution.branch}
+                target="blank_"
+              >
                 Code
-              </button>
+              </Link>
             </div>
             <div>
-              <button className="btn btn-primary text-white w-full" onClick={handleOpenModal}>
+              <Link className="btn btn-primary text-white w-full" href={contribution.demoUrl} target="blank_">
                 Live Demo
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -129,63 +139,6 @@ const BountyDetails: NextPage<IProps> = ({ contribution }) => {
             </div>
           </div>
         </section>
-        {showModal && (
-          <Modal title="Submission Form" onClose={handleCloseModal}>
-            <form>
-              <div>
-                <label htmlFor="submissionLink">
-                  <span className="font-medium">Submission Link</span>
-                  <span className="ml-1"> (Make sure the link is accessible to everyone)</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="Add Link"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="submissionLink">
-                  <span className="font-medium">Twitter Link</span>
-                  <span className="ml-1"> (Post your Submission on twitter and share here)</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="Add Link"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="submissionLink" className="font-medium text-lightgray">
-                  <span className="text-lightgray">Your Wallet Address</span>
-                  <span className="ml-1"> (Make sure it is EVM compatible)</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="0x...."
-                />
-              </div>
-
-              <button type="submit" className="bg-[#AAAEB8] text-white rounded-lg w-full py-2 px-3 mt-8">
-                Upload
-              </button>
-            </form>
-          </Modal>
-        )}
       </div>
     </>
   );

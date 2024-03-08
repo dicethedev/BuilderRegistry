@@ -14,8 +14,8 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
     <Link
       href={href}
       passHref
-      className={`${isActive ? "text-primary" : ""} hover:border-b hover:border-primary 
-      active:!text-neutral py-1.5 px-3 text-sm gap-2 grid grid-flow-col rounded-none focus:bg-white`}
+      className={`${isActive ? "text-primary font-semibold" : ""}  hover:text-primary 
+      active:!text-neutral py-1.5 px-3 text-sm gap-2 grid grid-flow-col rounded-none focus:bg-white font-medium nav-link`}
     >
       {children}
     </Link>
@@ -51,43 +51,45 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2 border-b border-[#f3edf7]">
-      <div className="navbar-start w-auto lg:w-1/2">
-        <div className="lg:hidden dropdown" ref={burgerMenuRef}>
-          <label
-            tabIndex={0}
-            className={`ml-1 btn btn-ghost ${isDrawerOpen ? "hover:bg-secondary" : "hover:bg-transparent"}`}
-            onClick={() => {
-              setIsDrawerOpen(prevIsOpenState => !prevIsOpenState);
-            }}
-          >
-            <Bars3Icon className="h-1/2" />
-          </label>
-          {isDrawerOpen && (
-            <ul
+    <div className="sticky lg:static top-0  bg-base-100 min-h-0  justify-between z-20 px-0 sm:px-0 border-b border-[#f3edf7] ">
+      <div className="container mx-auto flex-shrink-0 navbar">
+        <div className="navbar-start w-auto lg:w-1/2">
+          <div className="lg:hidden dropdown" ref={burgerMenuRef}>
+            <label
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className={`ml-1 btn btn-ghost ${isDrawerOpen ? "hover:bg-secondary" : "hover:bg-transparent"}`}
               onClick={() => {
-                setIsDrawerOpen(false);
+                setIsDrawerOpen(prevIsOpenState => !prevIsOpenState);
               }}
             >
-              {navLinks}
-            </ul>
-          )}
+              <Bars3Icon className="h-1/2" />
+            </label>
+            {isDrawerOpen && (
+              <ul
+                tabIndex={0}
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                onClick={() => {
+                  setIsDrawerOpen(false);
+                }}
+              >
+                {navLinks}
+              </ul>
+            )}
+          </div>
+          <Link href="/" passHref className="hidden lg:flex items-center gap-2 mr-10 shrink-0">
+            <div className="flex relative w-10 h-10">
+              <Image alt="Builder Inc logo" className="cursor-pointer" fill src="/logo.svg" />
+            </div>
+            <div>
+              <span className="font-extrabold leading-tight text-2xl italic">Buidlers</span>
+            </div>
+          </Link>
+          <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-4">{navLinks}</ul>
         </div>
-        <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
-          <div className="flex relative w-10 h-10">
-            <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
-          </div>
-          <div>
-            <span className="font-bold leading-tight text-xl italic">Buidlers</span>
-          </div>
-        </Link>
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-6">{navLinks}</ul>
-      </div>
-      <div className="navbar-end flex-grow mr-4">
-        <RainbowKitCustomConnectButton />
-        <FaucetButton />
+        <div className="navbar-end flex-grow ">
+          <RainbowKitCustomConnectButton />
+          <FaucetButton />
+        </div>
       </div>
     </div>
   );

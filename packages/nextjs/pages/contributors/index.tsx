@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { SearchIcon } from "~~/components/assets/SearchIcon";
+import ContributorsStats from "~~/components/builder-registry/ContributorsStats";
 import { Address } from "~~/components/scaffold-eth";
 import { Contributors } from "~~/types/builders";
 
@@ -15,22 +16,25 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
   const [query, setQuery] = useState<string>("");
   console.log(query, setQuery);
 
-  // const filterContributors = () => {
-  //   if (!query){
-  //     return contributorsData;
-  //   }
+  const filterContributors = () => {
+    if (!query) {
+      return contributors;
+    }
 
-  //   const lowercasedQuery = query.toLowerCase();
+    const lowercasedQuery = query.toLowerCase();
 
-  //   return contributorsData.filter( (contributor: Contributors) => {
-  //    return contributor.bio.toLowerCase().includes(lowercasedQuery)
-  //   })
-  // }
+    return contributors.filter((contributor: Contributors) => {
+      return (
+        contributor.id.toLowerCase().includes(lowercasedQuery) ||
+        contributor.ens?.toLowerCase().includes(lowercasedQuery)
+      );
+    });
+  };
 
   return (
     <>
       <MetaHeader />
-      <div className="flex flex-col flex-grow pt-4 bg-white">
+      <div className="flex flex-col flex-grow pt-6 bg-white">
         <div className="container mx-auto px-6 md:px-0">
           <div>
             <p className="font-bold italic">
@@ -38,32 +42,21 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
             </p>
 
             <div className="flex justify-between items-center lg:flex-row flex-col">
-              <div className="flex gap-10 my-6 items-center flex-wrap">
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Explorers
-                </div>
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Pioneers{" "}
-                </div>
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Cosmonaut{" "}
-                </div>
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Navigators{" "}
-                </div>
-              </div>
-
-              <div>
-                <input type="text" placeholder="Search..." className="border p-2 rounded-md min-w-[20rem]" />{" "}
+              <ContributorsStats />
+              <div className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
+                <input
+                  type="text"
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
+                />
+                <SearchIcon />
               </div>
             </div>
 
             <div className="overflow-x-auto">
-              <table role="table" className="w-full text-left table-fixed min-w-[700px] overflow-x-hidden">
+              <table role="table" className="w-full text-left table-fixed min-w-[700px] overflow-x-hidden mt-6">
                 <thead>
                   <tr className="uppercase border-b border-[#DED1EC] text-[0.9rem]">
                     <th className="py-3 w-[30%] md:w-auto">Contributors</th>
@@ -73,7 +66,7 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {contributors.map((contributor, index: number) => (
+                  {filterContributors().map((contributor, index: number) => (
                     <tr key={index} className="border-b border-[#DED1EC]">
                       <td className="py-5 pr-4">
                         <Link href={"contributors/" + contributor.id}>
