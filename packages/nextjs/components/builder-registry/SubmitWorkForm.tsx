@@ -1,6 +1,32 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
+
+interface FormData {
+  title: string;
+  role: string;
+  description: string;
+  submissionLink: string;
+}
 
 export const SubmitWorkForm = () => {
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    role: "",
+    description: "",
+    submissionLink: "",
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const { title, role, description, submissionLink } = formData;
+
+  const isFormFilled = title && role && description;
+
   return (
     <form>
       <div>
@@ -12,6 +38,8 @@ export const SubmitWorkForm = () => {
           type="text"
           id="title"
           name="title"
+          value={title}
+          onChange={handleChange}
           aria-label="title"
           required
           className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
@@ -28,6 +56,8 @@ export const SubmitWorkForm = () => {
           type="text"
           id="role"
           name="role"
+          value={role}
+          onChange={handleChange}
           aria-label="role"
           required
           className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
@@ -44,6 +74,8 @@ export const SubmitWorkForm = () => {
           id="description"
           name="description"
           aria-label="Description"
+          value={description}
+          onChange={handleChange}
           required
           className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2 resize-none min-h-[7rem]"
           placeholder="0x...."
@@ -60,12 +92,17 @@ export const SubmitWorkForm = () => {
           name="submissionLink"
           aria-label="Submission Link"
           required
+          value={submissionLink}
+          onChange={handleChange}
           className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
           placeholder="0x...."
         />
       </div>
 
-      <button type="submit" className="bg-[#AAAEB8] text-white rounded-lg w-full py-2 px-3 mt-8">
+      <button
+        type="submit"
+        className={`${isFormFilled ? "bg-primary" : "bg-[#AAAEB8]"} text-white rounded-lg w-full py-2 px-3 mt-8`}
+      >
         Add
       </button>
     </form>
