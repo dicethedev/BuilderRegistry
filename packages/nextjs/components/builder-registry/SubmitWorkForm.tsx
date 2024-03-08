@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import { AddressInput } from "../scaffold-eth";
 
 interface FormData {
   title: string;
@@ -14,6 +15,7 @@ export const SubmitWorkForm = () => {
     description: "",
     submissionLink: "",
   });
+  const [coBuilders, setCoBuilders] = useState<string[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -21,6 +23,24 @@ export const SubmitWorkForm = () => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleCoBuilderChange = (index: number, value: string) => {
+    const updatedCoBuilders = [...coBuilders];
+    updatedCoBuilders[index] = value;
+    setCoBuilders(updatedCoBuilders);
+  };
+
+  const handleAddCoBuilder = () => {
+    if (coBuilders.length < 6) {
+      setCoBuilders([...coBuilders, ""]);
+    }
+  };
+
+  const handleRemoveCoBuilder = (index: number) => {
+    const updatedCoBuilders = [...coBuilders];
+    updatedCoBuilders.splice(index, 1);
+    setCoBuilders(updatedCoBuilders);
   };
 
   const { title, role, description, submissionLink } = formData;
@@ -80,6 +100,32 @@ export const SubmitWorkForm = () => {
           className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2 resize-none min-h-[7rem]"
           placeholder="0x...."
         />
+      </div>
+
+      <div>
+        <label htmlFor="coBuilders" className="font-medium">
+          <span>Co-Builders</span>
+          <button type="button" onClick={handleAddCoBuilder} className="ml-2 font-bold">
+            +
+          </button>
+        </label>
+        {coBuilders.map((coBuilder, index) => (
+          <div key={index} className="flex items-center mt-2">
+            <AddressInput
+              placeholder="Builder Address"
+              value={coBuilders[index] || ""}
+              onChange={value => handleCoBuilderChange(index, value)}
+            />
+            <button
+              type="button"
+              onClick={() => handleRemoveCoBuilder(index)}
+              className="ml-2 font-bold text-red-500 w-[30px]"
+            >
+              x
+            </button>
+          </div>
+        ))}
+        <div className="my-5"></div>
       </div>
 
       <div>
