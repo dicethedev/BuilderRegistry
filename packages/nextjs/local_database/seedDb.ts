@@ -41,8 +41,9 @@ export async function seedDatabase() {
   const seedBounties = JSON.parse(fs.readFileSync(BOUNTY_SEED_DATA, "utf8"));
 
   Object.entries(seedBounties.bounties).forEach(async ([, bountyData]) => {
-    const { title, details, deadLine, applications, createdBy, skills, resources } = bountyData as Bounty;
-    const bounty = await createBounty(title, createdBy, deadLine, skills, details, resources);
+    const { title, details, deadLine, applications, createdBy, skills, resources, announcementDate, reward } =
+      bountyData as Bounty;
+    const bounty = await createBounty(title, createdBy, deadLine, skills, details, resources, announcementDate, reward);
     applications.forEach(async application => {
       await applyForBounty(application, bounty.id);
     });

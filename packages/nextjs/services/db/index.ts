@@ -1,5 +1,6 @@
 import { Bounty, Submisssion } from "./bounty";
 import { Build } from "./build";
+import { Log } from "./log";
 import { Notification } from "./notification";
 import { User } from "./user";
 import { Typesaurus, schema } from "typesaurus";
@@ -14,6 +15,7 @@ export const db = schema($ => ({
   bounties: $.collection<Bounty>().sub({
     submissions: $.collection<Submisssion>(),
   }),
+  logs: $.collection<Log>(),
 }));
 
 // Infer schema type helper with shortcuts to types in your database:

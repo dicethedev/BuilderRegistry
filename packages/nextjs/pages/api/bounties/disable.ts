@@ -4,17 +4,19 @@ import "~~/services/firebase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "PATCH") {
-    console.log(`PATCH /bounties/disable`);
-    const { bountyId, option } = req.body;
-    if (!bountyId) {
-      return res.status(400).json({ error: "Missing required fields." });
-    }
-    if (option) {
-      await disableBounty(bountyId);
+    try {
+      console.log(`PATCH /bounties/disable`);
+      const { bountyId, option } = req.body;
+      if (!bountyId) return res.status(400).json({ error: "Missing required fields." });
+      if (option) {
+        await disableBounty(bountyId);
+        return res.status(200).end();
+      }
+      await enableBounty(bountyId);
       return res.status(200).end();
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
     }
-    await enableBounty(bountyId);
-    return res.status(200).end();
   }
 
   if (req.method !== "PATCH") {

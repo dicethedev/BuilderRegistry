@@ -69,7 +69,7 @@ export async function createUser(
     ens,
     function: functionTitle,
     creationTimestamp: Date.now(),
-    status,
+    status: status || { text: "Hi i am new here", timestamp: Date.now() },
     socialLinks,
     skills: skills || [],
   }));
@@ -92,4 +92,19 @@ export async function getUserFunctionStats(): Promise<BuilderFuntionsStats[]> {
     builderFuntionsStats.push({ name: key, count: value });
   }
   return builderFuntionsStats;
+}
+
+export async function updateUser(
+  address: string,
+  status: string,
+  socialLinks: SocialLinks,
+  skills: string[],
+): Promise<UserResult> {
+  const userSnapshot = await db.users.get(db.users.id(address));
+  await userSnapshot?.ref?.update(() => ({
+    status: { text: status, timestamp: Date.now() },
+    socialLinks,
+    skills,
+  }));
+  return toResult<User>(userSnapshot);
 }

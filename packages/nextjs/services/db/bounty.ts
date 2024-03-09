@@ -1,5 +1,11 @@
 import { Result, Schema, db, toResult } from "~~/services/db";
 
+export enum BountyStatus {
+  INPROGRESS,
+  OPEN,
+  COMPLETED,
+}
+
 export interface Submisssion {
   address: string;
   timeStamp: number;
@@ -16,6 +22,10 @@ export interface Bounty {
   details: string;
   resources: string;
   subimtedTimestamp: number;
+  announcementDate: Date;
+  reward: number;
+  winners: string[];
+  status: BountyStatus;
 }
 
 export type BountyDoc = Schema["bounties"]["Doc"];
@@ -41,6 +51,8 @@ export async function createBounty(
   skills: string[],
   details: string,
   resources: string,
+  announcementDate: Date,
+  reward: number,
 ): Promise<BountyResult> {
   const ref = await db.bounties.add(() => ({
     title,
@@ -53,6 +65,11 @@ export async function createBounty(
     applications: [],
     active: true,
     submissions: [],
+    submisssions: [],
+    announcementDate,
+    winners: [],
+    status: BountyStatus.OPEN,
+    reward,
   }));
   const bountySnapshot = await db.bounties.get(ref.id);
   return toResult<Bounty>(bountySnapshot);
