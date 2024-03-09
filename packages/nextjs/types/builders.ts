@@ -18,6 +18,8 @@ export interface Contributors {
   status?: Status;
   creationTimestamp: string;
   socialLinks?: [SocialLinks];
+  skills: string[];
+  builds: [Contributions];
 }
 
 export interface Contributions {

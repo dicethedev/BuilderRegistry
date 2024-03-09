@@ -6,7 +6,6 @@ import { GridIcon } from "~~/components/assets/GridIcon";
 import { ListIcon } from "~~/components/assets/ListIcon";
 import { SearchIcon } from "~~/components/assets/SearchIcon";
 import { Card } from "~~/components/builder-registry/Card";
-import ContributorsStats from "~~/components/builder-registry/ContributorsStats";
 import { TableRow } from "~~/components/builder-registry/TableRow";
 import { Contributions } from "~~/types/builders";
 
@@ -56,7 +55,8 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
             </p>
 
             <div className="flex justify-between items-center flex-col lg:flex-row">
-              <ContributorsStats />
+              <div className="flex gap-8 my-6 items-center flex-wrap"> </div>
+
               <div className="flex items-center">
                 <div className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
                   <input

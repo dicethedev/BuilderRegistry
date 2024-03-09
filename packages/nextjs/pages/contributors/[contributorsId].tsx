@@ -8,6 +8,7 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import { Card } from "~~/components/builder-registry/Card";
 import Modal from "~~/components/builder-registry/Modal";
 import { SubmitWorkForm } from "~~/components/builder-registry/SubmitWorkForm";
+import { BlockieAvatar } from "~~/components/scaffold-eth";
 import contributorsData from "~~/data/contributors";
 import { Contributors } from "~~/types/builders";
 
@@ -39,7 +40,9 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
       <div className="flex flex-col flex-grow pt-8 bg-white">
         <div className="relative container mx-auto">
           <div className="flex flex-col items-center text-center max-w-[30rem] justify-center mx-auto">
-            <Image src={"/img/profile.png"} width={64} height={64} alt="profile image" className="my-4" />
+            <div className="my-4 border-2 border-[#6057FB] rounded-full">
+              <BlockieAvatar address={contributor.id} size={64} />
+            </div>
             <div className="font-bold">
               {address ? (
                 <p className="text-[0.9rem]">{displayAddress}</p>
@@ -64,13 +67,17 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
             <div className="py-6 pr-16">
               <h2 className="mb-3 text-lg font-bold text-[#3C3E4E]">Skills</h2>
               <div className="flex gap-x-2 flex-wrap gap-y-2">
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">UI/UX Design</span>
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">Illustrator</span>
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">Graphic Design</span>
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">UX Writing</span>
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">Social Media Management</span>
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">Community Management</span>
-                <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">UI/UX Design</span>
+                {contributor.skills.length > 0 ? (
+                  contributor.skills.map((skill, index) => {
+                    return (
+                      <span className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md" key={index}>
+                        {skill}
+                      </span>
+                    );
+                  })
+                ) : (
+                  <p className="text-3xl text-lightgray">No Skill Listed</p>
+                )}
               </div>
             </div>
             <div className="py-6 pl-10 border-l md:w-[80%]">
@@ -108,20 +115,26 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
 
         <div className="container mx-auto mt-12">
           <p className="font-bold italic">
-            Total Contributions : <span> {contributorsData[0].contributions.length} 🛠</span>
+            Total Contributions : <span> {contributor.builds.length} 🛠</span>
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 py-4">
-            {contributorsData[0].contributions.map((contribution, index: number) => (
-              <Card
-                index={index.toString()}
-                imageUrl={contribution.img}
-                title={contribution.title}
-                description={contribution.description}
-                likes={contribution.likes}
-                key={index}
-              />
-            ))}
+            {contributor.builds.length > 0 ? (
+              contributor.builds.map((contribution, index) => (
+                <Card
+                  index={index.toString()}
+                  imageUrl={contribution.image}
+                  title={contribution.name}
+                  description={contribution.desc}
+                  likes={contribution.likes.length}
+                  key={index}
+                />
+              ))
+            ) : (
+              <div className="border border-[#DED1EC] p-6 py-12 flex items-center justify-center col-span-3 rounded-xl font-medium">
+                User have&apos;nt made any contribution yet
+              </div>
+            )}
           </div>
         </div>
 

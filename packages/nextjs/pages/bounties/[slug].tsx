@@ -40,7 +40,7 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
           <div className="grid grid-cols-6 py-12 container mx-auto">
             <div>
               <h3 className="mb-3 text-sm font-medium text-[#3C3E4E]">Skills Needed</h3>
-              <p className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">UI/UX Design</p>
+              <p className="px-5 bg-[#F3ECF8] inline text-sm py-2 rounded-md">{bounty.skills[0]}</p>
             </div>
             <div>
               <h3 className="mb-3  text-sm font-medium text-[#3C3E4E]">Total Prize Pool</h3>
@@ -79,7 +79,7 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
                 className=" 
                  text-2xl font-semibold"
               >
-                112
+                {bounty.applications.length}
               </div>
             </div>
             <div>
