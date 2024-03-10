@@ -9,7 +9,6 @@ import { Card } from "~~/components/builder-registry/Card";
 import Modal from "~~/components/builder-registry/Modal";
 import { SubmitWorkForm } from "~~/components/builder-registry/SubmitWorkForm";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
-import contributorsData from "~~/data/contributors";
 import { Contributors } from "~~/types/builders";
 
 interface IProps {
@@ -18,6 +17,7 @@ interface IProps {
 
 const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
   const { address } = useAccount();
+  const isUserProfile = contributor.id === address;
   const displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
   const [showModal, setShowModal] = useState(false);
 
@@ -51,15 +51,17 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
               )}
             </div>
 
-            <p className="text-customgray font-[500] my-2">{contributor.function}</p>
+            <p className="text-customgray font-[500] my-2 capitalize">{contributor.function}</p>
             <p className="text-[0.9rem]">Joined {getDateJoined(contributor.creationTimestamp)}</p>
           </div>
-          <div className="flex space-x-4 md:absolute top-2 right-2 justify-center mt-3 md:mt-0">
-            <button className="btn btn-tertiary text-black btn-sm border border-primary ">Create Bounty</button>
-            <button className="btn btn-primary text-white btn-sm" onClick={handleOpenModal}>
-              Submit Personal Work
-            </button>
-          </div>
+          {isUserProfile && (
+            <div className="flex space-x-4 md:absolute top-2 right-2 justify-center mt-3 md:mt-0">
+              <button className="btn btn-tertiary text-black btn-sm border border-primary ">Create Bounty</button>
+              <button className="btn btn-primary text-white btn-sm" onClick={handleOpenModal}>
+                Submit Personal Work
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="border-t mt-12 mb-12">
@@ -85,7 +87,19 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
               <div className="text-sm">
                 <div>
                   <p className="font-medium">Bio</p>
-                  <p className="mt-2">{contributorsData[0].bio}</p>
+                  <div className="mt-2 flex space-x-5 items-center">
+                    <p>
+                      {contributor.status && contributor.status.text
+                        ? contributor.status.text
+                        : "ex business developer for ethereum foundation, currently supporting open-source development: bit.ly/shaneeth"}
+                    </p>
+
+                    {isUserProfile && (
+                      <Link href="/profile/edit" className="border py-1 px-3 border-[#DED1EC] rounded text-[#9699AA]">
+                        Edit
+                      </Link>
+                    )}
+                  </div>
                 </div>
                 <div className="mt-3">
                   <p className="font-medium">Currently works at</p>

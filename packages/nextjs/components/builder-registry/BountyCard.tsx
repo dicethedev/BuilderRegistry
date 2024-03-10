@@ -42,7 +42,7 @@ export const BountyCard: React.FC<CardProps> = ({ imageUrl, index, title, descri
         </div>
         <div>
           <p className="text-2xl font-medium">
-            {price} <span className="text-[#9699AA]">USDT</span>
+            {price} <span className="text-[#9699AA]">ETH</span>
           </p>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { SearchIcon } from "~~/components/assets/SearchIcon";
 import { BountyCard } from "~~/components/builder-registry/BountyCard";
 import { Bounties } from "~~/types/builders";
 
@@ -57,13 +58,16 @@ const BountiesPage: NextPage<IProps> = ({ bounties }) => {
               </div>
 
               <div className="flex items-center">
-                <input
-                  type="text"
-                  value={query}
-                  onChange={e => setQuery(e.target.value)}
-                  placeholder="Search..."
-                  className="border p-2 rounded-md min-w-[20rem]"
-                />
+                <div className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
+                  />
+                  <SearchIcon />
+                </div>
               </div>
             </div>
 
