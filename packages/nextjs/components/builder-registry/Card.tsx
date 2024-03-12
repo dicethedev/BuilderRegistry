@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HeartIcon } from "../assets/HeartIcon";
 
 type CardProps = {
-  index: number;
+  index: string;
   imageUrl: string;
   title: string;
   description: string;
@@ -16,11 +16,16 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
     <div key={index} className="border border-[#DED1EC] rounded-xl flex flex-col justify-between">
       <div>
         <div className="py-1 min-h-[250px] w-full relative rounded-t-xl">
-          <Image src={imageUrl} alt={title + " image"} layout="fill" className="rounded-t-xl" />
+          <Image
+            src={imageUrl}
+            alt={title + " image"}
+            layout="fill"
+            className="rounded-t-xl border-b border-[#DED1EC]"
+          />
         </div>
         <div className="p-6 pb-3">
           <p className="font-semibold">{title}</p>
-          <p className="py-2"> {description}</p>
+          <p className="py-2 text-sm"> {description}</p>
           <div className="pt-5">
             <div className="flex gap-3">
               <Link href="/">
@@ -41,7 +46,10 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
       </div>
 
       <div className="p-6 flex justify-between">
-        <Link href="/contributions/ee" className="btn-primary bg-secondary btn w-[75%] text-white border-none">
+        <Link
+          href={`/contributions/${index}`}
+          className="btn-primary bg-secondary btn w-[75%] text-white border-none text-sm"
+        >
           View
         </Link>
         <button className="py-2 px-2 w-[21%] border-[#DED1EC] border-2 rounded-lg flex items-center justify-center gap-2 font-medium">

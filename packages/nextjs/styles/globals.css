@@ -9,6 +9,13 @@
   font-weight: 700;
   font-stretch: compressed;
 }
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-ExtraBold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 800;
+  font-stretch: compressed;
+}
 
 @font-face {
   font-family: "Gilroy";
@@ -72,6 +79,15 @@ h4 {
   font-size: 0.9rem;
   text-transform: capitalize;
   font-weight: 400;
+}
+
+.nav-link:hover {
+  background: none;
+}
+
+.nav-link:focus,
+.nav-link:active {
+  background: none !important;
 }
 
 .btn-sm {

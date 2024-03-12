@@ -98,7 +98,7 @@ export const RainbowKitCustomConnectButton = () => {
                   <div className="dropdown dropdown-end leading-3">
                     <label
                       tabIndex={0}
-                      className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto"
+                      className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto text-white"
                     >
                       <BlockieAvatar
                         address={account.address}

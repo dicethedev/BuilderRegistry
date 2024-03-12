@@ -35,6 +35,13 @@
       "function": "cadets",
       "ens": "lala.eth",
       "skills": ["Smart Contract"]
+    },
+    "0x35b5Fd4102e30540A3A3b388A4556D8EeAF12DC6": {
+      "creationTimestamp": 1648653501157,
+      "role": "builder",
+      "function": "cadets",
+      "ens": "ceeriil.eth",
+      "skills": ["Frontend"]
     }
   }
 }

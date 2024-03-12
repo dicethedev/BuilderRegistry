@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
@@ -26,29 +27,31 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaHeader />
-      <div className="flex items-center flex-col flex-grow pt-10">
+      <div className="flex items-center flex-col flex-grow pt-16">
         <div className="px-5">
           <h1 className="text-center mb-8">
             <span className="block text-2xl mb-2">Welcome to</span>
             <span className="block text-4xl font-bold">Builders Registry</span>
           </h1>
-          <p className="text-center text-lg">
-            Get started by editing
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/pages/index.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
+
+          <div className="grid mt-5 md:grid-cols-3 gap-5">
+            <div className="border rounded-lg p-6 py-12">
+              <h2 className="text-4xl font-semibold">12</h2>
+              <p className="text-lg">Contributors</p>
+            </div>
+            <div className="border rounded-lg px-6 py-12">
+              <h2 className="text-4xl font-semibold">2</h2>
+              <p className="text-lg">Contributions</p>
+            </div>
+            <div className="border rounded-lg px-6 py-12">
+              <h2 className="text-4xl font-semibold">1</h2>
+              <p className="text-lg">Opened Bounties</p>
+            </div>
+          </div>
         </div>
+        <Link href={"/contributors"} className="btn btn-secondary btn-xl mx-auto text-white mt-16 capitalize w-[20%] ">
+          Explore
+        </Link>
       </div>
     </>
   );

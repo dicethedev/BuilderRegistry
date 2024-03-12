@@ -64,6 +64,7 @@ export async function createBounty(
     subimtedTimestamp: Date.now(),
     applications: [],
     active: true,
+    submissions: [],
     submisssions: [],
     announcementDate,
     winners: [],
@@ -136,6 +137,6 @@ export async function submitBounty(id: string, userAddress: string, description:
     timeStamp: Date.now(),
   });
 
-  const submisssions = await db.bounties(bountyId).submissions.get(submissionRef.id);
-  return toResult<Submisssion>(submisssions);
+  const submissions = await db.bounties(bountyId).submissions.get(submissionRef.id);
+  return toResult<Submisssion>(submissions);
 }
