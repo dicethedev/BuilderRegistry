@@ -28,6 +28,7 @@ export interface Status {
 export interface BuilderFuntionsStats {
   name: string;
   count: number;
+  total: number;
 }
 
 export type UserDoc = Schema["users"]["Doc"];
@@ -89,7 +90,7 @@ export async function getUserFunctionStats(): Promise<BuilderFuntionsStats[]> {
   });
   const builderFuntionsStats: BuilderFuntionsStats[] = [];
   for (const [key, value] of functionsTypesMap) {
-    builderFuntionsStats.push({ name: key, count: value });
+    builderFuntionsStats.push({ name: key, count: value, total: users.length });
   }
   return builderFuntionsStats;
 }
