@@ -50,8 +50,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       fileWriteStreamHandler: () => fileConsumer(chunks),
     });
 
-    // console.log(fields);
-    //console.log(files);
     const { logo, favicon, file } = files;
     console.log(logo, favicon, file);
     //console.warn(file);
@@ -63,13 +61,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: "Files size exceeds the limit of 1 MB." });
     }
 
-    // console.log(chunks, logo[0], favicon[0], chunks[0], chunks[1]);
     await uploadFileWithName(favicon[0], chunks[0], "favicon");
     await uploadFileWithName(logo[0], chunks[1], "logo");
-    return res.status(201);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.json({ message: "Uploaded Files" });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
   }
 }
 
