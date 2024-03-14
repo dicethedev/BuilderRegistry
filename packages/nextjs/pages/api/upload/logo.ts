@@ -8,7 +8,7 @@ const formidableConfig = {
   keepExtensions: true,
   maxFileSize: 10_000_000,
   maxFieldsSize: 10_000_000,
-  maxFields: 7,
+  maxFields: 3,
   allowEmptyFiles: false,
   multiples: false,
 };
@@ -42,7 +42,7 @@ const fileConsumer = <T = unknown>(acc: T[]) => {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(404).end();
-  console.log(" POST /api/upload");
+  console.log(" POST /api/logo");
   try {
     const chunks: never[] = [];
 
@@ -63,9 +63,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: "File size exceeds the limit of 5 MB." });
     }
 
-    const fileData = Buffer.concat(chunks);
-    const filePath = await uploadFile(file[0], fileData);
-    return res.json({ imgUrl: filePath });
+    console.log(chunks, uploadFile);
+    //const fileData = Buffer.concat(chunks);
+    // const filePath = await uploadFile(file[0], fileData );
+    return res.status(201);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: "Internal Server Error" });

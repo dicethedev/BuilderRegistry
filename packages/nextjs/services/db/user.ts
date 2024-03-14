@@ -28,6 +28,7 @@ export interface Status {
 export interface BuilderFuntionsStats {
   name: string;
   count: number;
+  total: number;
 }
 
 export type UserDoc = Schema["users"]["Doc"];
@@ -44,11 +45,13 @@ export async function findAllUsers(): Promise<UserResult[]> {
 }
 
 export async function findUserAndBuilds(address: string): Promise<UserAndBuildsResult> {
-  const userSnapshot = await db.users.get(db.users.id(address));
-  const user = { id: userSnapshot?.ref?.id as string, ...(userSnapshot?.data as User) };
-  const userBuilds = (await db.builds.query($ => $.field("builder").eq(address))).map(build => toResult<Build>(build));
-  return { ...user, builds: userBuilds, exist: true };
+  const user = await findUser(address);
+  const userBuilds = (
+    await db.builds.query($ => $.or($.field("builder").eq(address), $.field("coBuilders").contains(address)))
+  ).map(build => toResult<Build>(build));
+  return { ...user, builds: [...userBuilds], exist: user.exist };
 }
+
 export async function findUser(address: string): Promise<UserResult> {
   const userSnapshot = await db.users.get(db.users.id(address));
   return toResult<User>(userSnapshot);
@@ -89,7 +92,7 @@ export async function getUserFunctionStats(): Promise<BuilderFuntionsStats[]> {
   });
   const builderFuntionsStats: BuilderFuntionsStats[] = [];
   for (const [key, value] of functionsTypesMap) {
-    builderFuntionsStats.push({ name: key, count: value });
+    builderFuntionsStats.push({ name: key, count: value, total: users.length });
   }
   return builderFuntionsStats;
 }
