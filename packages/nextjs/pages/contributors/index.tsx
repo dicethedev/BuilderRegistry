@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
@@ -69,9 +68,7 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
                   {filterContributors().map((contributor, index: number) => (
                     <tr key={index} className="border-b border-[#DED1EC]">
                       <td className="py-5 pr-4">
-                        <Link href={"contributors/" + contributor.id}>
-                          <Address address={contributor.id} format="short" disableAddressLink={true} />
-                        </Link>
+                        <Address address={contributor.id} format="short" disableAddressLink={true} />
                       </td>
                       <td className="py-5 pr-8">
                         {contributor.status && contributor.status.text

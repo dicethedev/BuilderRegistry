@@ -88,7 +88,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
                     imageUrl={contribution.image}
                     title={contribution.name}
                     description={truncateText(contribution.desc)}
-                    likes={12}
+                    likes={contribution.likes.length}
                     key={contribution.id}
                   />
                 ))}
@@ -112,7 +112,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
                       imageUrl={contribution.image}
                       title={contribution.name}
                       description={truncateText(contribution.desc)}
-                      likes={12}
+                      likes={contribution.likes.length}
                       address={contribution.builder}
                       key={index}
                     />
