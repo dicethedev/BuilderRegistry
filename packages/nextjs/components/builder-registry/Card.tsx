@@ -17,7 +17,7 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
       <div>
         <div className="py-1 min-h-[250px] w-full relative rounded-t-xl">
           <Image
-            src={imageUrl}
+            src={imageUrl || "/img/card-img.png"}
             alt={title + " image"}
             layout="fill"
             className="rounded-t-xl border-b border-[#DED1EC]"

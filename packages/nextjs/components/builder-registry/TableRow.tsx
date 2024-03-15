@@ -19,7 +19,7 @@ export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, descrip
       <td className="py-1 pr-2">
         <div></div>
         <Image
-          src={imageUrl}
+          src={imageUrl || "/img/card-img.png"}
           width={148}
           height={80}
           alt={title + " image"}
