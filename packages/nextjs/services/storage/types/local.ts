@@ -10,3 +10,10 @@ export const uploadFileToLocal = async (file: any, fileBuffer: Buffer) => {
   console.log("Storage local -> File copied:", newPath);
   return `http://${process.env.NEXT_PUBLIC_HOST}/${newFileName}`;
 };
+
+export const uploadFileWithName = async (file: any, fileBuffer: Buffer, fileName: string) => {
+  const newFileName = `${fileName}.${mime.extension(file.mimetype)}`;
+  const newPath = `public/${newFileName}`;
+  fs.writeFileSync(newPath, fileBuffer);
+  console.log("Storage local -> File copied:", newPath);
+};

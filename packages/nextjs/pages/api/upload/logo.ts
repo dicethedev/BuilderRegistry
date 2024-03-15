@@ -1,8 +1,7 @@
 import formidable from "formidable";
 import { NextApiRequest, NextApiResponse, PageConfig } from "next";
 import { Writable } from "stream";
-import "~~/services/firebase";
-import { uploadFile } from "~~/services/storage";
+import { uploadFileWithName } from "~~/services/storage/types/local";
 
 const formidableConfig = {
   keepExtensions: true,
@@ -51,25 +50,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       fileWriteStreamHandler: () => fileConsumer(chunks),
     });
 
-    // console.log(fields);
-    //console.log(files);
-    const { file } = files;
+    const { logo, favicon, file } = files;
+    console.log(logo, favicon, file);
     //console.warn(file);
-    if (!file || !file[0]) {
+    if (!logo || !logo[0] || !favicon || !favicon[0]) {
       return res.status(400).json({ error: "No File Provided" });
     }
 
-    if (file[0].size > 5 * 1024 * 1024) {
-      return res.status(400).json({ error: "File size exceeds the limit of 5 MB." });
+    if (logo[0].size > 1 * 1024 * 1024 || favicon[0].size > 1 * 1024 * 1024) {
+      return res.status(400).json({ error: "Files size exceeds the limit of 1 MB." });
     }
 
-    console.log(chunks, uploadFile);
-    //const fileData = Buffer.concat(chunks);
-    // const filePath = await uploadFile(file[0], fileData );
-    return res.status(201);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: "Internal Server Error" });
+    await uploadFileWithName(favicon[0], chunks[0], "favicon");
+    await uploadFileWithName(logo[0], chunks[1], "logo");
+    return res.json({ message: "Uploaded Files" });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
   }
 }
 

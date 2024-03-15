@@ -64,8 +64,6 @@ export async function createBounty(
     subimtedTimestamp: Date.now(),
     applications: [],
     active: true,
-    submissions: [],
-    submisssions: [],
     announcementDate,
     winners: [],
     status: BountyStatus.OPEN,
@@ -127,6 +125,12 @@ export async function applyForBounty(id: string, userAddress: string) {
   }));
   bountySnapshot = await db.bounties.get(db.bounties.id(id));
   return toResult<Bounty>(bountySnapshot);
+}
+
+export async function fetchBountySubmission(id: string): Promise<SubmisssionResult[]> {
+  const bountyId = db.bounties.id(id);
+  const submissionsList = await db.bounties(bountyId).submissions.all();
+  return submissionsList.map(submission => toResult<Submisssion>(submission));
 }
 
 export async function submitBounty(id: string, userAddress: string, description: string) {
