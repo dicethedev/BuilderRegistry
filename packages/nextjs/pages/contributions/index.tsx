@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { GridIcon } from "~~/components/assets/GridIcon";
 import { ListIcon } from "~~/components/assets/ListIcon";
-import { SearchIcon } from "~~/components/assets/SearchIcon";
+import { SearchBar } from "~~/components/builder-registry";
 import { Card } from "~~/components/builder-registry/Card";
 import { TableRow } from "~~/components/builder-registry/TableRow";
 import { Contributions } from "~~/types/builders";
@@ -15,7 +15,7 @@ interface IProps {
 
 const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
   const [display, setDisplay] = useState(true);
-  const [query, setQuery] = useState<string>("");
+  const [query] = useState<string>("");
 
   const setGridView = () => {
     setDisplay(true);
@@ -58,17 +58,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
               <div className="flex gap-8 my-6 items-center flex-wrap"> </div>
 
               <div className="flex items-center">
-                <div className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={e => setQuery(e.target.value)}
-                    placeholder="Search..."
-                    className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
-                  />
-                  <SearchIcon />
-                </div>
-
+                <SearchBar />
                 <div className="ml-2">
                   <button onClick={setGridView}>
                     <GridIcon />
