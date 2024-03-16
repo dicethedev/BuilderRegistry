@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 
-const AddBuilder: NextPage = () => {
+const AdminNotification: NextPage = () => {
   return (
     <div>
       <MetaHeader />
@@ -9,4 +9,4 @@ const AddBuilder: NextPage = () => {
   );
 };
 
-export default AddBuilder;
+export default AdminNotification;
