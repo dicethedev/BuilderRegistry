@@ -15,7 +15,7 @@ interface IProps {
 
 const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
   const [display, setDisplay] = useState(true);
-  const [query] = useState<string>("");
+  const [query, setQuery] = useState<string>("");
 
   const setGridView = () => {
     setDisplay(true);
@@ -58,7 +58,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
               <div className="flex gap-8 my-6 items-center flex-wrap"> </div>
 
               <div className="flex items-center">
-                <SearchBar />
+                <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
                 <div className="ml-2">
                   <button onClick={setGridView}>
                     <GridIcon />
@@ -102,7 +102,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
                       imageUrl={contribution.image}
                       title={contribution.name}
                       description={truncateText(contribution.desc)}
-                      likes={12}
+                      likes={contribution.likes.length}
                       address={contribution.builder}
                       key={index}
                     />
@@ -125,6 +125,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
       throw new Error("Failed to fetch data");
     }
     const contributions: Contributions[] = await response.json();
+    console.log(contributions);
 
     return {
       props: { contributions },

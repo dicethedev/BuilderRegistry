@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
@@ -13,17 +12,25 @@ interface IProps {
 
 const BountiesPage: NextPage<IProps> = ({ bounties }) => {
   const [query, setQuery] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<number>(0);
 
   const filterBounties = () => {
-    if (!query) {
-      return bounties;
+    let filteredBounties = [...bounties];
+
+    if (activeTab === 1) {
+      filteredBounties = filteredBounties.filter(bounty => bounty.active === true);
+    } else if (activeTab === 2) {
+      filteredBounties = filteredBounties.filter(bounty => bounty.active === false);
     }
 
-    const lowercasedQuery = query.toLowerCase();
+    if (query) {
+      const lowercasedQuery = query.toLowerCase();
+      filteredBounties = filteredBounties.filter((bounty: Bounties) => {
+        return bounty.title.toLowerCase().includes(lowercasedQuery);
+      });
+    }
 
-    return bounties.filter((bounty: Bounties) => {
-      return bounty.title.toLowerCase().includes(lowercasedQuery);
-    });
+    return filteredBounties;
   };
 
   return (
@@ -37,23 +44,30 @@ const BountiesPage: NextPage<IProps> = ({ bounties }) => {
               <span className="ml-1">{bounties.length} 🤑</span>
             </p>
 
-            <div className="flex flex-col justify-between items-center md:flex-row">
-              <div className="flex gap-10 my-6 items-center flex-wrap">
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Contents
-                </div>
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Development
-                </div>
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Design
-                </div>
-                <div className="flex items-center">
-                  <Image src="/img/explorer.svg" alt="chart" width={33} height={33} className="mr-3" />
-                  Others
+            <div className="flex flex-col justify-between items-center md:flex-row mt-3">
+              <div>
+                <div role="tablist" className="tabs tabs-boxed">
+                  <a
+                    role="tab"
+                    className={`tab ${activeTab === 0 ? "tab-active" : ""}`}
+                    onClick={() => setActiveTab(0)}
+                  >
+                    All
+                  </a>
+                  <a
+                    role="tab"
+                    className={`tab ${activeTab === 1 ? "tab-active" : ""}`}
+                    onClick={() => setActiveTab(1)}
+                  >
+                    Active
+                  </a>
+                  <a
+                    role="tab"
+                    className={`tab ${activeTab === 2 ? "tab-active" : ""}`}
+                    onClick={() => setActiveTab(2)}
+                  >
+                    Closed
+                  </a>
                 </div>
               </div>
 
@@ -71,17 +85,23 @@ const BountiesPage: NextPage<IProps> = ({ bounties }) => {
               </div>
             </div>
 
-            <div className="gap-6 mt-4 grid">
-              {filterBounties().map((bounty: Bounties) => (
-                <BountyCard
-                  index={bounty.id}
-                  imageUrl={"/img/card-img2.png"}
-                  title={bounty.title}
-                  description={"Developed a football game on the Ethereum platform"}
-                  key={bounty.id}
-                  price={0.4}
-                />
-              ))}
+            <div className="gap-6 mt-12 grid">
+              {filterBounties().length === 0 ? (
+                <div className="border border-[#DED1EC] p-6 py-12 flex items-center justify-center col-span-3 rounded-xl font-medium">
+                  No bounty found
+                </div>
+              ) : (
+                filterBounties().map((bounty: Bounties) => (
+                  <BountyCard
+                    index={bounty.id}
+                    imageUrl={"/img/card-img2.png"}
+                    title={bounty.title}
+                    description={"Developed a football game on the Ethereum platform"}
+                    key={bounty.id}
+                    price={0.4}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>

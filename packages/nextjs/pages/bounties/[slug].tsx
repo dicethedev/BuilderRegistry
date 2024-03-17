@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Image from "next/image";
+import DOMPurify from "dompurify";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import Countdown from "~~/components/builder-registry/CountDown";
 import Modal from "~~/components/builder-registry/Modal";
+import { SubmitBountyForm } from "~~/components/builder-registry/SubmitBountyForm";
 import { Bounties } from "~~/types/builders";
 
 interface IProps {
@@ -21,6 +23,8 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
   const handleOpenModal = () => {
     setShowModal(true);
   };
+
+  const sanitizedHTML = DOMPurify.sanitize(bounty.details);
 
   return (
     <>
@@ -60,7 +64,7 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
                 className=" 
                  text-2xl font-semibold"
               >
-                {bounty.submissions.length}
+                {bounty.submissions?.length}
               </p>
             </div>
 
@@ -93,124 +97,17 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
         <section className="bg-[#F7FAFC] pt-12 pb-16">
           <div className="w-[70%] mx-auto bg-base-100 p-8 rounded-xl">
             <h2 className="font-medium text-xl">Bounty Details</h2>
-            <div className="my-8">
-              <h3 className="font-medium mb-3">What to do</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-            <div className="my-8">
-              <h3 className="font-medium mb-3">Features</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-            <div className="my-8">
-              <h3 className="font-medium mb-3">Guidelines</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-            <div className="my-8">
-              <h3 className="font-medium mb-3">Evaluation Criteria</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
-            <div className="my-8">
-              <h3 className="font-medium mb-3">Prize Selection</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
           </div>
 
           <div className="w-[70%] mx-auto bg-base-100 p-8 rounded-xl mt-12">
             <h2 className="text-xl font-semibold mb-4">Resources</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </p>
+            <div>{bounty.resources}</div>
           </div>
         </section>
         {showModal && (
           <Modal title="Submission Form" onClose={handleCloseModal}>
-            <form>
-              <div>
-                <label htmlFor="submissionLink">
-                  <span className="font-medium">Submission Link</span>
-                  <span className="ml-1"> (Make sure the link is accessible to everyone)</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="Add Link"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="submissionLink">
-                  <span className="font-medium">Twitter Link</span>
-                  <span className="ml-1"> (Post your Submission on twitter and share here)</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="Add Link"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="submissionLink" className="font-medium text-lightgray">
-                  <span className="text-lightgray">Your Wallet Address</span>
-                  <span className="ml-1"> (Make sure it is EVM compatible)</span>
-                </label>
-                <input
-                  type="text"
-                  id="submissionLink"
-                  name="submissionLink"
-                  aria-label="Submission Link"
-                  required
-                  className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-                  placeholder="0x...."
-                />
-              </div>
-
-              <button type="submit" className="bg-[#AAAEB8] text-white rounded-lg w-full py-2 px-3 mt-8">
-                Upload
-              </button>
-            </form>
+            <SubmitBountyForm />
           </Modal>
         )}
       </div>

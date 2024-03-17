@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeartIcon } from "../assets/HeartIcon";
@@ -14,15 +14,18 @@ type TableProps = {
 };
 
 export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, description, likes, address }) => {
+  const [error, setError] = useState(false);
+
   return (
     <tr key={index} className="border-b border-[#DED1EC]">
       <td className="py-1 pr-2">
         <div></div>
         <Image
-          src={imageUrl}
+          src={!error ? imageUrl : "/img/card-img.png"}
           width={148}
           height={80}
           alt={title + " image"}
+          onError={() => setError(true)}
           className="rounded-lg h-[80px] w-[148px]"
         />
       </td>
