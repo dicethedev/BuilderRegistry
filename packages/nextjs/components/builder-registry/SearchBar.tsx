@@ -1,8 +1,11 @@
-import { useState } from "react";
 import { SearchIcon } from "~~/components/assets/SearchIcon";
 
-export const SearchBar = () => {
-  const [searchInput, setSearchInput] = useState("");
+type SearchProps = {
+  query: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+};
+
+export const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
   };
@@ -11,8 +14,8 @@ export const SearchBar = () => {
     <form onSubmit={handleSearch} className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
       <input
         type="text"
-        value={searchInput}
-        onChange={e => setSearchInput(e.target.value)}
+        value={query}
+        onChange={onChange}
         placeholder="Search..."
         className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
       />

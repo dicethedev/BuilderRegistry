@@ -16,6 +16,7 @@ export const SubmitWorkForm = () => {
     submissionLink: "",
   });
   const [coBuilders, setCoBuilders] = useState<string[]>([]);
+  const MAX_CO_BUILDERS = 6;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,7 +33,7 @@ export const SubmitWorkForm = () => {
   };
 
   const handleAddCoBuilder = () => {
-    if (coBuilders.length < 6) {
+    if (coBuilders.length < MAX_CO_BUILDERS) {
       setCoBuilders([...coBuilders, ""]);
     }
   };

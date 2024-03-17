@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeartIcon } from "../assets/HeartIcon";
@@ -12,15 +12,18 @@ type CardProps = {
 };
 
 export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description, likes }) => {
+  const [error, setError] = useState(false);
+
   return (
     <div key={index} className="border border-[#DED1EC] rounded-xl flex flex-col justify-between">
       <div>
         <div className="py-1 min-h-[250px] w-full relative rounded-t-xl">
           <Image
-            src={imageUrl || "/img/card-img.png"}
+            src={!error ? imageUrl : "/img/card-img.png"}
             alt={title + " image"}
             layout="fill"
             className="rounded-t-xl border-b border-[#DED1EC]"
+            onError={() => setError(true)}
           />
         </div>
         <div className="p-6 pb-3">
