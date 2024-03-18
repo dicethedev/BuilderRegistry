@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { SearchIcon } from "~~/components/assets/SearchIcon";
+import SearchIcon from "~~/components/assets/icons/SearchIcon";
 import { BountyCard } from "~~/components/builder-registry/BountyCard";
 import { Bounties } from "~~/types/builders";
 

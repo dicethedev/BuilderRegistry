@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { HeartIcon } from "../assets/HeartIcon";
-import { Address } from "../scaffold-eth";
+import HeartIcon from "../assets/icons/HeartIcon";
+import { Address } from "~~/components/scaffold-eth";
 
-type TableProps = {
+interface TableProps {
   index: string;
   imageUrl: string;
   title: string;
   description: string;
   likes: number;
   address: string;
-};
+}
 
 export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, description, likes, address }) => {
   const [error, setError] = useState(false);
@@ -38,22 +37,6 @@ export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, descrip
         <div className="flex">
           {" "}
           {likes} <HeartIcon className="ml-1" />
-        </div>
-      </td>
-      <td className="py-5 text-right">
-        <div className="flex gap-3">
-          <Link href="/">
-            <Image src={"/img/github.svg"} width={20} height={20} alt="github"></Image>
-          </Link>
-
-          <Image src={"/img/weblink.svg"} width={20} height={20} alt="website link"></Image>
-
-          <Link href="/">
-            <Image src={"/img/youtube.svg"} width={20} height={20} alt="youtube"></Image>
-          </Link>
-          <Link href="/">
-            <Image src={"/img/twitter.svg"} width={20} height={20} alt="twitter"></Image>
-          </Link>
         </div>
       </td>
     </tr>

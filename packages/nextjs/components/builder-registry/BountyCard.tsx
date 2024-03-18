@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-type CardProps = {
+interface CardProps {
   index: string;
   imageUrl: string;
   title: string;
   description: string;
   price: number;
-};
+}
 
 export const BountyCard: React.FC<CardProps> = ({ imageUrl, index, title, description, price }) => {
   return (

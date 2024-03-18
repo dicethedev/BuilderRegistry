@@ -1,4 +1,4 @@
-export const ListIcon = ({ className }: { className?: string }) => {
+const ListIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       width="24"
@@ -15,3 +15,5 @@ export const ListIcon = ({ className }: { className?: string }) => {
     </svg>
   );
 };
+
+export default ListIcon;

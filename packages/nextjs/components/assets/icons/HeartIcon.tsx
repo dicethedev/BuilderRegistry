@@ -15,3 +15,5 @@ export const HeartIcon = ({ className }: { className?: string }) => {
     </svg>
   );
 };
+
+export default HeartIcon;

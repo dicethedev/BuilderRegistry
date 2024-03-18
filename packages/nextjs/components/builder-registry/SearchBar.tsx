@@ -1,9 +1,9 @@
-import { SearchIcon } from "~~/components/assets/SearchIcon";
+import SearchIcon from "~~/components/assets/icons/SearchIcon";
 
-type SearchProps = {
+interface SearchProps {
   query: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-};
+}
 
 export const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
   const handleSearch = async (event: React.FormEvent) => {

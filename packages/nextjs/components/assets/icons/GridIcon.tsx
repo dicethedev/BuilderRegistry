@@ -15,3 +15,5 @@ export const GridIcon = ({ className }: { className?: string }) => {
     </svg>
   );
 };
+
+export default GridIcon;

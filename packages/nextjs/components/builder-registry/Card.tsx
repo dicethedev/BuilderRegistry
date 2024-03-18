@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HeartIcon } from "../assets/HeartIcon";
+import { HeartIcon } from "../assets/icons/HeartIcon";
 
 type CardProps = {
   index: string;
@@ -26,29 +26,12 @@ export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description,
             onError={() => setError(true)}
           />
         </div>
-        <div className="p-6 pb-3">
+        <div className="p-6 ">
           <p className="font-semibold">{title}</p>
           <p className="py-2 text-sm"> {description}</p>
-          <div className="pt-5">
-            <div className="flex gap-3">
-              <Link href="/">
-                <Image src={"/img/github.svg"} width={20} height={20} alt="github"></Image>
-              </Link>
-
-              <Image src={"/img/weblink.svg"} width={20} height={20} alt="website link"></Image>
-
-              <Link href="/">
-                <Image src={"/img/youtube.svg"} width={20} height={20} alt="youtube"></Image>
-              </Link>
-              <Link href="/">
-                <Image src={"/img/twitter.svg"} width={20} height={20} alt="twitter"></Image>
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
-
-      <div className="p-6 flex justify-between">
+      <div className="p-2 flex justify-between">
         <Link
           href={`/contributions/${index}`}
           className="btn-primary bg-secondary btn w-[75%] text-white border-none text-sm"
