@@ -5,7 +5,7 @@ interface SearchProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
+export const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
   };
@@ -25,5 +25,3 @@ const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
     </form>
   );
 };
-
-export default SearchBar;

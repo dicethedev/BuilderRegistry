@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import SearchIcon from "~~/components/assets/icons/SearchIcon";
+import { BountyStatusTab, SearchBar } from "~~/components/builder-registry";
 import { BountyCard } from "~~/components/builder-registry/BountyCard";
 import { Bounties } from "~~/types/builders";
 
@@ -46,42 +46,10 @@ const BountiesPage: NextPage<IProps> = ({ bounties }) => {
 
             <div className="flex flex-col justify-between items-center md:flex-row mt-3">
               <div>
-                <div role="tablist" className="tabs tabs-boxed">
-                  <a
-                    role="tab"
-                    className={`tab ${activeTab === 0 ? "tab-active" : ""}`}
-                    onClick={() => setActiveTab(0)}
-                  >
-                    All
-                  </a>
-                  <a
-                    role="tab"
-                    className={`tab ${activeTab === 1 ? "tab-active" : ""}`}
-                    onClick={() => setActiveTab(1)}
-                  >
-                    Active
-                  </a>
-                  <a
-                    role="tab"
-                    className={`tab ${activeTab === 2 ? "tab-active" : ""}`}
-                    onClick={() => setActiveTab(2)}
-                  >
-                    Closed
-                  </a>
-                </div>
+                <BountyStatusTab activeTab={activeTab} setActiveTab={setActiveTab} />
               </div>
-
               <div className="flex items-center">
-                <div className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={e => setQuery(e.target.value)}
-                    placeholder="Search..."
-                    className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
-                  />
-                  <SearchIcon />
-                </div>
+                <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
               </div>
             </div>
 

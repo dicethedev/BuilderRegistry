@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import SearchIcon from "~~/components/assets//icons/SearchIcon";
+import { SearchBar } from "~~/components/builder-registry";
 import ContributorsStats from "~~/components/builder-registry/ContributorsStats";
 import { Address } from "~~/components/scaffold-eth";
 import { Contributors } from "~~/types/builders";
@@ -42,18 +42,8 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
 
             <div className="flex justify-between items-center lg:flex-row flex-col">
               <ContributorsStats />
-              <div className="flex border py-[0.6rem] px-5 rounded-lg border-[#f3edf7]">
-                <input
-                  type="text"
-                  value={query}
-                  onChange={e => setQuery(e.target.value)}
-                  placeholder="Search..."
-                  className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
-                />
-                <SearchIcon />
-              </div>
+              <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
             </div>
-
             <div className="overflow-x-auto">
               <table role="table" className="w-full text-left table-fixed min-w-[700px] overflow-x-hidden mt-6">
                 <thead>
