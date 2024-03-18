@@ -3,7 +3,7 @@ interface BountyStatusTabProps {
   setActiveTab: (tab: number) => void;
 }
 
-const BountyStatusTab = ({ activeTab, setActiveTab }: BountyStatusTabProps) => {
+export const BountyStatusTab = ({ activeTab, setActiveTab }: BountyStatusTabProps) => {
   return (
     <div role="tablist" className="tabs tabs-boxed">
       <a role="tab" className={`tab ${activeTab === 0 ? "tab-active" : ""}`} onClick={() => setActiveTab(0)}>
@@ -18,5 +18,3 @@ const BountyStatusTab = ({ activeTab, setActiveTab }: BountyStatusTabProps) => {
     </div>
   );
 };
-
-export default BountyStatusTab;
