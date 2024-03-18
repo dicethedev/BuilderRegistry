@@ -9,7 +9,7 @@ interface IProps {
   contribution: Contributions;
 }
 
-const BountyDetails: NextPage<IProps> = ({ contribution }) => {
+const ContributionDetails: NextPage<IProps> = ({ contribution }) => {
   const displayAddress = (address: string | undefined): string => {
     return address ? address.slice(0, 5) + "..." + address.slice(-4) : "";
   };
@@ -117,4 +117,4 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   }
 };
 
-export default BountyDetails;
+export default ContributionDetails;

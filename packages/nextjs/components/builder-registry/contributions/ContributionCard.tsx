@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HeartIcon } from "../assets/icons/HeartIcon";
+import { HeartIcon } from "../../assets/icons/HeartIcon";
 
 type CardProps = {
   index: string;
@@ -11,7 +11,7 @@ type CardProps = {
   likes: number;
 };
 
-export const Card: React.FC<CardProps> = ({ imageUrl, index, title, description, likes }) => {
+export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, description, likes }) => {
   const [error, setError] = useState(false);
 
   return (

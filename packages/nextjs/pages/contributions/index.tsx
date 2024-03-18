@@ -5,8 +5,8 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import GridIcon from "~~/components/assets/icons/GridIcon";
 import ListIcon from "~~/components/assets/icons/ListIcon";
 import { SearchBar } from "~~/components/builder-registry";
-import { Card } from "~~/components/builder-registry/Card";
 import { TableRow } from "~~/components/builder-registry/TableRow";
+import { ContributionCard } from "~~/components/builder-registry/contributions/ContributionCard";
 import { Contributions } from "~~/types/builders";
 
 interface IProps {
@@ -73,7 +73,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
             {display ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                 {filterContributions().map((contribution: Contributions) => (
-                  <Card
+                  <ContributionCard
                     index={contribution.id}
                     imageUrl={contribution.image}
                     title={contribution.name}
