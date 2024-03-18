@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { SearchIcon } from "~~/components/assets/SearchIcon";
+import SearchIcon from "~~/components/assets//icons/SearchIcon";
 import ContributorsStats from "~~/components/builder-registry/ContributorsStats";
 import { Address } from "~~/components/scaffold-eth";
 import { Contributors } from "~~/types/builders";
