@@ -22,7 +22,10 @@ export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, 
             src={!error ? imageUrl : "/img/card-img.png"}
             alt={title + " image"}
             layout="fill"
-            className="rounded-t-xl border-b border-[#DED1EC]"
+            className="rounded-t-xl border-b border-[#DED1EC] object-cover"
+            style={{
+              objectPosition: "top center",
+            }}
             onError={() => setError(true)}
           />
         </div>

@@ -94,6 +94,12 @@ h4 {
   font-size: 0.85rem;
 }
 
+@media (min-width: 1536px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
 .btn {
   @apply shadow-md;
 }
