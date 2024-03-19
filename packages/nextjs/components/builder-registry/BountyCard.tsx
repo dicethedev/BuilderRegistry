@@ -23,20 +23,7 @@ export const BountyCard: React.FC<CardProps> = ({ imageUrl, index, title, descri
             <p className="font-semibold">{title}</p>
             <p className="py-2"> {description}</p>
             <div className="pt-5">
-              <div className="flex gap-3">
-                <Link href="/">
-                  <Image src={"/img/github.svg"} width={20} height={20} alt="github"></Image>
-                </Link>
-
-                <Image src={"/img/weblink.svg"} width={20} height={20} alt="website link"></Image>
-
-                <Link href="/">
-                  <Image src={"/img/youtube.svg"} width={20} height={20} alt="youtube"></Image>
-                </Link>
-                <Link href="/">
-                  <Image src={"/img/twitter.svg"} width={20} height={20} alt="twitter"></Image>
-                </Link>
-              </div>
+              <div className="flex gap-3"></div>
             </div>
           </div>
         </div>
