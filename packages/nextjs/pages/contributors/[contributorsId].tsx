@@ -16,7 +16,6 @@ interface IProps {
 const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
   const { address } = useAccount();
   const isUserProfile = contributor.id === address;
-  const displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => {
@@ -34,7 +33,6 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
         {/* Contributor Header */}
         <ContributorHeader
           id={contributor.id}
-          displayAddress={displayAddress}
           title={contributor.function}
           dateJoined={contributor.creationTimestamp}
           isUserProfile={isUserProfile}
@@ -45,7 +43,11 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
         <div className="border-t mt-12 mb-12">
           <div className="container mx-auto grid md:grid-cols-2">
             <ContributorSkills skills={contributor.skills} />
-            <ContributorDetails isUserProfile={isUserProfile} status={contributor.status?.text} />
+            <ContributorDetails
+              isUserProfile={isUserProfile}
+              status={contributor.status?.text}
+              socials={contributor.socialLinks}
+            />
           </div>
         </div>
 

@@ -14,7 +14,7 @@ interface Social {
   validator?: string;
 }
 
-interface Socials {
+export interface Socials {
   [key: string]: Social;
 }
 
