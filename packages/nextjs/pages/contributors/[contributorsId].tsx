@@ -29,7 +29,7 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
   return (
     <>
       <MetaHeader />
-      <div className="flex flex-col flex-grow pt-8 bg-white">
+      <div className="flex flex-col flex-grow pt-2 bg-white">
         {/* Contributor Header */}
         <ContributorHeader
           id={contributor.id}
@@ -40,7 +40,7 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
         />
 
         {/* Contributor Skills and Details */}
-        <div className="border-t mt-12 mb-12">
+        <div className="border-t mt-4 mb-4">
           <div className="container mx-auto grid md:grid-cols-2">
             <ContributorSkills skills={contributor.skills} />
             <ContributorDetails
@@ -52,7 +52,7 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
         </div>
 
         {/* Contributors Contributions */}
-        <div className="container mx-auto mt-12">
+        <div className="container mx-auto ">
           <p className="font-bold italic">
             Total Contributions : <span> {contributor.builds.length} 🛠</span>
           </p>
