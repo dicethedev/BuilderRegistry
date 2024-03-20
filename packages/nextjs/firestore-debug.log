@@ -32,3 +32,7 @@ Mar 19, 2024 11:30:55 PM io.gapi.emulators.netty.HttpVersionRoutingHandler chann
 INFO: Detected HTTP/2 connection.
 Mar 20, 2024 5:54:49 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
+Mar 20, 2024 8:08:17 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+Mar 20, 2024 9:29:46 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.

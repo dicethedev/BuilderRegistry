@@ -3,8 +3,7 @@ import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { SearchBar } from "~~/components/builder-registry";
-import { ContributorTable } from "~~/components/builder-registry/contributor/ContributorTable";
-import ContributorsStats from "~~/components/builder-registry/contributor/ContributorsStats";
+import { ContributorTable, ContributorsStats } from "~~/components/builder-registry/contributor";
 import { Contributors } from "~~/types/builders";
 
 interface IProps {

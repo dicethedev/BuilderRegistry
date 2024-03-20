@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-export default function ContributorsStats() {
+export const ContributorsStats = () => {
   return (
     <div className="flex gap-8 my-6 items-center flex-wrap">
       <div className="flex items-center font-medium">
@@ -22,4 +22,4 @@ export default function ContributorsStats() {
       </div>
     </div>
   );
-}
+};

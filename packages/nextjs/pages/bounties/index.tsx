@@ -2,8 +2,8 @@ import { useState } from "react";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { BountyStatusTab, SearchBar } from "~~/components/builder-registry";
-import { BountyCard } from "~~/components/builder-registry/BountyCard";
+import { SearchBar } from "~~/components/builder-registry";
+import { BountyCard, BountyStatusTab } from "~~/components/builder-registry/bounties";
 import { Bounties } from "~~/types/builders";
 
 interface IProps {

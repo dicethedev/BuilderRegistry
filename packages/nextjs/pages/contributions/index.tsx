@@ -5,7 +5,7 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import GridIcon from "~~/components/assets/icons/GridIcon";
 import ListIcon from "~~/components/assets/icons/ListIcon";
 import { SearchBar } from "~~/components/builder-registry";
-import { ContributionCard } from "~~/components/builder-registry/contributions/ContributionCard";
+import { ContributionList } from "~~/components/builder-registry/contributions";
 import { ContributionTable } from "~~/components/builder-registry/contributions/ContributionTable";
 import { Contributions } from "~~/types/builders";
 
@@ -40,10 +40,6 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
     });
   };
 
-  const truncateText = (str: string) => {
-    return str.length > 150 ? str.substring(0, 136) + "..." : str;
-  };
-
   return (
     <>
       <MetaHeader />
@@ -71,18 +67,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
             </div>
 
             {display ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                {filterContributions().map((contribution: Contributions) => (
-                  <ContributionCard
-                    index={contribution.id}
-                    imageUrl={contribution.image}
-                    title={contribution.name}
-                    description={truncateText(contribution.desc)}
-                    likes={contribution.likes.length}
-                    key={contribution.id}
-                  />
-                ))}
-              </div>
+              <ContributionList contributions={filterContributions()} />
             ) : (
               <ContributionTable contributions={filterContributions()} />
             )}

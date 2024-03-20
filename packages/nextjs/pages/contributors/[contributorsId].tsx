@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
-import Modal from "~~/components/builder-registry/Modal";
+import { Modal } from "~~/components/builder-registry";
 import { SubmitWorkForm } from "~~/components/builder-registry/SubmitWorkForm";
 import { ContributionList } from "~~/components/builder-registry/contributions/ContributionList";
 import { ContributorDetails, ContributorHeader, ContributorSkills } from "~~/components/builder-registry/contributor";
