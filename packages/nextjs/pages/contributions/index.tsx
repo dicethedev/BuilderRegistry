@@ -5,8 +5,8 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import GridIcon from "~~/components/assets/icons/GridIcon";
 import ListIcon from "~~/components/assets/icons/ListIcon";
 import { SearchBar } from "~~/components/builder-registry";
-import { TableRow } from "~~/components/builder-registry/TableRow";
 import { ContributionCard } from "~~/components/builder-registry/contributions/ContributionCard";
+import { ContributionTable } from "~~/components/builder-registry/contributions/ContributionTable";
 import { Contributions } from "~~/types/builders";
 
 interface IProps {
@@ -61,10 +61,10 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
                 <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
                 <div className="ml-2">
                   <button onClick={setGridView}>
-                    <GridIcon />
+                    <GridIcon isActive={display} />
                   </button>
                   <button onClick={setListView}>
-                    <ListIcon />
+                    <ListIcon isActive={!display} />
                   </button>
                 </div>
               </div>
@@ -84,31 +84,7 @@ const ContributionsPage: NextPage<IProps> = ({ contributions }) => {
                 ))}
               </div>
             ) : (
-              <table role="table" className="w-full text-left table-fixed mt-6">
-                <thead>
-                  <tr className="uppercase border-b border-[#DED1EC] text-[0.9rem]">
-                    <th className="py-3 ">Img</th>
-                    <th className="py-3 w-[19%]">title</th>
-                    <th className="py-3 w-[28%]">Description</th>
-                    <th className="py-3 w-[20%]">contributors</th>
-                    <th className="py-3">Likes</th>
-                    <th className="py-3 text-right">Links</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filterContributions().map((contribution: Contributions, index: number) => (
-                    <TableRow
-                      index={contribution.id}
-                      imageUrl={contribution.image}
-                      title={contribution.name}
-                      description={truncateText(contribution.desc)}
-                      likes={contribution.likes.length}
-                      address={contribution.builder}
-                      key={index}
-                    />
-                  ))}
-                </tbody>
-              </table>
+              <ContributionTable contributions={filterContributions()} />
             )}
           </div>
         </div>

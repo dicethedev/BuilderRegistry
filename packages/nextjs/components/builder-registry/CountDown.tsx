@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-interface CountdownProps {
+type CountdownProps = {
   deadline: string;
-}
+};
 
 const Countdown: React.FC<CountdownProps> = ({ deadline }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");

@@ -1,7 +1,7 @@
-interface BountyStatusTabProps {
+type BountyStatusTabProps = {
   activeTab: number;
   setActiveTab: (tab: number) => void;
-}
+};
 
 export const BountyStatusTab = ({ activeTab, setActiveTab }: BountyStatusTabProps) => {
   return (

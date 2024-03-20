@@ -3,14 +3,14 @@ import Image from "next/image";
 import HeartIcon from "../assets/icons/HeartIcon";
 import { Address } from "~~/components/scaffold-eth";
 
-interface TableProps {
+type TableProps = {
   index: string;
   imageUrl: string;
   title: string;
   description: string;
   likes: number;
   address: string;
-}
+};
 
 export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, description, likes, address }) => {
   const [error, setError] = useState(false);
@@ -29,12 +29,12 @@ export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, descrip
         />
       </td>
       <td className="py-5 pr-3 font-semibold">{title}</td>
-      <td className="py-5 pr-5"> {description}</td>
+      <td className="py-5 pr-8"> {description}</td>
       <td className="py-5">
         <Address address={address} />
       </td>
       <td className="py-5 font-medium">
-        <div className="flex">
+        <div className="flex justify-end">
           {" "}
           {likes} <HeartIcon className="ml-1" />
         </div>

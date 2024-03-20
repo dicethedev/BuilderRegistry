@@ -1,11 +1,11 @@
 import React from "react";
 import CloseIcon from "../assets/icons/CloseIcon";
 
-interface ModalProps {
+type ModalProps = {
   onClose: () => void;
   title: string;
   children?: React.ReactNode;
-}
+};
 
 const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
   return (

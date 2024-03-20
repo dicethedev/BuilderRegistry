@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from "react";
 import { AddressInput } from "../scaffold-eth";
 
-interface FormData {
+type FormData = {
   title: string;
   role: string;
   description: string;
   submissionLink: string;
-}
+};
 
 export const SubmitWorkForm = () => {
   const [formData, setFormData] = useState<FormData>({
