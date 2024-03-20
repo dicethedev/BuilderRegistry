@@ -1,2 +1,4 @@
 export * from "./SearchBar";
-export * from "./BountyStatusTab";
+export * from "./CountDown";
+export * from "./Modal";
+export * from "./TableRow";

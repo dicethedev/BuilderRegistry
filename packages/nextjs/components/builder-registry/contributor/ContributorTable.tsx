@@ -7,6 +7,11 @@ type ContributorTableProps = {
 };
 
 export const ContributorTable: React.FC<ContributorTableProps> = ({ contributors }) => {
+  const getDateJoined = (date: string | number | Date): string => {
+    const dateJoined = new Date(date);
+    return dateJoined.toLocaleString("default", { month: "long" }) + " " + dateJoined.getFullYear();
+  };
+
   return (
     <div className="overflow-x-auto">
       <table role="table" className="w-full text-left table-fixed min-w-[700px] overflow-x-hidden mt-6">
@@ -15,7 +20,7 @@ export const ContributorTable: React.FC<ContributorTableProps> = ({ contributors
             <th className="py-3 w-[30%] md:w-auto">Contributors</th>
             <th className="py-3 w-[38%]">Bio</th>
             <th className="py-3 w-[20%]">Submissions</th>
-            <th className="py-3 text-right">Last Activity</th>
+            <th className="py-3 text-right">Date Joined</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +35,7 @@ export const ContributorTable: React.FC<ContributorTableProps> = ({ contributors
                   : "ex business developer for ethereum foundation, currently supporting open-source development: bit.ly/shaneeth"}
               </td>
               <td className="py-5">12</td>
-              <td className="py-5 text-right">12 days ago</td>
+              <td className="py-5 text-right">{getDateJoined(contributor.creationTimestamp)} </td>
             </tr>
           ))}
         </tbody>

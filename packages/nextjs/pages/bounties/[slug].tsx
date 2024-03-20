@@ -4,8 +4,7 @@ import DOMPurify from "dompurify";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import Countdown from "~~/components/builder-registry/CountDown";
-import Modal from "~~/components/builder-registry/Modal";
+import { Countdown, Modal } from "~~/components/builder-registry";
 import { SubmitBountyForm } from "~~/components/builder-registry/SubmitBountyForm";
 import { Bounties } from "~~/types/builders";
 

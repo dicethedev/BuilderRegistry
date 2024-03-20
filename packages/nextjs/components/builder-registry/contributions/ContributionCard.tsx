@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HeartIcon } from "../../assets/icons/HeartIcon";
+import { ContributionLikeButton } from "./ContributionLikeButton";
 
 type CardProps = {
   index: string;
@@ -13,6 +13,9 @@ type CardProps = {
 
 export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, description, likes }) => {
   const [error, setError] = useState(false);
+  const truncateText = (str: string) => {
+    return str.length > 150 ? str.substring(0, 136) + "..." : str;
+  };
 
   return (
     <div key={index} className="border border-[#DED1EC] rounded-xl flex flex-col justify-between">
@@ -31,7 +34,7 @@ export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, 
         </div>
         <div className="p-6 ">
           <p className="font-semibold">{title}</p>
-          <p className="py-2 text-sm"> {description}</p>
+          <p className="py-2 text-sm"> {truncateText(description)}</p>
         </div>
       </div>
       <div className="p-2 flex justify-between">
@@ -41,10 +44,7 @@ export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, 
         >
           View
         </Link>
-        <button className="py-2 px-2 w-[21%] border-[#DED1EC] border-2 rounded-lg flex items-center justify-center gap-2 font-medium">
-          {likes}
-          <HeartIcon />
-        </button>
+        <ContributionLikeButton likes={likes} />
       </div>
     </div>
   );

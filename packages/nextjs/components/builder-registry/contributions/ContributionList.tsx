@@ -8,15 +8,15 @@ type ContributionListProps = {
 
 export const ContributionList: React.FC<ContributionListProps> = ({ contributions }) => {
   return (
-    <div className="grid md:grid-cols-3 gap-6 py-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-10 mt-12">
       {contributions.length > 0 ? (
         contributions.map((contribution, index) => (
           <ContributionCard
-            index={index.toString()}
+            index={contribution.id}
             imageUrl={contribution.image}
             title={contribution.name}
             description={contribution.desc}
-            likes={contribution.likes.length}
+            likes={contribution.likes?.length}
             key={index}
           />
         ))

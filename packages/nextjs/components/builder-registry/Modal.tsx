@@ -1,13 +1,13 @@
 import React from "react";
 import CloseIcon from "../assets/icons/CloseIcon";
 
-interface ModalProps {
+type ModalProps = {
   onClose: () => void;
   title: string;
   children?: React.ReactNode;
-}
+};
 
-const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-[20] bg-[#00000030] overflow-y-scroll">
       <div className="p-8 rounded-2xl bg-base-100 relative my-4">
@@ -20,5 +20,3 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
     </div>
   );
 };
-
-export default Modal;

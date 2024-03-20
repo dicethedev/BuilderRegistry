@@ -1,9 +1,9 @@
 import SearchIcon from "~~/components/assets/icons/SearchIcon";
 
-interface SearchProps {
+type SearchProps = {
   query: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-}
+};
 
 export const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
   const handleSearch = async (event: React.FormEvent) => {
@@ -19,9 +19,7 @@ export const SearchBar: React.FC<SearchProps> = ({ query, onChange }) => {
         placeholder="Search..."
         className="min-w-[16rem] focus:border-none focus:outline-none placeholder:text-[#9699AA] placeholder:font-light "
       />
-      <button className="btn btn-sm bg-transparent" type="submit">
-        <SearchIcon />
-      </button>
+      <SearchIcon />
     </form>
   );
 };

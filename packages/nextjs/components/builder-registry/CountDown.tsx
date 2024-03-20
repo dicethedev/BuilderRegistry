@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-interface CountdownProps {
+type CountdownProps = {
   deadline: string;
-}
+};
 
-const Countdown: React.FC<CountdownProps> = ({ deadline }) => {
+export const Countdown: React.FC<CountdownProps> = ({ deadline }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
 
   const countdownTimer = () => {
@@ -34,5 +34,3 @@ const Countdown: React.FC<CountdownProps> = ({ deadline }) => {
 
   return <div>{timeLeft}</div>;
 };
-
-export default Countdown;
