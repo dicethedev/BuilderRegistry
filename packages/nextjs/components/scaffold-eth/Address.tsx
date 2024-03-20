@@ -4,10 +4,8 @@ import { NounsBlockies } from "../builder-registry/nounsblockies";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { isAddress } from "viem";
 import { useEnsAvatar, useEnsName } from "wagmi";
-import { hardhat } from "wagmi/chains";
 import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
-import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
 
 type TAddressProps = {
   address?: string;
@@ -29,7 +27,7 @@ const blockieSizeMap = {
 /**
  * Displays an address (or ENS) with a Blockie image and option to copy address.
  */
-export const Address = ({ address, disableAddressLink, format, size = "base" }: TAddressProps) => {
+export const Address = ({ address, format, size = "base" }: TAddressProps) => {
   const [ens, setEns] = useState<string | null>();
   const [ensAvatar, setEnsAvatar] = useState<string | null>();
   const [addressCopied, setAddressCopied] = useState(false);
@@ -67,7 +65,6 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
     return <span className="text-error">Wrong address</span>;
   }
 
-  const blockExplorerAddressLink = getBlockExplorerAddressLink(getTargetNetwork(), address);
   let displayAddress = address?.slice(0, 2) + "..." + address?.slice(-4);
 
   if (ens) {
@@ -89,24 +86,9 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
           <NounsBlockies address={address} size={(blockieSizeMap[size] * 44) / blockieSizeMap["base"]} />
         )}
       </div>
-      {disableAddressLink ? (
-        <span className={`ml-2.5 text-${size} font-normal hover:border-b hover:border-[#000000]`}>
-          <Link href={"contributors/" + address}>{displayAddress}</Link>
-        </span>
-      ) : getTargetNetwork().id === hardhat.id ? (
-        <span className={`ml-2.5 text-${size} font-normal`}>
-          <Link href={blockExplorerAddressLink}>{displayAddress}</Link>
-        </span>
-      ) : (
-        <a
-          className={`ml-2.5 text-${size} font-normal`}
-          target="_blank"
-          href={blockExplorerAddressLink}
-          rel="noopener noreferrer"
-        >
-          {displayAddress}
-        </a>
-      )}
+      <span className={`ml-2.5 text-${size} font-normal hover:border-b hover:border-[#000000]`}>
+        <Link href={"contributors/" + address}>{displayAddress}</Link>
+      </span>
       {addressCopied ? (
         <CheckCircleIcon
           className="ml-1.5 text-xl font-normal text-secondary h-5 w-5 cursor-pointer"

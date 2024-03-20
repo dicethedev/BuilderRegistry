@@ -42,6 +42,20 @@
       "function": "cadets",
       "ens": "ceeriil.eth",
       "skills": ["Frontend"]
+    },
+    "0xa709FF766777C40bAC916558D9262eC4868496B4": {
+      "creationTimestamp": 1648653501157,
+      "role": "builder",
+      "function": "cadets",
+      "ens": "ifechukwudaniel.eth",
+      "skills": ["Frontend", "Smart Contract"]
+    },
+    "0xCA7632327567796e51920F6b16373e92c7823854": {
+      "creationTimestamp": 1648653501157,
+      "role": "builder",
+      "function": "cadets",
+      "ens": "dannithomx.eth",
+      "skills": ["Frontend"]
     }
   }
 }

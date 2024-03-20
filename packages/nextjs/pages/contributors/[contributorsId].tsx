@@ -15,7 +15,7 @@ interface IProps {
 
 const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
   const { address } = useAccount();
-  const isUserProfile = contributor.id === address;
+  const isUserProfile = contributor?.id === address;
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => {
