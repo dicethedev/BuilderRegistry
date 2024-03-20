@@ -1,12 +1,8 @@
-// ContributorHeader.tsx
 import React from "react";
-import { NounsBlockies } from "~~/components/builder-registry/nounsblockies";
-
-``; // ContributorHeader.tsx
+import { ContributorAddress } from "./ContributorAddress";
 
 type ContributorHeaderProps = {
   id: string;
-  displayAddress: string;
   title: string;
   dateJoined: string | number | Date;
   isUserProfile: boolean;
@@ -15,7 +11,6 @@ type ContributorHeaderProps = {
 
 export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
   id,
-  displayAddress,
   title,
   dateJoined,
   isUserProfile,
@@ -29,12 +24,7 @@ export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
   return (
     <div className="relative container mx-auto">
       <div className="flex flex-col items-center text-center max-w-[30rem] justify-center mx-auto">
-        <div className="my-4 border-2 border-[#6057FB] rounded-full">
-          <NounsBlockies address={id} size={150} />
-        </div>
-        <div className="font-bold">
-          <p className="text-[0.9rem]">{displayAddress}</p>
-        </div>
+        <ContributorAddress address={id} />
         <p className="text-customgray font-[500] my-2 capitalize">{title}</p>
         <p className="text-[0.9rem]">Joined {getDateJoined(dateJoined)}</p>
       </div>
