@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NounsBlockies } from "../builder-registry/nounsblockies";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
 import { QRCodeSVG } from "qrcode.react";
@@ -13,7 +14,7 @@ import {
   DocumentDuplicateIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
-import { Address, Balance, BlockieAvatar } from "~~/components/scaffold-eth";
+import { Address, Balance } from "~~/components/scaffold-eth";
 import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useGlobalState } from "~~/services/store/store";
 import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
@@ -100,13 +101,7 @@ export const RainbowKitCustomConnectButton = () => {
                       tabIndex={0}
                       className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto text-white"
                     >
-                      <BlockieAvatar
-                        address={account.address}
-                        size={30}
-                        ensImage={
-                          connector instanceof Web3AuthConnector && userInfo ? userInfo.profileImage : account.ensAvatar
-                        }
-                      />
+                      <NounsBlockies address={account.address} size={30} />
                       <span className="ml-2 mr-1">
                         {connector instanceof Web3AuthConnector && userInfo ? userInfo.name : account.displayName}
                       </span>

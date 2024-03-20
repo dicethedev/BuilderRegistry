@@ -1,6 +1,8 @@
 // ContributorHeader.tsx
 import React from "react";
-import { BlockieAvatar } from "~~/components/scaffold-eth";
+import { NounsBlockies } from "~~/components/builder-registry/nounsblockies";
+
+``; // ContributorHeader.tsx
 
 type ContributorHeaderProps = {
   id: string;
@@ -28,7 +30,7 @@ export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
     <div className="relative container mx-auto">
       <div className="flex flex-col items-center text-center max-w-[30rem] justify-center mx-auto">
         <div className="my-4 border-2 border-[#6057FB] rounded-full">
-          <BlockieAvatar address={id} size={64} />
+          <NounsBlockies address={id} size={150} />
         </div>
         <div className="font-bold">
           <p className="text-[0.9rem]">{displayAddress}</p>
