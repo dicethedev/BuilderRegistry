@@ -1,8 +1,8 @@
-const TwitterIcon = ({ className }: { className?: string }) => {
+const TwitterIcon = ({ className, width, height }: { className?: string; width?: number; height?: number }) => {
   return (
     <svg
-      width="28"
-      height="28"
+      width={width || "24"}
+      height={height || "24"}
       viewBox="0 0 28 28"
       fill="none"
       className={className}

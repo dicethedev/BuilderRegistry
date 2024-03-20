@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { NounsBlockies } from "../builder-registry/nounsblockies";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { isAddress } from "viem";
 import { useEnsAvatar, useEnsName } from "wagmi";
@@ -78,11 +79,15 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
   return (
     <div className="flex items-center">
       <div className="flex-shrink-0">
-        <BlockieAvatar
-          address={address}
-          ensImage={ensAvatar}
-          size={(blockieSizeMap[size] * 44) / blockieSizeMap["base"]}
-        />
+        {ensAvatar ? (
+          <BlockieAvatar
+            address={address}
+            ensImage={ensAvatar}
+            size={(blockieSizeMap[size] * 44) / blockieSizeMap["base"]}
+          />
+        ) : (
+          <NounsBlockies address={address} size={(blockieSizeMap[size] * 44) / blockieSizeMap["base"]} />
+        )}
       </div>
       {disableAddressLink ? (
         <span className={`ml-2.5 text-${size} font-normal hover:border-b hover:border-[#000000]`}>

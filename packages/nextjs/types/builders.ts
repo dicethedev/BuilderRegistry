@@ -1,4 +1,4 @@
-interface SocialLinks {
+export interface SocialLinksType {
   github: string | null;
   website: string | null;
   youtube: string | null;
@@ -17,7 +17,7 @@ export interface Contributors {
   function: string;
   status?: Status;
   creationTimestamp: string;
-  socialLinks?: [SocialLinks];
+  socialLinks?: SocialLinksType;
   skills: string[];
   builds: [Contributions];
 }

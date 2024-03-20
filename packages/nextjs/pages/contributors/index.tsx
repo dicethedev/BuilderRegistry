@@ -44,7 +44,6 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
               <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
             </div>
 
-            {/* Contributors Lists  */}
             <ContributorTable contributors={filterContributors()} />
           </div>
         </div>

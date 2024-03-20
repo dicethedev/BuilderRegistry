@@ -18,7 +18,9 @@ export const ContributorSkills: React.FC<ContributorSkillsProps> = ({ skills }) 
             );
           })
         ) : (
-          <p className="text-3xl text-lightgray">No Skill Listed</p>
+          <div className=" w-full border border-[#DED1EC] p-6 py-12 flex items-center justify-center col-span-3 rounded-xl font-medium">
+            No Skill Listed
+          </div>
         )}
       </div>
     </div>
