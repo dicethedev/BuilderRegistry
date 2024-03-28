@@ -2,6 +2,7 @@ import { Bounty, Submisssion } from "./bounty";
 import { Build } from "./build";
 import { Log } from "./log";
 import { Notification } from "./notification";
+import { Poap } from "./poap";
 import { User } from "./user";
 import { Typesaurus, schema } from "typesaurus";
 
@@ -16,6 +17,7 @@ export const db = schema($ => ({
     submissions: $.collection<Submisssion>(),
   }),
   logs: $.collection<Log>(),
+  poap: $.collection<Poap>(),
 }));
 
 // Infer schema type helper with shortcuts to types in your database:

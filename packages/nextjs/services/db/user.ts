@@ -44,6 +44,16 @@ export async function findAllUsers(): Promise<UserResult[]> {
   return users;
 }
 
+export async function findAllUserAndBuilds(): Promise<UserAndBuildsResult[]> {
+  const users = await findAllUsers();
+  const usersAndBuilds = [];
+  for (let index = 0; index < users.length; index++) {
+    const userAndBuild = await findUserAndBuilds(users[index].id);
+    usersAndBuilds.push(userAndBuild);
+  }
+  return usersAndBuilds;
+}
+
 export async function findUserAndBuilds(address: string): Promise<UserAndBuildsResult> {
   const user = await findUser(address);
   const userBuilds = (
