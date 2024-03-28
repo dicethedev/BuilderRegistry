@@ -56,6 +56,14 @@
       "function": "cadets",
       "ens": "dannithomx.eth",
       "skills": ["Frontend"]
+    },
+    "0x5058B915e25E82301703F13Af258C41e628F92Af":{
+ "creationTimestamp": 1648653501157,
+      "role": "builder",
+      "function": "cadets",
+      "ens": "dannithomx.eth",
+      "skills": ["Frontend"]
+
     }
   }
 }
