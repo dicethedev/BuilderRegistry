@@ -1,11 +1,11 @@
 import { ethers } from "ethers";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createUser, findAllUsers, findUser } from "~~/services/db/user";
+import { createUser, findAllUserAndBuilds, findUser } from "~~/services/db/user";
 import "~~/services/firebase";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    const builders = await findAllUsers();
+    const builders = await findAllUserAndBuilds();
     return res.status(200).json(builders);
   }
 
