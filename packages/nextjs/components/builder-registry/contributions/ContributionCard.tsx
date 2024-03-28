@@ -17,6 +17,10 @@ export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, 
     return str.length > 150 ? str.substring(0, 136) + "..." : str;
   };
 
+  const handleLike = () => {
+    console.log("Liked");
+  };
+
   return (
     <div key={index} className="border border-[#DED1EC] rounded-xl flex flex-col justify-between">
       <div>
@@ -44,7 +48,7 @@ export const ContributionCard: React.FC<CardProps> = ({ imageUrl, index, title, 
         >
           View
         </Link>
-        <ContributionLikeButton likes={likes} />
+        <ContributionLikeButton likes={likes} liked={false} onLike={handleLike} />
       </div>
     </div>
   );

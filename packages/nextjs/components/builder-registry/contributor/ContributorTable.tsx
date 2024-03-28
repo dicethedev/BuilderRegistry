@@ -19,7 +19,7 @@ export const ContributorTable: React.FC<ContributorTableProps> = ({ contributors
           <tr className="uppercase border-b border-[#DED1EC] text-[0.9rem]">
             <th className="py-3 w-[30%] md:w-auto">Contributors</th>
             <th className="py-3 w-[38%]">Bio</th>
-            <th className="py-3 w-[20%]">Submissions</th>
+            <th className="py-3 w-[20%]">No. Contributions</th>
             <th className="py-3 text-right">Date Joined</th>
           </tr>
         </thead>
@@ -34,7 +34,7 @@ export const ContributorTable: React.FC<ContributorTableProps> = ({ contributors
                   ? contributor.status.text
                   : "ex business developer for ethereum foundation, currently supporting open-source development: bit.ly/shaneeth"}
               </td>
-              <td className="py-5">12</td>
+              <td className="py-5">{contributor.builds.length}</td>
               <td className="py-5 text-right">{getDateJoined(contributor.creationTimestamp)} </td>
             </tr>
           ))}
