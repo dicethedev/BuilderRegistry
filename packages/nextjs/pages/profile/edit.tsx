@@ -1,5 +1,29 @@
 import type { NextPage } from "next";
+import Select from "react-select";
 import { MetaHeader } from "~~/components/MetaHeader";
+
+const MultiSelect = () => {
+  const options = [
+    { value: "UI/UX Design", label: "UI/UX Design" },
+    { value: "Graphic Design", label: "Graphic Design" },
+    { value: "Illustrator", label: "Illustrator" },
+    { value: "Video Content Creation", label: "Video Content Creation" },
+    { value: "UX Writing", label: "UX Writing" },
+    { value: "Social media management", label: "Media Management" },
+    { value: "Community Management", label: "Community Management" },
+    { value: "Business Development", label: "Business Development" },
+    { value: "Frontend Engineering", label: "Frontend Engineering" },
+    { value: "Backend Engineering", label: "Backend Engineering" },
+    { value: "Smart Contract Engineering", label: "Smart Contract Engineering" },
+  ];
+
+  return (
+    <div className="my-3">
+      <label className="block mb-2">Skills</label>
+      <Select options={options} isMulti placeholder="Select skills" />
+    </div>
+  );
+};
 
 const EditProfile: NextPage = () => {
   return (
@@ -24,6 +48,8 @@ const EditProfile: NextPage = () => {
                 <label htmlFor="description">Currently works at</label> <br />
                 <input type="text" placeholder="Buidlers" className="border p-2 rounded-md w-full mt-3" />
               </div>
+
+              <MultiSelect />
 
               <hr className="my-16 w-[100%]" />
               <h3 className="text-xl font-medium">Socials</h3>

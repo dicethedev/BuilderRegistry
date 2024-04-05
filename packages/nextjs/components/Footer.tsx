@@ -5,9 +5,9 @@ import { SwitchTheme } from "~~/components/SwitchTheme";
  */
 export const Footer = () => {
   return (
-    <div className="min-h-0 p-3 mt-8 mb-11 lg:mb-0 w-full container mx-auto">
+    <div className="min-h-0 p-3 mt-1 mb-8 lg:mb-0 w-full container mx-auto">
       <div className="flex justify-between w-full items-center">
-        <div>© Buidlers 2024</div>
+        <div>© GuildBase 2024</div>
         <div className="flex justify-between items-center p-4 bottom-0 left-0 pointer-events-none">
           <SwitchTheme className="pointer-events-auto" />
         </div>

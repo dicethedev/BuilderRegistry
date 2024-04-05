@@ -3,7 +3,8 @@ import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { SearchBar } from "~~/components/builder-registry";
-import { BountyCard, BountyStatusTab } from "~~/components/builder-registry/bounties";
+import { BountyStatusTab } from "~~/components/builder-registry/bounties";
+import { BountyTable } from "~~/components/builder-registry/bounties/BountyTable";
 import { Bounties } from "~~/types/builders";
 
 interface IProps {
@@ -59,16 +60,7 @@ const BountiesPage: NextPage<IProps> = ({ bounties }) => {
                   No bounty found
                 </div>
               ) : (
-                filterBounties().map((bounty: Bounties) => (
-                  <BountyCard
-                    index={bounty.id}
-                    imageUrl={"/img/card-img2.png"}
-                    title={bounty.title}
-                    description={"Developed a football game on the Ethereum platform"}
-                    key={bounty.id}
-                    price={0.4}
-                  />
-                ))
+                <BountyTable bounties={filterBounties()} />
               )}
             </div>
           </div>

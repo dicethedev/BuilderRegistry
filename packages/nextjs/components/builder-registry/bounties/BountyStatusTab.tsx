@@ -5,7 +5,7 @@ type BountyStatusTabProps = {
 
 export const BountyStatusTab = ({ activeTab, setActiveTab }: BountyStatusTabProps) => {
   return (
-    <div role="tablist" className="tabs tabs-boxed">
+    <div role="tablist" className="tabs">
       <a role="tab" className={`tab ${activeTab === 0 ? "tab-active" : ""}`} onClick={() => setActiveTab(0)}>
         All
       </a>

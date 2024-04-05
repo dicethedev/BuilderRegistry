@@ -4,9 +4,11 @@ import { GetServerSideProps } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { Modal } from "~~/components/builder-registry";
+import { Card } from "~~/components/builder-registry/Card";
 import { SubmitWorkForm } from "~~/components/builder-registry/SubmitWorkForm";
 import { ContributionList } from "~~/components/builder-registry/contributions/ContributionList";
-import { ContributorDetails, ContributorHeader, ContributorSkills } from "~~/components/builder-registry/contributor";
+import { ContributorHeader, ContributorSkills } from "~~/components/builder-registry/contributor";
+import { ProfileHeader } from "~~/components/profile/ProfileHeader";
 import { Contributors } from "~~/types/builders";
 
 interface IProps {
@@ -29,34 +31,32 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
   return (
     <>
       <MetaHeader />
-      <div className="flex flex-col flex-grow pt-2 bg-white">
-        {/* Contributor Header */}
-        <ContributorHeader
-          id={contributor.id}
-          title={contributor.function}
-          dateJoined={contributor.creationTimestamp}
-          isUserProfile={isUserProfile}
-          handleOpenModal={handleOpenModal}
-        />
+      <ProfileHeader />
+      <div className="flex flex-col flex-grow py-5 bg-base-200 px-8">
+        <div className="container mx-auto">
+          {/* Contributor Header */}
+          <ContributorHeader
+            id={contributor.id}
+            title={contributor.function}
+            dateJoined={contributor.creationTimestamp}
+            isUserProfile={isUserProfile}
+            handleOpenModal={handleOpenModal}
+            status={contributor.status?.text}
+            socials={contributor.socialLinks}
+          />
 
-        {/* Contributor Skills and Details */}
-        <div className="border-t mt-4 mb-4">
-          <div className="container mx-auto grid md:grid-cols-2">
+          {/* Contributor Skills and Details */}
+          <div className="my-6">
             <ContributorSkills skills={contributor.skills} />
-            <ContributorDetails
-              isUserProfile={isUserProfile}
-              status={contributor.status?.text}
-              socials={contributor.socialLinks}
-            />
           </div>
-        </div>
 
-        {/* Contributors Contributions */}
-        <div className="container mx-auto ">
-          <p className="font-bold italic">
-            Total Contributions : <span> {contributor.builds.length} 🛠</span>
-          </p>
-          <ContributionList contributions={contributor.builds} />
+          {/* Contributors Contributions */}
+          <Card>
+            <p className="font-bold italic">
+              Total Contributions : <span> {contributor.builds.length} 🛠</span>
+            </p>
+            <ContributionList contributions={contributor.builds} />
+          </Card>
         </div>
 
         {/* Submit Work Modal */}
