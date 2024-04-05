@@ -1,13 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Bounties } from "~~/types/builders";
-
-/* type Bounties = {
-  index: string;
-  imageUrl: string;
-  title: string;
-  price: number;
-}; */
 
 type TableProps = {
   bounties: Bounties[];
@@ -26,7 +20,7 @@ export const BountyTable: React.FC<TableProps> = ({ bounties }) => {
         </thead>
         <tbody>
           {bounties.map((bounty, index: number) => (
-            <tr key={index} className="border-b border-[#DED1EC]">
+            <tr key={index} className="border-b border-[#DED1EC] last:border-b-0">
               <td className="py-5 pr-4">
                 <div className="flex items-center gap-5">
                   <Image
@@ -37,7 +31,9 @@ export const BountyTable: React.FC<TableProps> = ({ bounties }) => {
                     className="rounded-lg h-[40px] w-[40px]"
                   />
                   <div>
-                    <p className="text-[0.9rem] font-semibold mb-2">{bounty.title}</p>
+                    <Link href={`/bounties/${bounty.id}`}>
+                      <p className="text-[0.9rem] font-semibold mb-2">{bounty.title}</p>
+                    </Link>
                     <p className="text-sm text-[#5F6587]">SpeedrunEthereum.com</p>
                   </div>
                 </div>

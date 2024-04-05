@@ -32,10 +32,13 @@ export const InputBase = <T extends { toString: () => string } | undefined = str
   );
 
   return (
-    <div className={`flex border rounded-lg w-full ${modifier}`}>
+    <div
+      className={`flex border border-[#DED1EC] 
+     rounded-md w-full ${modifier}`}
+    >
       {prefix}
       <input
-        className="input input-ghost focus:outline-none focus:bg-transparent focus:text-black h-[2.2rem] min-h-[2.2rem] px-4 border w-full"
+        className="input input-ghost focus:outline-none focus:bg-transparent focus:text-black h-[2.2rem] min-h-[2.2rem] px-4 border w-full placeholder:font-medium placeholder:text-sm"
         placeholder={placeholder}
         name={name}
         value={value?.toString()}

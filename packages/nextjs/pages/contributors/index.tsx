@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { SearchBar } from "~~/components/builder-registry";
+import { Card } from "~~/components/builder-registry/Card";
 import { ContributorTable, ContributorsStats } from "~~/components/builder-registry/contributor";
 import { Contributors } from "~~/types/builders";
 
@@ -32,19 +33,25 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
   return (
     <>
       <MetaHeader />
-      <div className="flex flex-col flex-grow pt-6 bg-white">
+      <div className="flex flex-col flex-grow pt-6 bg-base-200">
         <div className="container mx-auto px-6 md:px-0">
           <div>
-            <p className="font-bold italic">
-              Total Contributors : <span>{contributors.length} 👷</span>
-            </p>
+            <div className="mb-6">
+              <Card>
+                <p className="font-bold italic">
+                  Total Contributors : <span>{contributors.length} 👷</span>
+                </p>
 
-            <div className="flex justify-between items-center lg:flex-row flex-col">
-              <ContributorsStats />
-              <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
+                <div className="flex justify-between items-center lg:flex-row flex-col ">
+                  <ContributorsStats />
+                  <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
+                </div>
+              </Card>
             </div>
 
-            <ContributorTable contributors={filterContributors()} />
+            <Card>
+              <ContributorTable contributors={filterContributors()} />
+            </Card>
           </div>
         </div>
       </div>

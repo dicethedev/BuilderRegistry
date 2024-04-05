@@ -37,15 +37,10 @@ const BountiesPage: NextPage<IProps> = ({ bounties }) => {
   return (
     <>
       <MetaHeader />
-      <div className="flex flex-col flex-grow pt-4 bg-base-100">
+      <div className="flex flex-col flex-grow pt-4 bg-base-200">
         <div className="container mx-auto px-6 md:px-0">
           <div>
-            <p className="font-bold italic">
-              Opened Bounties:
-              <span className="ml-1">{bounties.length} 🤑</span>
-            </p>
-
-            <div className="flex flex-col justify-between items-center md:flex-row mt-3">
+            <div className="flex flex-col justify-between items-center md:flex-row bg-base-100 rounded-lg py-3 px-8">
               <div>
                 <BountyStatusTab activeTab={activeTab} setActiveTab={setActiveTab} />
               </div>

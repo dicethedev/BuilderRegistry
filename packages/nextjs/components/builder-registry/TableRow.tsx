@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import HeartIcon from "../assets/icons/HeartIcon";
+import { ContributionLikeButton } from "./contributions";
 import { Address } from "~~/components/scaffold-eth";
 
 type TableProps = {
@@ -35,8 +35,7 @@ export const TableRow: React.FC<TableProps> = ({ imageUrl, index, title, descrip
       </td>
       <td className="py-5 font-medium">
         <div className="flex justify-end">
-          {" "}
-          {likes} <HeartIcon className="ml-1" />
+          <ContributionLikeButton likes={likes} liked={false} />
         </div>
       </td>
     </tr>
