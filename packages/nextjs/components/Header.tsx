@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -27,6 +28,7 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
  */
 export const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { address } = useAccount();
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   useOutsideClick(
     burgerMenuRef,
@@ -39,20 +41,23 @@ export const Header = () => {
         <NavLink href="/">Home</NavLink>
       </li>
       <li>
+        <NavLink href={"/contributors/" + address}>Profile</NavLink>
+      </li>
+      <li>
         <NavLink href="/contributions">Contributions</NavLink>
       </li>
       <li>
         <NavLink href="/contributors">Contributors</NavLink>
       </li>
       <li>
-        <NavLink href="/bounties">Bounty</NavLink>
+        <NavLink href="/bounties">Bounties</NavLink>
       </li>
     </>
   );
 
   return (
-    <div className="sticky lg:static top-0  bg-base-100 min-h-0  justify-between z-20 px-5 sm:px-0 border-b border-[#f3edf7] ">
-      <div className="mx-auto flex-shrink-0 navbar">
+    <div className="sticky lg:static top-0  bg-base-100 min-h-0  justify-between z-20 px-5 sm:px-0 border-b border-[#f3edf7]">
+      <div className="mx-auto flex-shrink-0 navbar  container">
         <div className="navbar-start w-auto lg:w-1/2">
           <div className="lg:hidden dropdown" ref={burgerMenuRef}>
             <label
@@ -78,14 +83,14 @@ export const Header = () => {
           </div>
           <Link href="/" passHref className="hidden lg:flex items-center gap-2 mr-10 shrink-0">
             <div className="flex relative w-10 h-10">
-              <Image alt="Builder Inc logo" className="cursor-pointer" fill src="/logo.svg" />
+              <Image alt="GuildBase logo" className="cursor-pointer" fill src="/logo.svg" />
             </div>
             <div>
-              <span className="font-extrabold leading-tight text-2xl italic">Buidlers</span>
+              <span className="font-extrabold leading-tight text-xl italic">GuildBase</span>
             </div>
           </Link>
-          <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-4">{navLinks}</ul>
         </div>
+        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
         <div className="navbar-end flex-grow ">
           <RainbowKitCustomConnectButton />
           <FaucetButton />

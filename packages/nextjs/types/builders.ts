@@ -50,4 +50,6 @@ export interface Bounties {
   resources: string;
   submissions: string[];
   subimtedTimestamp: number;
+  price: number;
+  image: string;
 }
