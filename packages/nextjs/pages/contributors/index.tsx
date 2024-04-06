@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { SearchBar } from "~~/components/builder-registry";
 import { Card } from "~~/components/builder-registry/Card";
+import { Heading } from "~~/components/builder-registry/Heading";
 import { ContributorTable, ContributorsStats } from "~~/components/builder-registry/contributor";
 import { Contributors } from "~~/types/builders";
 
@@ -38,9 +39,7 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
           <div>
             <div className="mb-6">
               <Card>
-                <p className="font-bold italic">
-                  Total Contributors : <span>{contributors.length} 👷</span>
-                </p>
+                <Heading text="Total Contributors" count={contributors.length} />
 
                 <div className="flex justify-between items-center lg:flex-row flex-col ">
                   <ContributorsStats />

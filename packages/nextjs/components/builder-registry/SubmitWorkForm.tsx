@@ -61,6 +61,7 @@ export const SubmitWorkForm = () => {
       <InputTextArea
         label="Description"
         labelInfo=" (A brief description of what your project is about)"
+        name="description"
         value={description}
         onChange={handleChange}
       />

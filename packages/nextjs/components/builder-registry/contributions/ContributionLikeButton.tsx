@@ -11,10 +11,10 @@ export const ContributionLikeButton: React.FC<ContributionLikeButtonProps> = ({ 
   return (
     <button
       onClick={onLike}
-      className="py-2 px-2 border-[#DED1EC] border-2 rounded-lg flex items-center justify-center gap-2 font-medium transition duration-0 hover:duration-150 w-[4rem]"
+      className="py-3 px-2 border-[#DED1EC] border rounded-lg flex items-center justify-center gap-2 font-medium transition duration-0 hover:duration-150 text-sm"
     >
       {likes}
-      <HeartIcon className={`w-7 transition duration-0 hover:duration-150 `} active={liked} filled={liked} />
+      <HeartIcon className={`w-[20px] transition duration-0 hover:duration-150 `} active={liked} filled={liked} />
     </button>
   );
 };
