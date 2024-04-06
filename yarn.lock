@@ -4533,6 +4533,7 @@ __metadata:
     autoprefixer: ~10.4.12
     blo: ~1.0.1
     daisyui: ~3.5.1
+    date-fns: ^3.6.0
     dompurify: ^3.0.9
     eslint: ~8.24.0
     eslint-config-next: ~13.1.6
@@ -8882,6 +8883,13 @@ __metadata:
   version: 3.0.1
   resolution: "data-uri-to-buffer@npm:3.0.1"
   checksum: c59c3009686a78c071806b72f4810856ec28222f0f4e252aa495ec027ed9732298ceea99c50328cf59b151dd34cbc3ad6150bbb43e41fc56fa19f48c99e9fc30
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "date-fns@npm:3.6.0"
+  checksum: 0daa1e9a436cf99f9f2ae9232b55e11f3dd46132bee10987164f3eebd29f245b2e066d7d7db40782627411ecf18551d8f4c9fcdf2226e48bb66545407d448ab7
   languageName: node
   linkType: hard
 
