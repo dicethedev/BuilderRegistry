@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDistanceToNow } from "date-fns";
 import { Address } from "~~/components/scaffold-eth";
 import { Contributors } from "~~/types/builders";
 
@@ -8,8 +9,23 @@ type ContributorTableProps = {
 
 export const ContributorTable: React.FC<ContributorTableProps> = ({ contributors }) => {
   const getDateJoined = (date: string | number | Date): string => {
-    const dateJoined = new Date(date);
-    return dateJoined.toLocaleString("default", { month: "long" }) + " " + dateJoined.getFullYear();
+    let timestamp: number;
+
+    if (typeof date === "string") {
+      timestamp = parseInt(date);
+    } else if (typeof date === "number") {
+      timestamp = date;
+    } else {
+      timestamp = date.getTime();
+    }
+
+    if (timestamp > 1e12) {
+      timestamp = Math.floor(timestamp / 1000); // Check if the value is in milliseconds and convert it to seconds
+    }
+
+    const relativeTime = formatDistanceToNow(new Date(timestamp * 1000), { addSuffix: true });
+
+    return relativeTime;
   };
 
   return (

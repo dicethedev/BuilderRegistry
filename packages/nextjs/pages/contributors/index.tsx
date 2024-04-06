@@ -37,18 +37,18 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
       <div className="flex flex-col flex-grow pt-6 bg-base-200">
         <div className="container mx-auto px-6 md:px-0">
           <div>
-            <div className="mb-6">
-              <Card>
-                <Heading text="Total Contributors" count={contributors.length} />
-
-                <div className="flex justify-between items-center lg:flex-row flex-col ">
-                  <ContributorsStats />
-                  <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
-                </div>
-              </Card>
+            <div className="rounded-t-lg bg-base-100 inline-block px-6 py-2 pt-3">
+              <Heading text="Total Contributors" count={contributors.length} />
             </div>
 
-            <Card>
+            <div className="mb-6 bg-base-100 rounded-lg px-6 pt-1 rounded-l-none">
+              <div className="flex justify-between items-center lg:flex-row flex-col ">
+                <ContributorsStats />
+                <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
+              </div>
+            </div>
+
+            <Card className="mb-8">
               <ContributorTable contributors={filterContributors()} />
             </Card>
           </div>
