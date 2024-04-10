@@ -46,7 +46,7 @@ export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
 
         {isUserProfile && (
           <Link
-            href="/profile/edit"
+            href={"/contributors/" + id + "/edit"}
             className="border py-1 px-3 border-[#DED1EC] rounded text-[#393939] text-[0.8rem] inline-block font-medium mt-6"
           >
             Edit Profile

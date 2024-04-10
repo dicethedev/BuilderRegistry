@@ -63,7 +63,7 @@ const BountyDetails: NextPage<IProps> = ({ bounty }) => {
                 className=" 
                  text-2xl font-semibold"
               >
-                {bounty.submissions?.length}
+                {bounty.applications?.length}
               </p>
             </div>
 

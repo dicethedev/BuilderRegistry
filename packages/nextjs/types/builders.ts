@@ -1,8 +1,15 @@
+export enum BountyStatus {
+  INPROGRESS,
+  OPEN,
+  COMPLETED,
+}
 export interface SocialLinksType {
   github: string | null;
   website: string | null;
   youtube: string | null;
   twitter: string | null;
+  email: string | null;
+  telegram: string | null;
 }
 
 interface Status {
@@ -41,6 +48,7 @@ export interface Contributions {
 export interface Bounties {
   id: string;
   title: string;
+  image: string;
   createdBy: string;
   deadLine: Date;
   applications: string[];
@@ -48,8 +56,9 @@ export interface Bounties {
   skills: string[];
   details: string;
   resources: string;
-  submissions: string[];
   subimtedTimestamp: number;
-  price: number;
-  image: string;
+  announcementDate: Date;
+  reward: number;
+  winners: string[];
+  status: BountyStatus;
 }

@@ -18,7 +18,6 @@ export interface Build {
 export type BuildDoc = Schema["builds"]["Doc"];
 export type BuildResult = Result<Build>;
 
-
 export async function findAllBuilds(): Promise<BuildResult[]> {
   const buildsSnaphot = await db.builds.all();
   const builds = buildsSnaphot.map(build => toResult<Build>(build));
@@ -38,7 +37,6 @@ export async function createBuild(
   image: string,
   name: string,
   builder: string,
-  featured: boolean,
   coBuilders: string[] = [],
   likes: string[] = [],
   builderRole = "",
@@ -51,7 +49,7 @@ export async function createBuild(
     image,
     name,
     builder,
-    featured,
+    featured: coBuilders.length > 0,
     coBuilders,
     likes,
     subimtedTimestamp: Date.now(),

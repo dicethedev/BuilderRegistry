@@ -33,8 +33,8 @@ export async function seedDatabase() {
   const seedBuilds = JSON.parse(fs.readFileSync(BUILD_SEED_DATA, "utf8"));
 
   Object.entries(seedBuilds.builds).forEach(async ([, buildData]) => {
-    const { branch, demoUrl, videoUrl, desc, image, name, builder, featured, coBuilders, likes } = buildData as Build;
-    await createBuild(branch, demoUrl, videoUrl, desc, image, name, builder, featured, coBuilders, likes);
+    const { branch, demoUrl, videoUrl, desc, image, name, builder, coBuilders, likes } = buildData as Build;
+    await createBuild(branch, demoUrl, videoUrl, desc, image, name, builder, coBuilders, likes);
   });
 
   const BOUNTY_SEED_DATA = "./local_database/bounty.json";
