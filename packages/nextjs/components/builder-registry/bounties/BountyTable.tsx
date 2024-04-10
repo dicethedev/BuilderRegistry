@@ -53,7 +53,7 @@ export const BountyTable: React.FC<TableProps> = ({ bounties }) => {
                     className=" mr-3"
                     title="Eth Logo"
                   />
-                  <span className="font-semibold">{bounty.price || 0.6} </span>
+                  <span className="font-semibold">{bounty.reward || 0.0} </span>
                   <span className="text-[#9699AA] ml-2">ETH</span>
                 </div>
               </td>

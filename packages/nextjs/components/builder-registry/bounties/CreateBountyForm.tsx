@@ -6,6 +6,7 @@ import { FileWithPath, useDropzone } from "react-dropzone";
 import { MetaHeader } from "~~/components/MetaHeader";
 import UploadIcon from "~~/components/assets/icons/UploadIcon";
 import { EtherInput } from "~~/components/scaffold-eth";
+import { socials } from "~~/data/social";
 
 const CreateBountyForm: NextPage = () => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
@@ -68,15 +69,16 @@ const CreateBountyForm: NextPage = () => {
               <hr className="my-16 w-[100%]" />
               <h3 className="text-xl font-medium">Company Social Links</h3>
               <div className="w-full grid grid-cols-2 gap-8 gap-y-2">
-                <InputField label="Github" name="Github" />
-                <InputField label="Website" name="Link" />
-
-                <InputField label="Telegram" name="Telegram" />
-                <InputField label="Twitter" name="Twitter" placeholder="Twitter.com/username" />
-                <InputField label="Youtube" name="Youtube" />
+                {Object.entries(socials).map(([socialId, socialData]) => (
+                  <InputField
+                    key={socialId}
+                    label={socialData.label}
+                    name={socialId}
+                    placeholder={socialData.placeholder}
+                  />
+                ))}
               </div>
               <button className="bg-[#AAAEB8] text-white rounded-lg w-full py-2 px-3 mt-8" type="submit">
-                {" "}
                 Create Bounty
               </button>
             </form>
