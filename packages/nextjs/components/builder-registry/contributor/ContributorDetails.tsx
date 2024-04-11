@@ -1,10 +1,10 @@
 import React from "react";
 import { SocialLink } from "./SocialLink";
-import { SocialLinksType } from "~~/types/builders";
+import { SocialLinks } from "~~/types/builders";
 
 type ContributorDetailsProps = {
   status?: string;
-  socials?: SocialLinksType;
+  socials?: SocialLinks;
 };
 
 export const ContributorDetails: React.FC<ContributorDetailsProps> = ({ status, socials }) => {

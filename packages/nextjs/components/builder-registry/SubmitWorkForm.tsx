@@ -7,6 +7,8 @@ type FormData = {
   title: string;
   description: string;
   submissionLink: string;
+  codeLink: string;
+  cobuilders?: string[];
 };
 
 export const SubmitWorkForm = () => {
@@ -14,6 +16,8 @@ export const SubmitWorkForm = () => {
     title: "",
     description: "",
     submissionLink: "",
+    codeLink: "",
+    cobuilders: [],
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -24,12 +28,17 @@ export const SubmitWorkForm = () => {
     }));
   };
 
-  const { title, description, submissionLink } = formData;
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  const { title, description, submissionLink, codeLink } = formData;
 
   const isFormFilled = title && description;
 
   return (
-    <form>
+    <form onSubmit={handleFormSubmit}>
       <InputField
         label="Project Title"
         placeholder="Add Link"
@@ -46,6 +55,7 @@ export const SubmitWorkForm = () => {
         labelInfo="(The link to the code you’re working on)"
         required
         name="codeLink"
+        value={codeLink}
         onChange={handleChange}
       />
 

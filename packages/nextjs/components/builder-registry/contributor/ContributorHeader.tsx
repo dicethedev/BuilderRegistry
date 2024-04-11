@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ContributorAddress } from "./ContributorAddress";
 import { ContributorDetails } from "./ContributorDetails";
-import { SocialLinksType } from "~~/types/builders";
+import { SocialLinks } from "~~/types/builders";
 
 type ContributorHeaderProps = {
   id: string;
@@ -11,7 +11,7 @@ type ContributorHeaderProps = {
   dateJoined: string | number | Date;
   isUserProfile: boolean;
   handleOpenModal?: () => void;
-  socials?: SocialLinksType;
+  socials?: SocialLinks;
 };
 
 export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
