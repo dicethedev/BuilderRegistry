@@ -1,27 +1,35 @@
 import React, { ChangeEvent, useState } from "react";
 import InputField from "./InputField";
 import InputTextArea from "./InputTextArea";
-import MultiSelect from "./MultiSelect";
+import MultiSelect, { OptionType } from "./MultiSelect";
 import { useAccount, useSignMessage } from "wagmi";
 import { socials } from "~~/data/social";
-import { SocialLinksType } from "~~/types/builders";
+import { SocialLinks } from "~~/types/builders";
 import { MessageType, getSignMessageForId } from "~~/utils/builder-registry/sign";
 
 type FormData = {
-  socialLinks: SocialLinksType;
+  socialLinks: SocialLinks;
   skills?: string[];
+  status?: string;
+};
+
+type FormType = {
+  socialLinks: SocialLinks;
+  skills?: OptionType[];
   status?: string;
 };
 
 export const EditProfileForm: React.FC<FormData> = FormData => {
   const { address } = useAccount();
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormType>({
     status: FormData.status || "",
     socialLinks: FormData.socialLinks,
-    skills: [],
+    skills: FormData.skills?.map(s => ({ label: s, value: s })) || [],
   });
 
-  const { status, skills } = formData;
+  console.log(formData);
+
+  const { status, skills, socialLinks } = formData;
 
   const { signMessageAsync } = useSignMessage({
     onSettled(data, error) {
@@ -58,7 +66,7 @@ export const EditProfileForm: React.FC<FormData> = FormData => {
   const handleSkillsChange = (selectedSkills: string[]) => {
     setFormData(prevData => ({
       ...prevData,
-      skills: selectedSkills,
+      skills: selectedSkills.map(s => ({ label: s, value: s })),
     }));
   };
 
@@ -67,9 +75,7 @@ export const EditProfileForm: React.FC<FormData> = FormData => {
       <h3 className="text-xl font-medium">Personal Details</h3>
 
       <InputTextArea label="Bio" placeholder="Describe yourself" name="status" value={status} onChange={handleChange} />
-      <InputField label="Currently working at" name="Work" placeholder="Buidlers ltd" />
-
-      <MultiSelect onChange={handleSkillsChange} />
+      <MultiSelect value={skills} onChange={handleSkillsChange} />
 
       <hr className="my-16 w-[100%]" />
       <h3 className="text-xl font-medium">Socials</h3>
@@ -80,8 +86,10 @@ export const EditProfileForm: React.FC<FormData> = FormData => {
             label={socialData.label}
             name={socialId}
             placeholder={socialData.placeholder}
+            value={`${socialLinks[socialId as keyof SocialLinks]}`}
             onChange={e => {
               const value = e.target.value;
+              console.log(value);
               setFormData(prevData => ({
                 ...prevData,
                 socialLinks: {

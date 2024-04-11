@@ -1,11 +1,17 @@
 import React from "react";
 import Select from "react-select";
 
-type MultiSelectProps = {
-  onChange: (selectedSkills: string[]) => void;
+export type OptionType = {
+  label: string;
+  value: string;
 };
 
-const MultiSelect: React.FC<MultiSelectProps> = ({ onChange }) => {
+type MultiSelectProps = {
+  onChange: (selectedSkills: string[]) => void;
+  value?: OptionType[];
+};
+
+const MultiSelect: React.FC<MultiSelectProps> = ({ onChange, value }) => {
   const options = [
     { value: "UI/UX Design", label: "UI/UX Design" },
     { value: "Graphic Design", label: "Graphic Design" },
@@ -59,6 +65,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ onChange }) => {
     <div className="my-3">
       <label className="block text-[#5F6587] text-sm font-semibold mb-2">Skills</label>
       <Select
+        value={value}
         options={options}
         isMulti
         placeholder="Select skills"

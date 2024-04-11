@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { EditProfileForm } from "~~/components/builder-registry/EditProfileForm";
-import { Contributors } from "~~/types/builders";
+import { Contributors, DefaultSocialLinks } from "~~/types/builders";
 
 interface IProps {
   contributor: Contributors;
@@ -18,14 +18,8 @@ const EditProfile: NextPage<IProps> = ({ contributor }) => {
             <h2 className="text-2xl font-semibold">Edit Profile</h2>
             <EditProfileForm
               status={contributor.status?.text}
-              socialLinks={{
-                twitter: "",
-                email: "",
-                github: "",
-                website: "",
-                youtube: "",
-                telegram: "",
-              }}
+              socialLinks={contributor.socialLinks || DefaultSocialLinks}
+              skills={contributor.skills || []}
             />
           </div>
         </div>

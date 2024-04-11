@@ -79,7 +79,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
 
     const contributor: Contributors = await response.json();
-    console.log(contributor);
 
     return {
       props: { contributor },

@@ -6,13 +6,14 @@ import { SearchBar } from "~~/components/builder-registry";
 import { Card } from "~~/components/builder-registry/Card";
 import { Heading } from "~~/components/builder-registry/Heading";
 import { ContributorTable, ContributorsStats } from "~~/components/builder-registry/contributor";
-import { Contributors } from "~~/types/builders";
+import { Contributors, TypeStats } from "~~/types/builders";
 
 interface IProps {
   contributors: Contributors[];
+  typeStats: TypeStats[];
 }
 
-const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
+const ContributorsPage: NextPage<IProps> = ({ contributors, typeStats }) => {
   const [query, setQuery] = useState<string>("");
   console.log(query, setQuery);
 
@@ -20,7 +21,6 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
     if (!query) {
       return contributors;
     }
-
     const lowercasedQuery = query.toLowerCase();
 
     return contributors.filter((contributor: Contributors) => {
@@ -43,7 +43,7 @@ const ContributorsPage: NextPage<IProps> = ({ contributors }) => {
 
             <div className="mb-6 bg-base-100 rounded-lg px-6 pt-1 rounded-l-none">
               <div className="flex justify-between items-center lg:flex-row flex-col ">
-                <ContributorsStats />
+                <ContributorsStats typeStats={typeStats} />
                 <SearchBar query={query} onChange={e => setQuery(e.target.value)} />
               </div>
             </div>
@@ -67,13 +67,21 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
     }
     const contributors: Contributors[] = await response.json();
 
+    const typeStatsResponse = await fetch("http://localhost:3000/api/builders/type-stats");
+    if (!typeStatsResponse.ok) {
+      throw new Error("Failed to fetch type stats data");
+    }
+    const typeStats: TypeStats[] = await typeStatsResponse.json();
+
+    console.log(typeStats);
+
     return {
-      props: { contributors },
+      props: { contributors, typeStats },
     };
   } catch (error) {
     console.log("Error fetching data:", error);
     return {
-      props: { contributors: [] },
+      props: { contributors: [], typeStats: [] },
     };
   }
 };
