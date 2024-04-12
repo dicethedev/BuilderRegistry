@@ -83,7 +83,7 @@ export async function createUser(
     function: functionTitle,
     creationTimestamp: Date.now(),
     status: status || { text: "Hi i am new here", timestamp: Date.now() },
-    socialLinks,
+    socialLinks: socialLinks,
     skills: skills || [],
   }));
   const userSnapshot = await db.users.get(ref.id);

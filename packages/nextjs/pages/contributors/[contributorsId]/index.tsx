@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { Modal } from "~~/components/builder-registry";
 import { Card } from "~~/components/builder-registry/Card";
+import { Heading } from "~~/components/builder-registry/Heading";
 import { SubmitWorkForm } from "~~/components/builder-registry/SubmitWorkForm";
 import { ContributionList } from "~~/components/builder-registry/contributions/ContributionList";
 import { ContributorHeader, ContributorSkills } from "~~/components/builder-registry/contributor";
@@ -52,9 +53,7 @@ const ContributorProfile: NextPage<IProps> = ({ contributor }) => {
 
           {/* Contributors Contributions */}
           <Card>
-            <p className="font-bold italic">
-              Total Contributions : <span> {contributor.builds.length} 🛠</span>
-            </p>
+            <Heading text="Total Contributions" count={contributor.builds.length} />
             <ContributionList contributions={contributor.builds} />
           </Card>
         </div>
@@ -80,7 +79,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
 
     const contributor: Contributors = await response.json();
-    console.log(contributor);
 
     return {
       props: { contributor },

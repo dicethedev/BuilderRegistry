@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const router = useRouter();
@@ -19,13 +20,15 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 };
 
 export const ProfileHeader = () => {
+  const { address } = useAccount();
+
   const navLinks = (
     <>
       <li>
         <NavLink href={"/contributors/"}>Profile Details</NavLink>
       </li>
       <li>
-        <NavLink href="/contributions">Bounty Details</NavLink>
+        <NavLink href={`/contributors/${address}/bounties`}>Bounty Details</NavLink>
       </li>
     </>
   );

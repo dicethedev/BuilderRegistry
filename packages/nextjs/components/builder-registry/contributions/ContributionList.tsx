@@ -18,6 +18,7 @@ export const ContributionList: React.FC<ContributionListProps> = ({ contribution
             description={contribution.desc}
             likes={contribution.likes?.length}
             key={index}
+            demoUrl={contribution.demoUrl}
           />
         ))
       ) : (

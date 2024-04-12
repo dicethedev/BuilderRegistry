@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { NextPage } from "next";
 import { GetServerSideProps } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
@@ -57,7 +58,9 @@ const BountyDetailsPage: NextPage<IProps> = ({ bounties }) => {
                 </p>
               </div>
               <div className="flex justify-end">
-                <button className="btn bg-black btn-neutral rounded-lg capitalize px-8">Create Bounty</button>
+                <Link href="/bounties/create" className="btn bg-black btn-neutral rounded-lg capitalize px-8">
+                  Create Bounty
+                </Link>
               </div>
             </div>
           </Card>

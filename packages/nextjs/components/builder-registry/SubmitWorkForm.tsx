@@ -1,30 +1,99 @@
 import React, { ChangeEvent, useState } from "react";
 import { AddressInput } from "../scaffold-eth";
+import InputField from "./InputField";
+import InputTextArea from "./InputTextArea";
 
 type FormData = {
   title: string;
-  role: string;
   description: string;
   submissionLink: string;
+  codeLink: string;
+  cobuilders?: string[];
 };
 
 export const SubmitWorkForm = () => {
   const [formData, setFormData] = useState<FormData>({
     title: "",
-    role: "",
     description: "",
     submissionLink: "",
+    codeLink: "",
+    cobuilders: [],
   });
-  const [coBuilders, setCoBuilders] = useState<string[]>([]);
-  const MAX_CO_BUILDERS = 6;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData(prevData => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  const { title, description, submissionLink, codeLink } = formData;
+
+  const isFormFilled = title && description;
+
+  return (
+    <form onSubmit={handleFormSubmit}>
+      <InputField
+        label="Project Title"
+        placeholder="Add Link"
+        labelInfo="(The name of the project you’re building)"
+        required
+        name="title"
+        value={title}
+        onChange={handleChange}
+      />
+
+      <InputField
+        label="Link to Code"
+        placeholder="Add Link"
+        labelInfo="(The link to the code you’re working on)"
+        required
+        name="codeLink"
+        value={codeLink}
+        onChange={handleChange}
+      />
+
+      <InputField
+        label="Link to your Project"
+        placeholder="Add Link"
+        required
+        name="submissionLink"
+        value={submissionLink}
+        onChange={handleChange}
+      />
+
+      <InputTextArea
+        label="Description"
+        labelInfo=" (A brief description of what your project is about)"
+        name="description"
+        value={description}
+        onChange={handleChange}
+      />
+
+      {/* Co-Builders Component */}
+      <CoBuildersInput onChange={handleChange} />
+
+      <button
+        type="submit"
+        className={`${
+          isFormFilled ? "bg-primary" : "bg-[#AAAEB8]"
+        } text-white rounded-lg w-full py-3 px-3 mt-8 text-sm font-medium`}
+      >
+        Add
+      </button>
+    </form>
+  );
+};
+
+const CoBuildersInput: React.FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = () => {
+  const [coBuilders, setCoBuilders] = useState<string[]>([]);
+  const MAX_CO_BUILDERS = 6;
 
   const handleCoBuilderChange = (index: number, value: string) => {
     const updatedCoBuilders = [...coBuilders];
@@ -44,114 +113,35 @@ export const SubmitWorkForm = () => {
     setCoBuilders(updatedCoBuilders);
   };
 
-  const { title, role, description, submissionLink } = formData;
-
-  const isFormFilled = title && role && description;
-
   return (
-    <form>
-      <div>
-        <label htmlFor="title">
-          <span className="font-medium">Project Title</span>
-          <span className="ml-1">(The name of the project you’re building)</span>
-        </label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={title}
-          onChange={handleChange}
-          aria-label="title"
-          required
-          className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-          placeholder="Add Link"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="role">
-          <span className="font-medium">Add Role</span>
-          <span className="ml-1"> (The role you played in this project)</span>
-        </label>
-        <input
-          type="text"
-          id="role"
-          name="role"
-          value={role}
-          onChange={handleChange}
-          aria-label="role"
-          required
-          className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-          placeholder="Lead Engineer"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="submissionLink" className="font-medium text-lightgray">
-          <span className="text-lightgray">Description</span>
-          <span className="ml-1"> (A brief description of what your project is about)</span>
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          aria-label="Description"
-          value={description}
-          onChange={handleChange}
-          required
-          className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2 resize-none min-h-[7rem]"
-          placeholder="0x...."
-        />
-      </div>
-
-      <div>
-        <label htmlFor="coBuilders" className="font-medium">
-          <span>Co-Builders</span>
-          <button type="button" onClick={handleAddCoBuilder} className="ml-2 font-bold">
-            +
+    <div>
+      <label htmlFor="coBuilders" className="font-medium mb-2">
+        <span className=" text-[#5F6587] text-sm font-bold">Co-Builders</span>
+        <button
+          type="button"
+          onClick={handleAddCoBuilder}
+          className="ml-4 px-3 border border-[#DED1EC] rounded text-xl"
+        >
+          +
+        </button>
+      </label>
+      {coBuilders.map((coBuilder, index) => (
+        <div key={index} className="flex items-center mt-2">
+          <AddressInput
+            placeholder="Builder Address"
+            value={coBuilders[index] || ""}
+            onChange={value => handleCoBuilderChange(index, value)}
+          />
+          <button
+            type="button"
+            onClick={() => handleRemoveCoBuilder(index)}
+            className="ml-2 font-bold text-red-500 w-[30px]"
+          >
+            x
           </button>
-        </label>
-        {coBuilders.map((coBuilder, index) => (
-          <div key={index} className="flex items-center mt-2">
-            <AddressInput
-              placeholder="Builder Address"
-              value={coBuilders[index] || ""}
-              onChange={value => handleCoBuilderChange(index, value)}
-            />
-            <button
-              type="button"
-              onClick={() => handleRemoveCoBuilder(index)}
-              className="ml-2 font-bold text-red-500 w-[30px]"
-            >
-              x
-            </button>
-          </div>
-        ))}
-        <div className="my-5"></div>
-      </div>
-
-      <div>
-        <label htmlFor="submissionLink" className="font-medium text-lightgray">
-          <span className="text-lightgray">Link to your Project</span>
-        </label>
-        <input
-          type="text"
-          id="submissionLink"
-          name="submissionLink"
-          aria-label="Submission Link"
-          required
-          value={submissionLink}
-          onChange={handleChange}
-          className="w-full border bg-transparent mb-6 py-2 px-3 focus:border-primary rounded-lg mt-2"
-          placeholder="0x...."
-        />
-      </div>
-
-      <button
-        type="submit"
-        className={`${isFormFilled ? "bg-primary" : "bg-[#AAAEB8]"} text-white rounded-lg w-full py-2 px-3 mt-8`}
-      >
-        Add
-      </button>
-    </form>
+        </div>
+      ))}
+      <div className="my-5"></div>
+    </div>
   );
 };

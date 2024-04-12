@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { demoUrl, image, coBuilders, videoUrl, name, builder, branch, desc } = req.body;
       if (!demoUrl || !image || !coBuilders || !name || !builder || !branch || !desc)
         return res.status(400).json({ message: "Missing parameters" });
-      const build = await createBuild(demoUrl, image, coBuilders, videoUrl, name, builder, branch, desc);
+      const build = await createBuild(branch, demoUrl, videoUrl, desc, image, name, builder, coBuilders);
       return res.status(200).json(build);
     } catch (error: any) {
       return res.status(500).json({ message: error.message });

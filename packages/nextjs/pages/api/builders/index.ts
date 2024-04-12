@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
    **/
 
   try {
-    const { role, ens, functionTitle, address } = req.body;
+    const { role, ens, functionTitle, address, status, socialLinks, skills } = req.body;
     if (!role || !ens || !functionTitle || !address) {
       return res.status(400).json({ error: "Missing required fields." });
     }
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     console.log(builderData);
-    const newBuilder = await createUser(role, ens, functionTitle, address);
+    const newBuilder = await createUser(role, ens, functionTitle, address, status, socialLinks, skills);
     // Respond with the new  user
     res.status(201).json(newBuilder);
   } catch (error: any) {

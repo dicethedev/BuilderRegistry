@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ContributorAddress } from "./ContributorAddress";
 import { ContributorDetails } from "./ContributorDetails";
-import { SocialLinksType } from "~~/types/builders";
+import { SocialLinks } from "~~/types/builders";
 
 type ContributorHeaderProps = {
   id: string;
@@ -11,7 +11,7 @@ type ContributorHeaderProps = {
   dateJoined: string | number | Date;
   isUserProfile: boolean;
   handleOpenModal?: () => void;
-  socials?: SocialLinksType;
+  socials?: SocialLinks;
 };
 
 export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
@@ -46,7 +46,7 @@ export const ContributorHeader: React.FC<ContributorHeaderProps> = ({
 
         {isUserProfile && (
           <Link
-            href="/profile/edit"
+            href={"/contributors/" + id + "/edit"}
             className="border py-1 px-3 border-[#DED1EC] rounded text-[#393939] text-[0.8rem] inline-block font-medium mt-6"
           >
             Edit Profile

@@ -1,13 +1,26 @@
-export interface SocialLinksType {
-  github: string | null;
-  website: string | null;
-  youtube: string | null;
-  twitter: string | null;
+export enum BountyStatus {
+  INPROGRESS,
+  OPEN,
+  COMPLETED,
+}
+
+export interface SocialLinks {
+  telegram: string;
+  twitter: string;
+  github: string;
+  discord: string;
+  email: string;
+  instagram: string;
 }
 
 interface Status {
   text: string;
   timestamp: number;
+}
+
+export interface TypeStats {
+  name: string;
+  count: number;
 }
 
 export interface Contributors {
@@ -17,7 +30,7 @@ export interface Contributors {
   function: string;
   status?: Status;
   creationTimestamp: string;
-  socialLinks?: SocialLinksType;
+  socialLinks?: SocialLinks;
   skills: string[];
   builds: [Contributions];
 }
@@ -41,6 +54,7 @@ export interface Contributions {
 export interface Bounties {
   id: string;
   title: string;
+  image: string;
   createdBy: string;
   deadLine: Date;
   applications: string[];
@@ -48,8 +62,18 @@ export interface Bounties {
   skills: string[];
   details: string;
   resources: string;
-  submissions: string[];
   subimtedTimestamp: number;
-  price: number;
-  image: string;
+  announcementDate: Date;
+  reward: number;
+  winners: string[];
+  status: BountyStatus;
 }
+
+export const DefaultSocialLinks = {
+  telegram: "",
+  twitter: "",
+  github: "",
+  discord: "",
+  email: "",
+  instagram: "",
+};
