@@ -4,8 +4,9 @@ import InputTextArea from "./InputTextArea";
 import MultiSelect, { OptionType } from "./MultiSelect";
 import { useAccount, useSignMessage } from "wagmi";
 import { socials } from "~~/data/social";
+import { MessageType } from "~~/types/builder-registry/signedMessageTypes";
 import { SocialLinks } from "~~/types/builders";
-import { MessageType, getSignMessageForId } from "~~/utils/builder-registry/sign";
+import { getSignMessageForId } from "~~/utils/builder-registry/sign";
 
 type FormData = {
   socialLinks: SocialLinks;
@@ -38,21 +39,12 @@ export const EditProfileForm: React.FC<FormData> = FormData => {
     },
   });
 
-  const signMessage = async () => {
-    const messageToSign = await getSignMessageForId(MessageType.UPDATE_BUILDER, {
-      address,
-      status: formData.status,
-      socialLinks: formData.socialLinks,
-      skills: skills,
-    });
-    return await signMessageAsync({ message: messageToSign });
-  };
-
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const signature = await signMessage();
-    console.log({ signature });
-    console.log(formData);
+    console.log(signMessageAsync, MessageType.APPLY_FOR_BOUNTY, getSignMessageForId, address);
+    //const signature = await signMessage();
+    //console.log({ signature });
+    // console.log(formData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
