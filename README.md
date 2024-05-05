@@ -2,11 +2,6 @@
 
 The 🏗 BuilderRegistry is a platform for overseeing Ethereum communities and their outreach initiatives. Its objective is to provide a means to accurately quantify the number of builders within remote communities worldwide. Additionally, it facilitates implementing a bounty system, enabling protocols to create bounties to engage these smaller communities effectively.
 
-<img width="400" alt="Screenshot 2024-03-22 at 11 10 10 AM" src="https://github.com/ethereumAbuja/BuilderRegistry/assets/47566579/b6d5fb14-47c1-4e7b-97f9-725caf68fa52">
-<img width="400" alt="Screenshot 2024-03-22 at 11 10 14 AM" src="https://github.com/ethereumAbuja/BuilderRegistry/assets/47566579/8d6a5046-2289-4745-befe-2d201cc2c35d">
-<img width="400" alt="Screenshot 2024-03-22 at 11 10 17 AM" src="https://github.com/ethereumAbuja/BuilderRegistry/assets/47566579/7855ed68-52a3-47b1-9cb7-a0357b52df42">
-<img width="400" alt="Screenshot 2024-03-22 at 11 11 03 AM" src="https://github.com/ethereumAbuja/BuilderRegistry/assets/47566579/2432cbf9-421e-4328-9bc8-feb8b2a85ad1">
-
 ## Prerequisites
 
 [Node (v16 LTS)](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/).
